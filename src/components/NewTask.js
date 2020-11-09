@@ -72,11 +72,6 @@ export class AddNewTask extends Component {
                                 <option>Low</option>
                             </Form.Control>
                         </Form.Group>
-
-                        <Form.Group as={Col} controlId="formGridZip">
-                            <Form.Label>Zip</Form.Label>
-                            <Form.Control />
-                        </Form.Group>
                     </Form.Row>
 
                     <Form.Group id="formGridCheckbox">

@@ -6,7 +6,7 @@ const taskPage = () => {
 
     return (
         <div>
-            <Navbar bg="primary" variant="dark">
+            <Navbar bg="light" expand="lg">
                 <Navbar.Brand href="/">Task Managment</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -23,15 +23,11 @@ const taskPage = () => {
                             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
-                    <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-light">Search</Button>
-                    </Form>
                 </Navbar.Collapse>
             </Navbar>
 
 
-            <Navbar id="footerNav" fixed="bottom" bg="primary" variant="dark">
+            <Navbar id="footerNav" fixed="bottom" bg="light" expand="lg">
                 <Navbar.Brand href="/">Task Managment</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

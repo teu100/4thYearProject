@@ -21,7 +21,7 @@ import homePage from "./pages/Home.jsx";
 import pageNotFound from "./pages/404.jsx";
 import usersPage from "./pages/Users.jsx";
 import taskPage from './pages/Task.jsx';
-import dragAndDropPage from './pages/DragAndDrop.jsx';
+import DndTest from './pages/DndTest.jsx';
 
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
       <Route exact path="/" component={homePage} />
       <Route exact path="/task" component={taskPage} />
       <Route exact path="/users" component={usersPage}/>
-      <Route exact path="/drag" component={dragAndDropPage}/>
+      <Route exact path="/drag" component={DndTest}/>
       <Route exact path ="/404" component={pageNotFound}/>
       <Redirect to="/404"/>
     </Switch>
