@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-import { Container, Row, Col, Navbar, Nav, NavDropdown, Button, Card, Form, FormControl, ButtonToolbar } from 'react-bootstrap'
+import { Container, Row, Col, Navbar, Nav, NavDropdown, Button, Card, Form, ProgressBar, ButtonToolbar } from 'react-bootstrap'
 import  {AddNewTask}  from '../components/NewTask';
 
 
@@ -63,19 +63,20 @@ export class homePage extends Component {
                     <Col md>
                         <h1 class="h1forProgress">To do</h1>
                         <Card className="text-center" style={{ width: '18rem' }} bg="primary" text="white">
-                            <Card.Header>Task title</Card.Header>
+                            <Card.Header>Task 1</Card.Header>
                             <Card.Body>
                                 <Card.Text>
                             Task description will go here
-              </Card.Text>
+                                </Card.Text>
                             </Card.Body>
                             <Card.Footer >
                                 <small >Last updated 3 mins ago(if it was edited)</small>
                             </Card.Footer>
+                            <ProgressBar variant="success" now={0}/>
                         </Card>
 
                         <Card className="text-center" style={{ width: '18rem' }} bg="primary" text="white">
-                            <Card.Header>Task title</Card.Header>
+                            <Card.Header>Task 2</Card.Header>
                             <Card.Body>
                                 <Card.Text>
                             Task description will go here
@@ -83,11 +84,11 @@ export class homePage extends Component {
                             </Card.Body>
                             <Card.Footer >
                                 <small >Last updated 3 mins ago(if it was edited)</small>
-                            </Card.Footer>
+                            </Card.Footer><ProgressBar variant="success" now={50}/>
                         </Card>
 
                         <Card className="text-center" style={{ width: '18rem' }} bg="primary" text="white">
-                            <Card.Header>Task title</Card.Header>
+                            <Card.Header>Task 3</Card.Header>
                             <Card.Body>
                                 <Card.Text>
                             Task description will go here
@@ -95,7 +96,7 @@ export class homePage extends Component {
                             </Card.Body>
                             <Card.Footer >
                                 <small >Last updated 3 mins ago(if it was edited)</small>
-                            </Card.Footer>
+                            </Card.Footer><ProgressBar variant="success" now={100}/>
                         </Card>
                     </Col>
 

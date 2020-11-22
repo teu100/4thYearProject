@@ -1,44 +1,168 @@
-import React from "react";
-import { Container, Row, Col, Navbar, Nav, NavDropdown, Button, Card, Form, FormControl } from 'react-bootstrap'
+import React from 'react';
+import styled from 'styled-components';
+import Draggable from '../components/Draggable'
+import Droppable from '../components/Droppable'
+import { Container, Row, Col, Navbar, Nav, NavDropdown, Button, Card, Form, ProgressBar} from 'react-bootstrap'
 
 
-const taskPage = () => {
-
-    return (
-        <div>
-            <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="/">Task Managment</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/task">Tasks</Nav.Link>
-                        <Nav.Link href="/users">User</Nav.Link>
-                        <Nav.Link href="/drag">drag</Nav.Link>
-
-                        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">New Task</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+const Wrapper = styled.div`
+    width: 60%;
+    padding: 32px;
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+`;
 
 
-            <Navbar id="footerNav" fixed="bottom" bg="light" expand="lg">
-                <Navbar.Brand href="/">Task Managment</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="https://github.com/teu100" target="_blank">GitHub</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-            <h1>Task Page</h1>
-        </div>
-    )
+
+
+const droppableStyle = {
+    backgroundColor: 'white',
+    borderStyle: 'solid',
+    borderColor: 'white lightGrey',
+    paddingTop: "20px",
+    width: '305px',
+    height: '450px',
+    margin: '0px'
 }
 
-export default taskPage;
+export default class DndTest extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={tasks:[]}
+    }
+
+    componentDidMount(){
+        this.refreshList();
+    }
+
+    refreshList(){
+        fetch('https://localhost:44384/api/Task')
+        .then(response=> response.json())
+        .then(data => 
+            {
+            this.setState({tasks:data})
+            }
+            );
+    }
+
+
+    render() {
+        const {tasks} = this.state;
+        return (
+            <div>
+                <Navbar bg="light" expand="lg">
+                    <Navbar.Brand href="/">Task Managment</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto">
+                            <Nav.Link href="/task">Tasks</Nav.Link>
+                            <Nav.Link href="/users">User</Nav.Link>
+                            <Nav.Link href="/drag">drag</Nav.Link>
+
+                            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                                <NavDropdown.Item href="#action/3.1">New Task</NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+
+                <Container>
+                    <Wrapper>
+                        <Col>
+                            <h1>To do</h1>
+                            <Droppable id="dr1" style={droppableStyle} >
+                                <Draggable id={"item1"} style={{ margin: '8px' }}>
+                                    <Card id="cd1" className="text-center" style={{ width: '18rem' }} bg="primary" text="white">
+                                        <Card.Header>Task 1</Card.Header>
+                                        <Card.Body>
+                                            <Card.Text>
+                                                Task description will go here
+                                        </Card.Text>
+                                        </Card.Body>
+                                        <Card.Footer >
+                                            <small >Last updated 3 mins ago(if it was edited)</small>
+                                        </Card.Footer>
+                                        
+                                    </Card>
+                                </Draggable>
+                            </Droppable>
+                        </Col>
+                        <Col>
+                            <h1>In progress</h1>
+                            <Droppable id="dr2" style={droppableStyle}>
+                                <Draggable id={"item2"} style={{ margin: '8px' }}>
+                                    <Card className="text-center" style={{ width: '18rem' }} bg="primary" text="white">
+                                        <Card.Header>Task 2</Card.Header>
+                                        <Card.Body>
+                                            <Card.Text>
+                                                Task description will go here
+                                        </Card.Text>
+                                        </Card.Body>
+                                        <Card.Footer >
+                                            <small >Last updated 3 mins ago(if it was edited)</small>
+                                        </Card.Footer>
+                                    </Card>
+                                </Draggable>
+                            </Droppable>
+                        </Col>
+
+                        <Col>
+                            <h1>Done</h1>
+                            <Droppable id="dr3" style={droppableStyle}>
+                                <Draggable id={"item3"} style={{ margin: '8px' }}>
+                                    <Card className="text-center" style={{ width: '18rem' }} bg="primary" text="white">
+                                        <Card.Header>Task 3</Card.Header>
+                                        <Card.Body>
+                                            <Card.Text>
+                                                Task description will go here
+                                        </Card.Text>
+                                        </Card.Body>
+                                        <Card.Footer >
+                                            <small >Last updated 3 mins ago(if it was edited)</small>
+                                        </Card.Footer>
+                                    </Card>
+                                </Draggable>
+                            </Droppable>
+                        </Col>
+
+                        <Col>
+                        
+                        <h1>Testing</h1>
+                        
+                        <Droppable id={"dr4"} style={droppableStyle}>
+                        {tasks.map(task=>
+                        <Draggable id={task.taskID} style={{ margin: '8px' }} key={task.taskID}>
+                            <Card className="text-center" style={{width: '18rem'}} bg="primary" text="white" >
+                                    <Card.Header>{task.taskID}</Card.Header>
+                                    <Card.Body>
+                                        <Card.Text>{task.taskDescription}</Card.Text>
+                                    </Card.Body>
+                            </Card>
+                            </Draggable>
+                            )}
+                        </Droppable>
+                        
+                        </Col>
+
+                    </Wrapper>
+                </Container>
+
+
+                <Navbar id="footerNav" fixed="bottom" bg="light" expand="lg">
+                    <Navbar.Brand href="/">Task Managment</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto">
+                            <Nav.Link href="https://github.com/teu100" target="_blank">GitHub</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+            </div>
+        );
+    }
+}
