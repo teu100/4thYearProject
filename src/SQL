@@ -75,3 +75,5 @@ INSERT INTO [dbo].[Employee] VALUES ('Leona ', 'Stanton','leonaStan@gmail.com','
 
 INSERT INTO [dbo].[Employee] VALUES ('Jolie', 'Weaver','jolieWeaver@gmail.com','M451c!7','Head of Music',1,4);
 INSERT INTO [dbo].[Employee] VALUES ('Peter', 'Colley','petCol@gmail.com','9373r@col','Music student',1,4);
+
+SELECT compName,addressLine1,addressLine2,cityName,county,country,eircode FROM Company,addressTable where addressTable.compID = Company.compID ; 

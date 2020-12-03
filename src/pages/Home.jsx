@@ -30,7 +30,7 @@ export class homePage extends Component {
                     <Nav className="mr-auto">
                         <Nav.Link href="/task">Tasks</Nav.Link>
                         <Nav.Link href="/users">User</Nav.Link>
-                        <Nav.Link href="/drag">drag</Nav.Link>
+                        <Nav.Link href="/companyDetails">Company Details</Nav.Link>
 
                         <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">New Task</NavDropdown.Item>

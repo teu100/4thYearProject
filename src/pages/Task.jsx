@@ -58,7 +58,7 @@ export default class DndTest extends React.Component {
                         <Nav className="mr-auto">
                             <Nav.Link href="/task">Tasks</Nav.Link>
                             <Nav.Link href="/users">User</Nav.Link>
-                            <Nav.Link href="/drag">drag</Nav.Link>
+                            <Nav.Link href="/companyDetails">Company Details</Nav.Link>
 
                             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">New Task</NavDropdown.Item>
@@ -76,38 +76,37 @@ export default class DndTest extends React.Component {
                         <Col>
                             <h1>To do</h1>
                             <Droppable id="dr1" style={droppableStyle} >
-                                <Draggable id={"item1"} style={{ margin: '8px' }}>
-                                    <Card id="cd1" className="text-center" style={{ width: '18rem' }} bg="primary" text="white">
-                                        <Card.Header>Task 1</Card.Header>
+                            {tasks.map(task=>
+                            <Draggable id={task.taskID} style={{ margin: '8px' }} key={task.taskID}>
+                                <Card className="text-center" style={{width: '18rem'}} bg="primary" text="white" >
+                                        <Card.Header>{task.taskID}</Card.Header>
                                         <Card.Body>
-                                            <Card.Text>
-                                                Task description will go here
-                                        </Card.Text>
+                                            <Card.Text>{task.taskDescription}</Card.Text>
                                         </Card.Body>
-                                        <Card.Footer >
-                                            <small >Last updated 3 mins ago(if it was edited)</small>
-                                        </Card.Footer>
-                                        
-                                    </Card>
-                                </Draggable>
+                                </Card>
+                            </Draggable>
+                            )}
                             </Droppable>
                         </Col>
                         <Col>
                             <h1>In progress</h1>
                             <Droppable id="dr2" style={droppableStyle}>
+                            {tasks.map(task=>
                                 <Draggable id={"item2"} style={{ margin: '8px' }}>
-                                    <Card className="text-center" style={{ width: '18rem' }} bg="primary" text="white">
-                                        <Card.Header>Task 2</Card.Header>
-                                        <Card.Body>
-                                            <Card.Text>
-                                                Task description will go here
-                                        </Card.Text>
-                                        </Card.Body>
-                                        <Card.Footer >
-                                            <small >Last updated 3 mins ago(if it was edited)</small>
-                                        </Card.Footer>
-                                    </Card>
+                                   <div class="card">
+                                       <div class="topDetails">
+                                       <div class="cardID">
+                                            <p>ID : {task.taskID}</p>
+                                       </div>
+                                       <div class="dueDate">  
+                                            <p>{task.dueDate.substring(0,10)}</p>
+                                       </div>
+                                       </div>
+                                       <br/>
+                                        <p>{task.taskDescription}</p>
+                                   </div>
                                 </Draggable>
+                                )}
                             </Droppable>
                         </Col>
 
@@ -115,38 +114,9 @@ export default class DndTest extends React.Component {
                             <h1>Done</h1>
                             <Droppable id="dr3" style={droppableStyle}>
                                 <Draggable id={"item3"} style={{ margin: '8px' }}>
-                                    <Card className="text-center" style={{ width: '18rem' }} bg="primary" text="white">
-                                        <Card.Header>Task 3</Card.Header>
-                                        <Card.Body>
-                                            <Card.Text>
-                                                Task description will go here
-                                        </Card.Text>
-                                        </Card.Body>
-                                        <Card.Footer >
-                                            <small >Last updated 3 mins ago(if it was edited)</small>
-                                        </Card.Footer>
-                                    </Card>
+                                    
                                 </Draggable>
                             </Droppable>
-                        </Col>
-
-                        <Col>
-                        
-                        <h1>Testing</h1>
-                        
-                        <Droppable id={"dr4"} style={droppableStyle}>
-                        {tasks.map(task=>
-                        <Draggable id={task.taskID} style={{ margin: '8px' }} key={task.taskID}>
-                            <Card className="text-center" style={{width: '18rem'}} bg="primary" text="white" >
-                                    <Card.Header>{task.taskID}</Card.Header>
-                                    <Card.Body>
-                                        <Card.Text>{task.taskDescription}</Card.Text>
-                                    </Card.Body>
-                            </Card>
-                            </Draggable>
-                            )}
-                        </Droppable>
-                        
                         </Col>
 
                     </Wrapper>

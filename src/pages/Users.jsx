@@ -39,7 +39,7 @@ export class usersPage extends Component {
                         <Nav className="mr-auto">
                             <Nav.Link href="/task">Tasks</Nav.Link>
                             <Nav.Link href="/users">User</Nav.Link>
-                            <Nav.Link href="/drag">drag</Nav.Link>
+                            <Nav.Link href="/companyDetails">Company Details</Nav.Link>
 
                             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">New Task</NavDropdown.Item>
@@ -68,8 +68,8 @@ export class usersPage extends Component {
                         <tbody>
                             {emps.map(emp=>
                                 <tr key = {emp.employeeID}>
-                                <td>{emp.compRole}</td>
                                 <td>{emp.employeeID}</td>
+                                <td>{emp.compRole}</td>
                                 <td>{emp.firstName}</td>
                                 <td>{emp.lastName}</td>
                                 <td>{emp.email}</td>

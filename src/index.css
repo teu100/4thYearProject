@@ -62,3 +62,38 @@
   .TaskForm{
     text-emphasis-color: white;
   }
+
+.CompanyDetails{
+  overflow: auto;
+}
+.companyText{
+  text-align: left;
+  float: left;
+}
+.companyText dt{
+  font-weight: bold;
+}
+.companyPicture{
+  display: block;
+  float: right;
+}
+
+.card{
+  border-radius: 5px;
+  background-color: lightgray;
+  text-align: left;
+}
+
+.topDetails{
+  overflow: hidden;
+  border-bottom-style: solid;
+  border-color: white;
+}
+
+.cardID{
+  float: left;
+}
+
+.dueDate{
+  float: right;
+}
