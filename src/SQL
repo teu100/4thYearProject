@@ -1,3 +1,77 @@
-SELECT * FROM Employee;
-SELECT * FROM Task;
 
+CREATE TABLE Company (
+    compID int IDENTITY(1,1) PRIMARY KEY,
+    compName varchar(255),
+);
+
+CREATE TABLE Department (
+    deptID int IDENTITY(1,1) PRIMARY KEY,
+    deptName varchar(255),
+    compID int,
+    FOREIGN KEY (compID) REFERENCES Company(compID)
+);
+
+CREATE TABLE Task (
+    taskID int IDENTITY(1,1) PRIMARY KEY,
+    dueDate DATE,
+    taskDescription varchar(1500),
+    personResponsible varchar(255),
+    statusString varchar(255),
+    employeeID int,
+    compID int,
+    deptID int,
+    priorityLevel varchar(50) CHECK (priorityLevel='Low' OR priorityLevel='Medium' OR priorityLevel='High'),
+    FOREIGN KEY (employeeID) REFERENCES Employee(employeeID),
+    FOREIGN KEY (compID) REFERENCES Company(compID),
+    FOREIGN KEY (deptID) REFERENCES Department(deptID)
+)
+INSERT INTO TASK VALUES ('2020-12-06','Complete 4th year project','Max','To do','1','1','1','High');
+INSERT INTO TASK VALUES ('2020-12-04','Complete by Friday','Max','To do','1','1','2','Medium');
+INSERT INTO TASK VALUES ('2020-12-06','Complete by Sunday','Max','To do','1','1','3','Low');
+INSERT INTO TASK VALUES ('2020-12-17','Finish Blazor app','Max','To do','1','1','4','High');
+
+CREATE TABLE Employee (
+    employeeID int IDENTITY(1,1) PRIMARY KEY,
+    firstName varchar(100),
+    lastName varchar(100),
+    email varchar(255),
+    passwordString varchar(255),
+    compRole varchar(255),
+    compID int,
+    deptID int,
+    FOREIGN KEY (compID) REFERENCES Company(compID),
+    FOREIGN KEY (deptID) REFERENCES Department(deptID)
+);
+
+CREATE TABLE addressTable (
+    addressID int IDENTITY(1,1) PRIMARY KEY,
+    addressLine1 varchar(300),
+    addressLine2 varchar(300),
+    cityName varchar(300),
+    county varchar(300),
+    country varchar(255),
+    eircode varchar(200),
+    compID int,
+    employeeID int, 
+    FOREIGN KEY (compID) REFERENCES Company(compID),
+    FOREIGN KEY (employeeID) REFERENCES Employee(employeeID)
+);
+
+INSERT INTO addressTable VALUES ('TECHNOLOGICAL UNIVERSITY DUBLIN TALLAGHT CAMPUS','BLESSINGTON ROAD','Tallaght','Dublin 24','Ireland', 'D24 FKT9','1',null);
+INSERT INTO addressTable VALUES ('143-149 Rathmines Rd Upper',null,'Rathmines','Dublin 6','Ireland', 'D06 F793','2',null);
+
+INSERT INTO [dbo].[Employee] VALUES ('Max', 'Well','maxwell@gmail.com','maxWell123','CEO',1,1);
+
+INSERT INTO [dbo].[Employee] VALUES ('Daniel', 'Connor','danConnor@gmail.com','danIsAweSome','Head Of Computing',1,1);
+INSERT INTO [dbo].[Employee] VALUES ('Ember', 'Peters','emberpetrs@gmail.com','comput1ing@123','Computing Student',1,1);
+
+INSERT INTO [dbo].[Employee] VALUES ('Jana', 'Blankenship','janBlankenship@gmail.com','1pass2word3','Head of Biology',1,2);
+INSERT INTO [dbo].[Employee] VALUES ('Usman', 'Flores','usmanFls@gmail.com','U5m@n365','Biology Student',1,2);
+
+INSERT INTO [dbo].[Employee] VALUES ('Eugene', 'Strickland','euStrickLan@gmail.com','password123','CEO',2,3);
+
+INSERT INTO [dbo].[Employee] VALUES ('Enzo', 'Faulkner','enzoFaul@gmail.com','enzoFaul123@','Head of Sports',2,3);
+INSERT INTO [dbo].[Employee] VALUES ('Leona ', 'Stanton','leonaStan@gmail.com','57@nle0','Sports Student',2,3);
+
+INSERT INTO [dbo].[Employee] VALUES ('Jolie', 'Weaver','jolieWeaver@gmail.com','M451c!7','Head of Music',1,4);
+INSERT INTO [dbo].[Employee] VALUES ('Peter', 'Colley','petCol@gmail.com','9373r@col','Music student',1,4);

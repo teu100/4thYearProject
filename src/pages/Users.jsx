@@ -58,14 +58,17 @@ export class usersPage extends Component {
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Role</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
                             {emps.map(emp=>
                                 <tr key = {emp.employeeID}>
+                                <td>{emp.compRole}</td>
                                 <td>{emp.employeeID}</td>
                                 <td>{emp.firstName}</td>
                                 <td>{emp.lastName}</td>
