@@ -38,7 +38,7 @@ namespace _4thYearProjectDataBaseAPI.Controllers
 
                 string query = @"INSERT INTO Task VALUES 
                                 ('" + task.dueDate + @"', '" + task.taskDescription + @"','" + task.personResponsible + @"', '"+ task.statusString + @"',
-                                '" + task.employeeID  + @"', '" + task.compID + @"', '" + task.deptID + @"', '" + task.priorityLevel + @"');";
+                                '" + task.employeeID  + @"', '" + task.compID + @"', '" + task.deptID + @"', '" + task.priorityLevel + @"',  '"+ task.taskName +@"');";
 
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["4thYearProjectDB"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))

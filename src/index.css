@@ -97,3 +97,11 @@
 .dueDate{
   float: right;
 }
+
+.bottomDetails{
+  text-align: center;
+}
+
+.taskName{
+  font-weight: bold;
+}

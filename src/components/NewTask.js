@@ -10,11 +10,35 @@ export class AddNewTask extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        alert(event.target.taskName.value);
-        alert(event.target.dueDate.value)
-        alert(event.target.taskDescription.value)
-        alert(event.target.personResponsible.value)
-        alert(event.target.priority.value)
+        fetch('https://localhost:44384/api/task',{
+            method: 'Post',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+                taskID:null,
+                duedate: event.target.dueDate.value,
+                taskDescription: event.target.taskDescription.value,
+                personResponsible: event.target.personResponsible.value,
+                statusString: 'To do',
+                employeeID: 6,
+                compID: 1,
+                deptID: 2,
+                priorityLevel:event.target.priority.value,
+                taskName: event.target.taskName.value
+
+            })
+        }
+        )
+        .then(res=> res.json)
+        .then((result)=>
+        {
+            alert(result);
+        },
+        (error)=>{
+            alert('Failed')
+        })
     }
 
 

@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Draggable from '../components/Draggable'
 import Droppable from '../components/Droppable'
-import { Container, Row, Col, Navbar, Nav, NavDropdown, Button, Card, Form, ProgressBar} from 'react-bootstrap'
+import { Container, Row, Col, Navbar, Nav, NavDropdown, Button, Card, Form, ButtonToolbar} from 'react-bootstrap'
+import  {AddNewTask}  from '../components/NewTask';
 
 
 const Wrapper = styled.div`
@@ -29,6 +30,7 @@ const droppableStyle = {
 export default class DndTest extends React.Component {
     constructor(props){
         super(props);
+        this.state = { addTaskShow : false }
         this.state={tasks:[]}
     }
 
@@ -47,8 +49,17 @@ export default class DndTest extends React.Component {
     }
 
 
+
     render() {
+        let addTaskClose =() => this.setState({addTaskShow:false})
+
+        
+
+
+        
         const {tasks} = this.state;
+        const ToDoText = "To do";
+
         return (
             <div>
                 <Navbar bg="light" expand="lg">
@@ -72,39 +83,58 @@ export default class DndTest extends React.Component {
                 </Navbar>
 
                 <Container>
+                <ButtonToolbar>
+                    <Button 
+                    variant="primary" 
+                    onClick={()=> this.setState({addTaskShow: true})}
+                    >New Task + </Button>
+                    <AddNewTask 
+                    show={this.state.addTaskShow} 
+                    onHide={addTaskClose}/>
+                </ButtonToolbar>
                     <Wrapper>
+
                         <Col>
-                            <h1>To do</h1>
+                        <h1 id="ToDO">{ToDoText}</h1>
                             <Droppable id="dr1" style={droppableStyle} >
-                            {tasks.map(task=>
-                            <Draggable id={task.taskID} style={{ margin: '8px' }} key={task.taskID}>
-                                <Card className="text-center" style={{width: '18rem'}} bg="primary" text="white" >
-                                        <Card.Header>{task.taskID}</Card.Header>
-                                        <Card.Body>
-                                            <Card.Text>{task.taskDescription}</Card.Text>
-                                        </Card.Body>
-                                </Card>
-                            </Draggable>
-                            )}
+                                {tasks.map(task=>
+                                    <Draggable id={task.taskID} style={{ margin: '8px' }} key={task.taskID}>
+                                        <Card className="text-center" style={{width: '18rem'}} bg="primary" text="white" >
+                                                <Card.Header>{task.taskID}</Card.Header>
+                                                <Card.Body>
+                                                    <Card.Text>{task.taskDescription}</Card.Text>
+                                                </Card.Body>
+                                        </Card>
+                                        
+                                    </Draggable>
+                                )}
                             </Droppable>
                         </Col>
+
                         <Col>
                             <h1>In progress</h1>
                             <Droppable id="dr2" style={droppableStyle}>
                             {tasks.map(task=>
                                 <Draggable id={"item2"} style={{ margin: '8px' }}>
-                                   <div class="card">
-                                       <div class="topDetails">
-                                       <div class="cardID">
-                                            <p>ID : {task.taskID}</p>
-                                       </div>
-                                       <div class="dueDate">  
-                                            <p>{task.dueDate.substring(0,10)}</p>
-                                       </div>
-                                       </div>
-                                       <br/>
-                                        <p>{task.taskDescription}</p>
-                                   </div>
+                                     <div class="card">
+                                        <div class="topDetails">
+                                            <div class="cardID">
+                                                <p>ID : {task.taskID}</p>
+                                            </div>
+
+                                            <div class="dueDate">  
+                                                <p>{task.dueDate.substring(0,10)}</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bottomDetails">
+                                            <div class="taskName">
+                                                {task.taskName}
+                                            </div>
+                                        
+                                            <div><p>{task.taskDescription}</p></div>
+                                        </div>
+                                    </div>
                                 </Draggable>
                                 )}
                             </Droppable>
@@ -136,3 +166,8 @@ export default class DndTest extends React.Component {
         );
     }
 }
+
+// Fix drag and drop -  save to database 
+// or read the task status from database and get in the right column
+// company line bussiness
+// put address id on employee table

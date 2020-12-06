@@ -13,11 +13,12 @@ namespace _4thYearProjectDataBaseAPI.Controllers
 {
     public class AddressController : ApiController
     {
-        public HttpResponseMessage Get(AddressTable address)
+        public HttpResponseMessage Get()
         {
             DataTable table = new DataTable();
 
-            string query = @"SELECT * FROM AddressTable WHERE compID = " + address.compID+";";
+            string query = @"SELECT compName,addressLine1,addressLine2,cityName,county,country,eircode 
+                            FROM Company,addressTable where addressTable.employeeID = Company.employeeID ;";
 
             using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["4thYearProjectDB"].ConnectionString))
             using (var cmd = new SqlCommand(query, con))
@@ -31,5 +32,5 @@ namespace _4thYearProjectDataBaseAPI.Controllers
         }
 
 
-    }
+    } 
 }

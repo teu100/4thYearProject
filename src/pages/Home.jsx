@@ -1,24 +1,18 @@
 import React, {Component} from "react";
 
-import { Container, Row, Col, Navbar, Nav, NavDropdown, Button, Card, Form, ProgressBar, ButtonToolbar } from 'react-bootstrap'
-import  {AddNewTask}  from '../components/NewTask';
+import { Container, Row, Col, Navbar, Nav, NavDropdown, Card, ProgressBar } from 'react-bootstrap'
 
 
 
 
 export class homePage extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = { addTaskShow : false }
-        
-    }
+
 
 
     render(){
 
         
-        let addTaskClose =() => this.setState({addTaskShow:false})
 
     return(
 
@@ -46,15 +40,7 @@ export class homePage extends Component {
 
 
             <Container>
-                <ButtonToolbar>
-                    <Button 
-                    variant="primary" 
-                    onClick={()=> this.setState({addTaskShow: true})}
-                    >New Task + </Button>
-                    <AddNewTask 
-                    show={this.state.addTaskShow} 
-                    onHide={addTaskClose}/>
-                </ButtonToolbar>
+                
 
                 
 

@@ -16,6 +16,7 @@ namespace _4thYearProjectDataBaseAPI.Models
         public double compID { get; set; }
         public double deptID { get; set; }
         public string priorityLevel { get; set; }
+        public string taskName { get; set; }
 
     }
 }
