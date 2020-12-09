@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 
 import { Container, Row, Col, Navbar, Nav, NavDropdown, Card, ProgressBar } from 'react-bootstrap'
+import myNavBar from "../components/myNavBar";
 
 
 
@@ -15,27 +16,16 @@ export class homePage extends Component {
         
 
     return(
-
+        <body className="homePage">
         <div>
-            <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="/">Task Managment</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/task">Tasks</Nav.Link>
-                        <Nav.Link href="/users">User</Nav.Link>
-                        <Nav.Link href="/companyDetails">Company Details</Nav.Link>
-
-                        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">New Task</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+            <div className="myNavBarCSS">
+                    <ul>
+                        <li><a href="/">Task Managment</a></li>
+                        <li><a href="/task">Tasks</a></li>
+                        <li><a href="/users">User's</a></li>
+                        <li><a href="/companyDetails">Company Details</a></li>
+                    </ul>
+                </div>
 
 
 
@@ -84,6 +74,7 @@ export class homePage extends Component {
                                 <small >Last updated 3 mins ago(if it was edited)</small>
                             </Card.Footer><ProgressBar variant="success" now={100}/>
                         </Card>
+                        
                     </Col>
 
                     <Col>
@@ -119,16 +110,14 @@ export class homePage extends Component {
                 </Row>
             </Container>
 
-            <Navbar id="footerNav" fixed="bottom" bg="light" expand="lg">
-                <Navbar.Brand href="/">Task Managment</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="https://github.com/teu100" target="_blank">GitHub</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+            <div className="myFooter">
+                    <ul>
+                        <li><a href="/">Task Managment</a></li>
+                        <li><a href="https://github.com/teu100" target="_blank" rel='noreferrer'>GitHub</a></li>
+                    </ul>
             </div>
+            </div>
+            </body>
     )
     }
     

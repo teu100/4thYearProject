@@ -34,7 +34,7 @@ export class AddNewTask extends Component {
         .then(res=> res.json)
         .then((result)=>
         {
-            alert(result);
+            alert('Added Successfully');
         },
         (error)=>{
             alert('Failed')
@@ -98,9 +98,7 @@ export class AddNewTask extends Component {
                         </Form.Group>
                     </Form.Row>
 
-                    <Form.Group id="formGridCheckbox">
-                        <Form.Check type="checkbox" label="Not a mistake" />
-                    </Form.Group>
+                    
 
                     <Button variant="primary" type="submit">
                 Submit

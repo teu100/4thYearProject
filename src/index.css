@@ -1,67 +1,9 @@
-*{
-    margin: 0;
-    padding:0;
-    box-sizing: border-box;
-
+.card{
+   margin-bottom: 10px;
 }
-
-
-
-.flexbox {
-    display: flex;
-    justify-content: space-between;
-
-    width: 100%;
-    max-width: 768px;
-    height: 100vh;
-
-    overflow: hidden;
-
-    margin: 0 auto;
-    padding: 15px;
+.TaskForm{
+  text-emphasis-color: white;
 }
-
-.flexbox .board {
-    display: flex;
-    flex-direction: column;
-
-    width: 100%;
-    max-width: 300px;
-
-    background-color: #313131;
-    
-    padding: 15px;
-
-}
-
-.flexbox .board .card {
-    padding: 15px 25px;
-    background-color: #f3f3f3;
-
-    cursor: pointer;
-    margin-bottom: 15px;
-}
-
-
-#footerNav{
-    overflow: hidden;
-  }
-  #root{
-    height: 10%;
-    width: auto;
-    margin: auto;
-    margin-bottom: auto;
-    padding-bottom: 10%;
-    background-color: white;
-    overflow: hidden;
-  }
-
-  .card{
-    margin-bottom: 10px;
-  }
-  .TaskForm{
-    text-emphasis-color: white;
-  }
 
 .CompanyDetails{
   overflow: auto;
@@ -92,10 +34,12 @@
 
 .cardID{
   float: left;
+  color: rgb(252, 252, 252);
 }
 
 .dueDate{
   float: right;
+  
 }
 
 .bottomDetails{
@@ -104,4 +48,75 @@
 
 .taskName{
   font-weight: bold;
+}
+
+.taskColumns{
+  max-width: 80%;
+  position: relative;
+  margin-left: auto;
+}
+
+
+
+.myNavBarCSS ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: lightgrey;
+}
+
+.myNavBarCSS li{
+  float: left;
+}
+
+.myNavBarCSS li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.myNavBarCSS li a:hover {
+  background-color: rgb(138, 138, 138);
+}
+
+
+
+.myFooter ul{
+  list-style-type: none;
+}
+
+.myFooter ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: lightgrey;
+  bottom: 0;
+  position: sticky;
+  width: 100%;
+}
+
+.myFooter li{
+  float: left;
+}
+
+.myFooter li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.myFooter li a:hover {
+  background-color: rgb(138, 138, 138);
+}
+
+
+
+.userPage{
+  height: 100vh;
 }
