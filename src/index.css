@@ -95,7 +95,7 @@
   overflow: hidden;
   background-color: lightgrey;
   bottom: 0;
-  position: sticky;
+  position: fixed;
   width: 100%;
 }
 

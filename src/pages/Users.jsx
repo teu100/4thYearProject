@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Navbar, Nav, NavDropdown, Button, Card, Form, FormControl, Table } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 
 
 
@@ -26,6 +26,8 @@ export class usersPage extends Component {
             );
     }
 
+    
+
 
     render() {
         const {emps} = this.state;
@@ -33,14 +35,7 @@ export class usersPage extends Component {
             <body className="userPage">
             <div > 
 
-                <div className="myNavBarCSS">
-                    <ul>
-                        <li><a href="/">Task Managment</a></li>
-                        <li><a href="/task">Tasks</a></li>
-                        <li><a href="/users">User's</a></li>
-                        <li><a href="/companyDetails">Company Details</a></li>
-                    </ul>
-                </div>
+                
 
                 <Container>
                     <h1>User's Page</h1>

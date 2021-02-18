@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Draggable from '../components/Draggable'
 import Droppable from '../components/Droppable'
-import { Container, Row, Col, Navbar, Nav, NavDropdown, Button, Card, Form, ButtonToolbar} from 'react-bootstrap'
+import {Col,Button, ButtonToolbar} from 'react-bootstrap'
 import  {AddNewTask}  from '../components/NewTask';
+import {EditTask} from '../components/EditTask';
 import '../index.css';
 
 
@@ -31,11 +32,14 @@ const droppableStyle = {
     
 }
 
+
+
 export default class DndTest extends React.Component {
     constructor(props){
         super(props);
-        this.state = { addTaskShow : false }
-        this.state={tasks:[]}
+        this.state = {tasks:[], addTaskShow : false, editTaskShow : false }
+
+
     }
 
     componentDidMount(){
@@ -103,10 +107,29 @@ export default class DndTest extends React.Component {
         return doneTask;
     }
 
-    render() {
-        let addTaskClose =() => this.setState({addTaskShow:false})
+    deleteTask(taskID){
+        if(window.confirm('Are you sure you want to Delete?')){
+            fetch('https://localhost:44384/api/Task/'+taskID,{
+                method:'DELETE',
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type':'application/json'
+                }
+            })
+        }
+    }
+    
 
-        
+    
+    
+
+    render() {
+
+        let addTaskClose =() => this.setState({addTaskShow:false})
+        let editTaskClose =() => this.setState({editTaskShow:false})
+
+
+        const {task, taskID, taskName, taskPriority, taskDescription, personResponsible,dueDate} = this.state;
         
         const todoTasks = this.getTODO();
         const inProgTask = this.getInProg();
@@ -120,14 +143,7 @@ export default class DndTest extends React.Component {
 
         return (
             <div className="taskPage">
-                 <div className="myNavBarCSS">
-                    <ul>
-                        <li><a href="/">Task Managment</a></li>
-                        <li><a href="/task">Tasks</a></li>
-                        <li><a href="/users">User's</a></li>
-                        <li><a href="/companyDetails">Company Details</a></li>
-                    </ul>
-                </div>
+                 
 
                 <div className="taskColumns">
                     <div>
@@ -146,9 +162,9 @@ export default class DndTest extends React.Component {
                     <Wrapper>
                         <Col >
                         <h1 id="ToDO">To do</h1>
-                            <Droppable id="dr1" style={droppableStyle} >
+                            <Droppable id="To Do" style={droppableStyle} >
                             {todoTasks.map(task=>
-                                <Draggable id={task.taskID} style={{ margin: '8px' }}>
+                                <Draggable id={task.taskID} style={{ margin: '8px' }} >
                                      <div class="card">
                                         <div class="topDetails">
                                             <div class="cardID">
@@ -166,7 +182,29 @@ export default class DndTest extends React.Component {
                                             </div>
                                         
                                             <div><p>{task.taskDescription}</p></div>
+                                            <div><p>{task.statusString }</p></div>
+                                            <div><p>{task.priorityLevel}</p></div>
                                         </div>
+                                        
+                                            <ButtonToolbar>
+                                            <Button
+                                                 className="mr-2" variant="info"
+                                                 onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
+                                                ,personResponsible:task.personResponsible, dueDate:task.dueDate  })}
+                                                >Edit</Button>
+                                                <EditTask
+                                                show = {this.state.editTaskShow}
+                                                onHide = {editTaskClose}
+                                                taskid = {taskID}
+                                                taskname = {taskName}
+                                                taskDescription = {taskDescription}
+                                                priorityLevel = {taskPriority}
+                                                personResponsible = {personResponsible}
+                                                dueDate= {dueDate}
+                                                />
+                                                <Button className="mr-2" onClick={()=>this.deleteTask(task.taskID)} variant="danger" >Delete</Button>
+                                            </ButtonToolbar>
+                                        
                                     </div>
                                 </Draggable>
                                 )}
@@ -175,7 +213,7 @@ export default class DndTest extends React.Component {
 
                         <Col>
                             <h1>In progress</h1>
-                            <Droppable id="dr2" style={droppableStyle}>
+                            <Droppable id="dr2" style={droppableStyle} colValue="In progress" onDrop={this.state.tasks.values}>
                             {inProgTask.map(task=>
                                 <Draggable id={task.taskID} style={{ margin: '8px' }}>
                                      <div class="card">
@@ -195,6 +233,27 @@ export default class DndTest extends React.Component {
                                             </div>
                                         
                                             <div><p>{task.taskDescription}</p></div>
+                                            <div><p>{task.statusString }</p></div>
+                                        </div>
+                                        <div class="EditDeleteButton">
+                                            
+                                            <ButtonToolbar>
+                                            <Button
+                                                 className="mr-2" variant="info"
+                                                 onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
+                                                ,personResponsible:task.personResponsible  })}
+                                                >Edit</Button>
+                                                <EditTask
+                                                show = {this.state.editTaskShow}
+                                                onHide = {editTaskClose}
+                                                taskid = {taskID}
+                                                taskname = {taskName}
+                                                taskDescription = {taskDescription}
+                                                priorityLevel = {taskPriority}
+                                                personResponsible = {personResponsible}
+                                                />
+                                                <Button className="mr-2" onClick={()=>this.deleteTask(task.taskID)} variant="danger" >Delete</Button>
+                                            </ButtonToolbar>
                                         </div>
                                     </div>
                                 </Draggable>
@@ -204,7 +263,8 @@ export default class DndTest extends React.Component {
 
                         <Col>
                             <h1>Done</h1>
-                            <Droppable id="dr3" style={droppableStyle}>
+                            <Droppable id="Done" style={droppableStyle}>
+                                
                             {doneTask.map(task=>
                                 <Draggable id={task.taskID} style={{ margin: '8px' }}>
                                      <div class="card">
@@ -224,6 +284,26 @@ export default class DndTest extends React.Component {
                                             </div>
                                         
                                             <div><p>{task.taskDescription}</p></div>
+                                            <div><p>{task.statusString}</p></div>
+                                        </div>
+                                        <div class="EditDeleteButton">
+                                            <ButtonToolbar>
+                                            <Button
+                                                 className="mr-2" variant="info"
+                                                 onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
+                                                ,personResponsible:task.personResponsible  })}
+                                                >Edit</Button>
+                                                <EditTask
+                                                show = {this.state.editTaskShow}
+                                                onHide = {editTaskClose}
+                                                taskid = {taskID}
+                                                taskname = {taskName}
+                                                taskDescription = {taskDescription}
+                                                priorityLevel = {taskPriority}
+                                                personResponsible = {personResponsible}
+                                                />
+                                                <Button className="mr-2" onClick={()=>this.deleteTask(task.taskID)} variant="danger" >Delete</Button>
+                                            </ButtonToolbar>
                                         </div>
                                     </div>
                                 </Draggable>
@@ -234,7 +314,9 @@ export default class DndTest extends React.Component {
                     </Wrapper>
                 </div>
 
-                <button>New button</button>
+                <div className="taskPageUnderColumn">
+
+                </div>
 
 
                 <div className="myFooter">
@@ -247,6 +329,8 @@ export default class DndTest extends React.Component {
         );
     }
 }
+
+
 
 // Fix drag and drop -  save to database 
 // or read the task status from database and get in the right column

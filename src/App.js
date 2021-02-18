@@ -19,13 +19,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
-  Link,
-  Redirect
 } from "react-router-dom";
 
-import myNavBar from './components/myNavBar'
 
 
 //Pages
@@ -34,23 +30,22 @@ import pageNotFound from "./pages/404.jsx";
 import usersPage from "./pages/Users.jsx";
 import taskPage from './pages/Task.jsx';
 import compDetails from './pages/compDetails.jsx';
+import Header from './components/Header';
 
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <myNavBar/>
-        <Switch>
-            <Route exact path="/" component={homePage} />
-            <Route exact path="/task" component={taskPage} />
-            <Route exact path="/users" component={usersPage}/>
-            <Route exact path="/companyDetails" component={compDetails}/>
-            <Route exact path ="/404" component={pageNotFound}/>
-            <Redirect to="/404"/>
-        </Switch>
-      </div>
-    </Router>
+    <div>
+      <Router>
+        <Route path='/:page' component={Header} />
+        <Route exact path='/' component={Header} />
+        <Route exact path='/' component={homePage} />
+        <Route exact path='/home' component={homePage} />
+        <Route exact path='/task' component={taskPage} />
+        <Route exact path='/users' component={usersPage} />
+        <Route exact path='/companyDetails' component={compDetails} />
+      </Router>
+    </div>
   )
 }
 

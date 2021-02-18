@@ -61,7 +61,11 @@ namespace _4thYearProjectDataBaseAPI.Controllers
             {
                 DataTable table = new DataTable();
 
-                string query = @"UPDATE [dbo].[Task] set dueDate = '" + task.dueDate+@"', taskDescription = '" + task.taskDescription + @"' , personResponsible = '" + task.personResponsible + @"' , statusString = '" + task.statusString + @"' , priorityLevel = '" + task.priorityLevel + @"' WHERE taskID = " + task.taskID + @"; ";
+                string query = @"UPDATE [dbo].[Task] set dueDate = '" + task.dueDate+@"',
+taskDescription = '" + task.taskDescription + @"' , 
+personResponsible = '" + task.personResponsible + @"' ,
+priorityLevel = '" + task.priorityLevel + @"',
+taskName = '" + task.taskName + @"' WHERE taskID = " + task.taskID + @"; ";
 
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["4thYearProjectDB"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))

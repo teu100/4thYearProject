@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 
-import { Container, Row, Col, Navbar, Nav, NavDropdown, Card, ProgressBar } from 'react-bootstrap'
-import myNavBar from "../components/myNavBar";
+import { Container, Row, Col, Card, ProgressBar } from 'react-bootstrap'
 
 
 
@@ -18,23 +17,7 @@ export class homePage extends Component {
     return(
         <body className="homePage">
         <div>
-            <div className="myNavBarCSS">
-                    <ul>
-                        <li><a href="/">Task Managment</a></li>
-                        <li><a href="/task">Tasks</a></li>
-                        <li><a href="/users">User's</a></li>
-                        <li><a href="/companyDetails">Company Details</a></li>
-                    </ul>
-                </div>
-
-
-
             <Container>
-                
-
-                
-
-
                 <Row>
                     <Col md>
                         <h1 class="h1forProgress">To do</h1>
