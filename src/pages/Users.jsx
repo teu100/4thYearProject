@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Container, Table } from 'react-bootstrap'
+import {Button, ButtonToolbar} from 'react-bootstrap'
+import {EditUser} from '../components/EditUser';
+
 
 
 
@@ -9,7 +12,7 @@ export class usersPage extends Component {
 
     constructor(props){
         super(props);
-        this.state={emps:[]}
+        this.state={emps:[],editEmpShow : false}
     }
 
     componentDidMount(){
@@ -26,11 +29,31 @@ export class usersPage extends Component {
             );
     }
 
+    deleteEmp(employeeID){
+        if(window.confirm('Are you sure you want to delete this user?')){
+            fetch('https://localhost:44384/api/employee/'+employeeID,{
+                method:'DELETE',
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type':'application/json'
+                }
+            })
+            this.componentDidUpdate();
+        }
+    }
+
+    componentDidUpdate(){
+        this.refreshList();
+    }
+
     
 
 
     render() {
         const {emps} = this.state;
+        const {employeeID, lastName, compRole,email} = this.state;
+        let editEmpClose =() => this.setState({editEmpShow:false})
+
         return (
             <body className="userPage">
             <div > 
@@ -47,6 +70,8 @@ export class usersPage extends Component {
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
                                 
                             </tr>
                         </thead>
@@ -58,8 +83,19 @@ export class usersPage extends Component {
                                 <td>{emp.firstName}</td>
                                 <td>{emp.lastName}</td>
                                 <td>{emp.email}</td>
+                                <td><Button variant="info" onClick= {()=> this.setState({editEmpShow:true, employeeID:emp.employeeID, lastName:emp.lastName,compRole:emp.compRole, email:emp.email }) }>Edit</Button></td>
+                                <EditUser 
+                                show = {this.state.editEmpShow}
+                                onHide = {editEmpClose}
+                                empid = {employeeID}
+                                emplname = {lastName}
+                                comprole = {compRole}
+                                empemail = {email}
+                                />
+                                <td><Button className="mr-2" onClick={()=>this.deleteEmp(emp.employeeID)} variant="danger" >Delete</Button></td>
                                 </tr>
                                 )}
+                                
                         </tbody>
 
 

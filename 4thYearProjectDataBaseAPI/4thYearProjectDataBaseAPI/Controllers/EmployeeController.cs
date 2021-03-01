@@ -61,7 +61,7 @@ namespace _4thYearProjectDataBaseAPI.Controllers
             {
                 DataTable table = new DataTable();
 
-                string query = @"UPDATE dbo.Employee set lastName = '"+emp.lastName+@"', email = '"+ emp.email+ @"' where employeeID = "+emp.employeeID+@";";
+                string query = @"UPDATE dbo.Employee set lastName = '"+emp.lastName+ @"', compRole = '" + emp.compRole + @"' ,email = '" + emp.email+ @"' where employeeID = "+emp.employeeID+@";";
 
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["4thYearProjectDB"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))

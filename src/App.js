@@ -31,6 +31,9 @@ import usersPage from "./pages/Users.jsx";
 import taskPage from './pages/Task.jsx';
 import compDetails from './pages/compDetails.jsx';
 import Header from './components/Header';
+import signupPage from './pages/signupPage';
+import DashBoardPage from './pages/DashBoardPage'
+import LoginPage from './pages/LoginPage'
 
 
 function App() {
@@ -39,11 +42,14 @@ function App() {
       <Router>
         <Route path='/:page' component={Header} />
         <Route exact path='/' component={Header} />
-        <Route exact path='/' component={homePage} />
-        <Route exact path='/home' component={homePage} />
+        <Route exact path='/' component={DashBoardPage} />
+        <Route exact path='/dashboard' component={DashBoardPage} />
         <Route exact path='/task' component={taskPage} />
         <Route exact path='/users' component={usersPage} />
         <Route exact path='/companyDetails' component={compDetails} />
+        <Route exact path='/signup' component={signupPage} />
+        <Route exact path='/login' component={LoginPage} />
+
       </Router>
     </div>
   )

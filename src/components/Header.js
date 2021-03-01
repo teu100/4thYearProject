@@ -15,8 +15,9 @@ const Header = () => {
       <div className='header'>
         <HeaderLink page='Home' selected={page === 'home'}/>
         <HeaderLink page='Task' selected={page === 'task'}/>
-        <HeaderLink page='users' selected={page === 'users'}/>
+        <HeaderLink page='Users' selected={page === 'users'}/>
         <HeaderLink page='companyDetails' selected={page === 'companyDetails'}/>
+        <HeaderLink className="signUp" page='signup' selected={page === 'signup'}/>
       </div>
     );
   };
