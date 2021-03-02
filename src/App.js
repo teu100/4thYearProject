@@ -42,7 +42,7 @@ function App() {
       <Router>
         <Route path='/:page' component={Header} />
         <Route exact path='/' component={Header} />
-        <Route exact path='/' component={DashBoardPage} />
+        <Route exact path='/' component={homePage} />
         <Route exact path='/dashboard' component={DashBoardPage} />
         <Route exact path='/task' component={taskPage} />
         <Route exact path='/users' component={usersPage} />
