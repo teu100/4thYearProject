@@ -6,20 +6,63 @@ export default class Droppable extends React.Component{
 
 
     drop = (e) => {
-        e.preventDefault();
-        const data = e.dataTransfer.getData('transfer');
+        try {
+            e.preventDefault();
+        const data = e.dataTransfer.getData('transfer', e.target.id);
+        var TaskidLocation = this.getColumnValue(e)
         e.target.appendChild(document.getElementById(data))
+        var taskID = 0
+        var columnName = ""
+        var taskID = e.target.children[TaskidLocation].id
+        var columnName = e.target.id
+        console.log(columnName, taskID)
+        this.updateTaskStatus(columnName,taskID)
+        } catch (error) {
+            console.log(error)
+        }
         
+
     }
 
     allowDrop = (e) => {
         e.preventDefault();
     }
+
+    getColumnValue(e){
+        var latest = e.target.children
+        var length = latest.length
+        return length
+    }
+
+
+    updateTaskStatus(a,id) {
+        fetch('https://localhost:44384/api/movetask/',{
+            method: 'PUT',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+                taskID:id,
+                statusString: a
+            })
+        }
+        )
+        .then(res=> res.json())
+        .then((result)=>
+        {
+            console.log(result);
+        },
+        (error)=>{
+            alert('Failed')
+        })
+
+    }
     
     render(){
         return(
-            <div id={this.props.id} onDrop={this.drop} onDragOver={this.allowDrop} style={this.props.style}  colValue={this.props.colValue}> 
-                {this.props.children}
+            <div id={this.props.id} onDrop={this.drop} onDragOver={this.allowDrop} style={this.props.style}  colValue={this.props.colValue} taskColumn={this.props.taskColumn}> 
+                {this.props.children} 
             </div>
         );
     }
@@ -32,4 +75,5 @@ Droppable.propTypes = {
     style: PropTypes.object,
     colValue: PropTypes.string,
     children: PropTypes.node,
+    taskColumn: PropTypes.string
 }

@@ -22,7 +22,7 @@ import {
   Route,
 } from "react-router-dom";
 
-
+import PrivateRoute from './components/PrivateRoute'
 
 //Pages
 import homePage from "./pages/Home.jsx";
@@ -34,7 +34,7 @@ import Header from './components/Header';
 import signupPage from './pages/signupPage';
 import DashBoardPage from './pages/DashBoardPage'
 import LoginPage from './pages/LoginPage'
-
+import ResetPasswordPage from './pages/ResetPasswordPage'
 
 function App() {
   return (
@@ -43,12 +43,15 @@ function App() {
         <Route path='/:page' component={Header} />
         <Route exact path='/' component={Header} />
         <Route exact path='/' component={homePage} />
+        <Route exact path='/Home' component={homePage} />
         <Route exact path='/dashboard' component={DashBoardPage} />
         <Route exact path='/task' component={taskPage} />
         <Route exact path='/users' component={usersPage} />
         <Route exact path='/companyDetails' component={compDetails} />
         <Route exact path='/signup' component={signupPage} />
         <Route exact path='/login' component={LoginPage} />
+        <Route exact path='/resetpassword' component={ResetPasswordPage} />
+
 
       </Router>
     </div>

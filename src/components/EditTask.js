@@ -7,15 +7,13 @@ export class EditTask extends Component {
     constructor(props) {
         super(props);
         this.state={emps:[]}
-        let empID=0;
+
 
     }
 
 
 
-    componentDidMount(){
-        this.refreshList();
-    }
+
 
     refreshList(){
         fetch('https://localhost:44384/api/employee')
@@ -47,18 +45,20 @@ export class EditTask extends Component {
             })
         }
         )
+        
         .then(res=> res.json())
         .then((result)=>
         {
             console.log(result);
             console.log(event.target.taskID.value);
             console.log(event.target.taskName.value);     
-            console.log(event.target.dueDate.value);   
+            console.log(event.target.dueDate.value);  
+            window.location.reload() 
         },
         (error)=>{
             alert('Failed')
         })
-
+        
     }
 
 

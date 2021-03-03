@@ -46,21 +46,25 @@ export default class DndTest extends React.Component {
         this.refreshList();
     }
 
-    
 
     refreshList(){
-        fetch('https://localhost:44384/api/Task')
+        try {
+            fetch('https://localhost:44384/api/Task')
         .then(response=> response.json())
         .then(data => 
             {
             this.setState({tasks:data})
             }
             );
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 
-    componentDidUpdate(){
-        this.refreshList();
-    }
+    // componentDidUpdate(){
+    //     this.refreshList();
+    // }
 
     getTODO(){
         let i;
@@ -83,7 +87,7 @@ export default class DndTest extends React.Component {
 
         for (i = 0; i < this.state.tasks.length; i++)
         {
-            if(this.state.tasks[i].statusString === "In progress")
+            if(this.state.tasks[i].statusString === "In Progress")
             {
                 inProgTask.push(this.state.tasks[i])
                 
@@ -162,7 +166,7 @@ export default class DndTest extends React.Component {
                     <Wrapper>
                         <Col >
                         <h1 id="ToDO">To do</h1>
-                            <Droppable id="To Do" style={droppableStyle} >
+                            <Droppable id="To do" style={droppableStyle} >
                             {todoTasks.map(task=>
                                 <Draggable id={task.taskID} style={{ margin: '8px' }} >
                                      <div class="card">
@@ -212,8 +216,8 @@ export default class DndTest extends React.Component {
                         </Col>
 
                         <Col>
-                            <h1>In progress</h1>
-                            <Droppable id="dr2" style={droppableStyle} colValue="In progress" onDrop={this.state.tasks.values}>
+                            <h1>In Progress</h1>
+                            <Droppable id="In Progress" style={droppableStyle} onDrop={this.state.tasks.values}>
                             {inProgTask.map(task=>
                                 <Draggable id={task.taskID} style={{ margin: '8px' }}>
                                      <div class="card">
