@@ -36,7 +36,7 @@ namespace _4thYearProjectDataBaseAPI.Controllers
             {
                 DataTable table = new DataTable();
 
-                string query = @"INSERT INTO dbo.Employee VALUES ('" + emp.firstName + @"', '" + emp.lastName + @"','" + emp.email + @"','"+ emp.passwordString + @"',
+                string query = @"INSERT INTO dbo.Employee VALUES ('" + emp.firstName + @"', '" + emp.lastName + @"','" + emp.email + @"',
                             '"+ emp.compRole + @"', '" + emp.compID + @"', '"+ emp.deptID + @"');";
 
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["4thYearProjectDB"].ConnectionString))

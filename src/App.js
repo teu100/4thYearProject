@@ -35,6 +35,9 @@ import signupPage from './pages/signupPage';
 import DashBoardPage from './pages/DashBoardPage'
 import LoginPage from './pages/LoginPage'
 import ResetPasswordPage from './pages/ResetPasswordPage'
+import updateProfilePage from './pages/UpdateProfilePage'
+import signupPage2 from './pages/SignUpPage2'
+
 
 function App() {
   return (
@@ -51,6 +54,10 @@ function App() {
         <Route exact path='/signup' component={signupPage} />
         <Route exact path='/login' component={LoginPage} />
         <Route exact path='/resetpassword' component={ResetPasswordPage} />
+        <Route path='/update-profile' component={updateProfilePage} />
+        <Route path='/signup2' component={signupPage2} />
+
+
 
 
       </Router>

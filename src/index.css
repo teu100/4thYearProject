@@ -34,12 +34,25 @@
 
 .cardID{
   float: left;
-  color: rgb(252, 252, 252);
+  color: black;
 }
 
 .dueDate{
   float: right;
   
+}
+
+.calendarIcon{
+  padding-top: 4px;
+  padding-right: 2px;
+  float: left;
+}
+
+.dueDateString{
+  margin: 0px;
+  max-width: 100%;
+  float: left;
+  overflow: auto;
 }
 
 .bottomDetails{
@@ -54,6 +67,10 @@
   max-width: 80%;
   position: relative;
   margin-left: auto;
+}
+
+.taskPage{
+  background-color: #f6f6f6;
 }
 
 
@@ -119,4 +136,7 @@
 
 .userPage{
   height: 100vh;
+  background-color: #f6f6f6;
+
 }
+

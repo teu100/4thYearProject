@@ -7,6 +7,8 @@ import  {AddNewTask}  from '../components/NewTask';
 import {EditTask} from '../components/EditTask';
 import '../index.css';
 
+import calendar  from '../images/calendar.png'
+
 
 
 const Wrapper = styled.div`
@@ -22,9 +24,9 @@ const Wrapper = styled.div`
 
 
 const droppableStyle = {
-    backgroundColor: 'white',
+    backgroundColor: '#f6f6f6',
     borderStyle: 'solid',
-    borderColor: 'white lightGrey',
+    borderColor: '#f6f6f6',
     paddingTop: "20px",
     width: '305px',
     height: '1000px',
@@ -161,8 +163,6 @@ export default class DndTest extends React.Component {
                             onHide={addTaskClose}/>
                         </ButtonToolbar>
                 </div>
-
-        
                     <Wrapper>
                         <Col >
                         <h1 id="ToDO">To do</h1>
@@ -172,11 +172,11 @@ export default class DndTest extends React.Component {
                                      <div class="card">
                                         <div class="topDetails">
                                             <div class="cardID">
-                                                <p>ID : {task.taskID}</p>
+                                                <p>#{task.taskID}</p>
                                             </div>
 
-                                            <div class="dueDate">
-                                                <p>{task.dueDate.substring(0,10)}</p>
+                                            <div class="dueDate"> 
+                                            <img className="calendarIcon" src={calendar} alt="calendarIcon"/><p className="dueDateString">{task.dueDate.substring(0,10)}</p>
                                             </div>
                                         </div>
                                         
@@ -223,12 +223,11 @@ export default class DndTest extends React.Component {
                                      <div class="card">
                                         <div class="topDetails">
                                             <div class="cardID">
-                                                <p>ID : {task.taskID}</p>
+                                                <p>#{task.taskID}</p>
                                             </div>
 
                                             <div class="dueDate">  
-                                                <p>{task.dueDate.substring(0,10)}</p>
-                                            </div>
+                                            <img className="calendarIcon" src={calendar} alt="calendarIcon"/><p className="dueDateString">{task.dueDate.substring(0,10)}</p>                                            </div>
                                         </div>
                                         
                                         <div class="bottomDetails">
@@ -245,7 +244,7 @@ export default class DndTest extends React.Component {
                                             <Button
                                                  className="mr-2" variant="info"
                                                  onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
-                                                ,personResponsible:task.personResponsible  })}
+                                                ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}
                                                 >Edit</Button>
                                                 <EditTask
                                                 show = {this.state.editTaskShow}
@@ -255,6 +254,7 @@ export default class DndTest extends React.Component {
                                                 taskDescription = {taskDescription}
                                                 priorityLevel = {taskPriority}
                                                 personResponsible = {personResponsible}
+                                                dueDate = {dueDate}
                                                 />
                                                 <Button className="mr-2" onClick={()=>this.deleteTask(task.taskID)} variant="danger" >Delete</Button>
                                             </ButtonToolbar>
@@ -274,12 +274,11 @@ export default class DndTest extends React.Component {
                                      <div class="card">
                                         <div class="topDetails">
                                             <div class="cardID">
-                                                <p>ID : {task.taskID}</p>
+                                                <p>#{task.taskID}</p>
                                             </div>
 
                                             <div class="dueDate">  
-                                                <p>{task.dueDate.substring(0,10)}</p>
-                                            </div>
+                                            <img className="calendarIcon" src={calendar} alt="calendarIcon"/><p className="dueDateString">{task.dueDate.substring(0,10)}</p>                                            </div>
                                         </div>
                                         
                                         <div class="bottomDetails">

@@ -6,7 +6,7 @@ import logo from './download.png';
 
 
 
-export class homePage extends Component {
+export class CompanyDetails extends Component {
 
     constructor(props){
         super(props);
@@ -93,4 +93,4 @@ export class homePage extends Component {
     
 }
 
-export default homePage;
+export default CompanyDetails;
