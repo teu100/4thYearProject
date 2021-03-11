@@ -3,7 +3,8 @@ import { Container, Table } from 'react-bootstrap'
 import {Button, ButtonToolbar} from 'react-bootstrap'
 import {EditUser} from '../components/EditUser';
 
-
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from '@material-ui/icons/Edit';
 
 
 
@@ -83,7 +84,7 @@ export class usersPage extends Component {
                                 <td>{emp.firstName}</td>
                                 <td>{emp.lastName}</td>
                                 <td>{emp.email}</td>
-                                <td><Button variant="info" onClick= {()=> this.setState({editEmpShow:true, employeeID:emp.employeeID, lastName:emp.lastName,compRole:emp.compRole, email:emp.email }) }>Edit</Button></td>
+                                <td><Button variant="info" onClick= {()=> this.setState({editEmpShow:true, employeeID:emp.employeeID, lastName:emp.lastName,compRole:emp.compRole, email:emp.email }) }><EditIcon/></Button></td>
                                 <EditUser 
                                 show = {this.state.editEmpShow}
                                 onHide = {editEmpClose}
@@ -92,7 +93,7 @@ export class usersPage extends Component {
                                 comprole = {compRole}
                                 empemail = {email}
                                 />
-                                <td><Button className="mr-2" onClick={()=>this.deleteEmp(emp.employeeID)} variant="danger" >Delete</Button></td>
+                                <td><Button className="mr-2" onClick={()=>this.deleteEmp(emp.employeeID)} variant="danger" ><DeleteForeverIcon/></Button></td>
                                 </tr>
                                 )}
                                 

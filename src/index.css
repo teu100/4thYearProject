@@ -140,3 +140,10 @@
 
 }
 
+.deleteIconButton{
+  float: right;
+}
+
+.editIconButton{
+  margin-left: 100px;
+}

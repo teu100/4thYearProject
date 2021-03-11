@@ -9,7 +9,9 @@ import '../index.css';
 
 import calendar  from '../images/calendar.png'
 
-
+//import {DeleteForeverIcon} from '@material-ui/icons';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from '@material-ui/icons/Edit';
 
 const Wrapper = styled.div`
     width: 60%;
@@ -39,7 +41,7 @@ const droppableStyle = {
 export default class DndTest extends React.Component {
     constructor(props){
         super(props);
-        this.state = {tasks:[], addTaskShow : false, editTaskShow : false }
+        this.state = {tasks:[], addTaskShow : false, editTaskShow : false , weather:[]}
 
 
     }
@@ -56,6 +58,21 @@ export default class DndTest extends React.Component {
         .then(data => 
             {
             this.setState({tasks:data})
+            }
+            );
+        } catch (error) {
+            console.log(error)
+        }
+        
+    }
+
+    getWeather(){
+        try {
+            fetch('https://api.openweathermap.org/data/2.5/onecall?lat=53.3498&lon=6.2603&exclude=current,minutely,hourly,alerts&units=metric&appid=f9b55b1ec70b6f42ddf52b37bfd054b4')
+        .then(response=> response.json())
+        .then(data => 
+            {
+            this.setState({weather:data})
             }
             );
         } catch (error) {
@@ -122,7 +139,9 @@ export default class DndTest extends React.Component {
                     'Content-Type':'application/json'
                 }
             })
+            
         }
+        
     }
     
 
@@ -176,26 +195,9 @@ export default class DndTest extends React.Component {
                                             </div>
 
                                             <div class="dueDate"> 
-                                            <img className="calendarIcon" src={calendar} alt="calendarIcon"/><p className="dueDateString">{task.dueDate.substring(0,10)}</p>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="bottomDetails">
-                                            <div class="taskName">
-                                                {task.taskName}
-                                            </div>
-                                        
-                                            <div><p>{task.taskDescription}</p></div>
-                                            <div><p>{task.statusString }</p></div>
-                                            <div><p>{task.priorityLevel}</p></div>
-                                        </div>
-                                        
-                                            <ButtonToolbar>
-                                            <Button
-                                                 className="mr-2" variant="info"
-                                                 onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
-                                                ,personResponsible:task.personResponsible, dueDate:task.dueDate  })}
-                                                >Edit</Button>
+                                                <img className="calendarIcon" src={calendar} alt="calendarIcon"/><p className="dueDateString">{task.dueDate.substring(0,10)}</p>
+                                                <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
+                                                    ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}/>
                                                 <EditTask
                                                 show = {this.state.editTaskShow}
                                                 onHide = {editTaskClose}
@@ -204,10 +206,24 @@ export default class DndTest extends React.Component {
                                                 taskDescription = {taskDescription}
                                                 priorityLevel = {taskPriority}
                                                 personResponsible = {personResponsible}
-                                                dueDate= {dueDate}
+                                                dueDate = {dueDate}
                                                 />
-                                                <Button className="mr-2" onClick={()=>this.deleteTask(task.taskID)} variant="danger" >Delete</Button>
-                                            </ButtonToolbar>
+                                            
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <div class="bottomDetails">
+                                            <div class="taskName">
+                                                {task.taskName}
+                                            </div>
+                                        
+                                            <div><p>{task.taskDescription}</p></div>
+                                            <div><p>{task.priorityLevel}</p></div>
+                                        </div>
+                                        <div class="deleteIconButton">
+                                            <DeleteForeverIcon  className="deleteIconButton" onClick={()=>this.deleteTask(task.taskID)}></DeleteForeverIcon>
+                                        </div>
                                         
                                     </div>
                                 </Draggable>
@@ -227,7 +243,20 @@ export default class DndTest extends React.Component {
                                             </div>
 
                                             <div class="dueDate">  
-                                            <img className="calendarIcon" src={calendar} alt="calendarIcon"/><p className="dueDateString">{task.dueDate.substring(0,10)}</p>                                            </div>
+                                                <img className="calendarIcon" src={calendar} alt="calendarIcon"/><p className="dueDateString">{task.dueDate.substring(0,10)}</p>
+                                                <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
+                                                        ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}/>
+                                                    <EditTask
+                                                    show = {this.state.editTaskShow}
+                                                    onHide = {editTaskClose}
+                                                    taskid = {taskID}
+                                                    taskname = {taskName}
+                                                    taskDescription = {taskDescription}
+                                                    priorityLevel = {taskPriority}
+                                                    personResponsible = {personResponsible}
+                                                    dueDate = {dueDate}
+                                                    />                                       
+                                            </div>
                                         </div>
                                         
                                         <div class="bottomDetails">
@@ -236,28 +265,11 @@ export default class DndTest extends React.Component {
                                             </div>
                                         
                                             <div><p>{task.taskDescription}</p></div>
-                                            <div><p>{task.statusString }</p></div>
+                                            <div><p>{task.priorityLevel}</p></div>
+
                                         </div>
-                                        <div class="EditDeleteButton">
-                                            
-                                            <ButtonToolbar>
-                                            <Button
-                                                 className="mr-2" variant="info"
-                                                 onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
-                                                ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}
-                                                >Edit</Button>
-                                                <EditTask
-                                                show = {this.state.editTaskShow}
-                                                onHide = {editTaskClose}
-                                                taskid = {taskID}
-                                                taskname = {taskName}
-                                                taskDescription = {taskDescription}
-                                                priorityLevel = {taskPriority}
-                                                personResponsible = {personResponsible}
-                                                dueDate = {dueDate}
-                                                />
-                                                <Button className="mr-2" onClick={()=>this.deleteTask(task.taskID)} variant="danger" >Delete</Button>
-                                            </ButtonToolbar>
+                                        <div class="deleteIconButton">
+                                            <DeleteForeverIcon  className="deleteIconButton" onClick={()=>this.deleteTask(task.taskID)}></DeleteForeverIcon>
                                         </div>
                                     </div>
                                 </Draggable>
@@ -278,7 +290,20 @@ export default class DndTest extends React.Component {
                                             </div>
 
                                             <div class="dueDate">  
-                                            <img className="calendarIcon" src={calendar} alt="calendarIcon"/><p className="dueDateString">{task.dueDate.substring(0,10)}</p>                                            </div>
+                                                <img className="calendarIcon" src={calendar} alt="calendarIcon"/><p className="dueDateString">{task.dueDate.substring(0,10)}</p>
+                                                <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
+                                                        ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}/>
+                                                <EditTask
+                                                    show = {this.state.editTaskShow}
+                                                    onHide = {editTaskClose}
+                                                    taskid = {taskID}
+                                                    taskname = {taskName}
+                                                    taskDescription = {taskDescription}
+                                                    priorityLevel = {taskPriority}
+                                                    personResponsible = {personResponsible}
+                                                    dueDate = {dueDate}
+                                                />      
+                                            </div>
                                         </div>
                                         
                                         <div class="bottomDetails">
@@ -287,26 +312,11 @@ export default class DndTest extends React.Component {
                                             </div>
                                         
                                             <div><p>{task.taskDescription}</p></div>
-                                            <div><p>{task.statusString}</p></div>
+                                            <div><p>{task.priorityLevel}</p></div>
+
                                         </div>
                                         <div class="EditDeleteButton">
-                                            <ButtonToolbar>
-                                            <Button
-                                                 className="mr-2" variant="info"
-                                                 onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
-                                                ,personResponsible:task.personResponsible  })}
-                                                >Edit</Button>
-                                                <EditTask
-                                                show = {this.state.editTaskShow}
-                                                onHide = {editTaskClose}
-                                                taskid = {taskID}
-                                                taskname = {taskName}
-                                                taskDescription = {taskDescription}
-                                                priorityLevel = {taskPriority}
-                                                personResponsible = {personResponsible}
-                                                />
-                                                <Button className="mr-2" onClick={()=>this.deleteTask(task.taskID)} variant="danger" >Delete</Button>
-                                            </ButtonToolbar>
+                                            <DeleteForeverIcon  className="deleteIconButton" onClick={()=>this.deleteTask(task.taskID)}></DeleteForeverIcon>
                                         </div>
                                     </div>
                                 </Draggable>
