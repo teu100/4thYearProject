@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace _4thYearProjectDataBaseAPI.Models
+namespace _4thYearProjectAPI.Models
 {
     public class Company
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace _4thYearProjectDataBaseAPI.Models
+namespace _4thYearProjectAPI.Models
 {
     public class Task
     {

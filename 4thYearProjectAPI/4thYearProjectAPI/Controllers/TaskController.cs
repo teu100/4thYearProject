@@ -1,5 +1,4 @@
-﻿using _4thYearProjectAPI;
-using _4thYearProjectDataBaseAPI.Models;
+﻿using _4thYearProjectAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -7,7 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace _4thYearProjectDataBaseAPI.Controllers
+namespace _4thYearProjectAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

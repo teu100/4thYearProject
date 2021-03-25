@@ -1,107 +1,94 @@
-﻿using _4thYearProjectDataBaseAPI.Models;
+﻿using _4thYearProjectAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using System.Linq;
 
-namespace _4thYearProjectDataBaseAPI.Controllers
+namespace _4thYearProjectAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        private IConfiguration Configuration;
-        
-        [HttpGet]
-        public ActionResult<DataTable> Get()
+        private readonly ProjectDbContext _dbContext;
+
+        public EmployeeController(ProjectDbContext dbContext)
         {
-            DataTable table = new DataTable();
+            _dbContext = dbContext;
+        }
 
-            string query = @"SELECT employeeID, firstName, lastName, email, compRole FROM Employee;";
-
-            using (var con = new SqlConnection(Configuration.GetValue<string>("DbconnectionString")))
-            using (var cmd = new SqlCommand(query, con))
-            using (var da = new SqlDataAdapter(cmd))
-            {
-                cmd.CommandType = CommandType.Text;
-                da.Fill(table);
-            }
-
-            return Ok(table);
+        [HttpGet]
+        public ActionResult<IEnumerable<Employee>> Get()
+        {
+            var employes = _dbContext.Employee.AsEnumerable();         // AsEnumerable if you're returning
+                                                                // ToList if you'll do sth with it
+            return Ok(employes);
         }
 
         [HttpPost]
-        public string Post(Employee emp) 
+        public ActionResult<string> Post(Employee newEmployee)
         {
-            try 
+            try
             {
-                DataTable table = new DataTable();
+                _dbContext.Employee.Add(newEmployee);
+                _dbContext.SaveChanges();
 
-                string query = @"INSERT INTO dbo.Employee VALUES ('" + emp.firstName + @"', '" + emp.lastName + @"','" + emp.email + @"',
-                            '"+ emp.compRole + @"', '" + emp.compID + @"', '"+ emp.deptID + @"');";
-
-                using (var con = new SqlConnection(Configuration.GetValue<string>("DbconnectionString")))
-                using (var cmd = new SqlCommand(query, con))
-                using (var da = new SqlDataAdapter(cmd))
-                {
-                    cmd.CommandType = CommandType.Text;
-                    da.Fill(table);
-                }
-                return "Added Successfully";
+                return Ok("Added Successfully");
             }
-            catch (Exception) 
+            catch (Exception)
             {
-                return "Failed to Add";
+                return StatusCode(500, "Failed to Add.");
             }
         }
 
         [HttpPut]
-        public string Put(Employee emp) 
+        public ActionResult<string> Put(Employee employee)
         {
             try
             {
-                DataTable table = new DataTable();
+                var employeeToUpdate = _dbContext.Employee.FirstOrDefault(e => e.employeeID == employee.employeeID);
+                if (employeeToUpdate == null)
+                    return NotFound("Employee Not Found");
 
-                string query = @"UPDATE dbo.Employee set lastName = '"+emp.lastName+ @"', compRole = '" + emp.compRole + @"' ,email = '" + emp.email+ @"' where employeeID = "+emp.employeeID+@";";
+                employeeToUpdate.firstName = employee.firstName;
+                employeeToUpdate.lastName = employee.lastName;
+                employeeToUpdate.email = employee.email;
+                employeeToUpdate.compRole = employee.compRole;
+                employeeToUpdate.compID = employee.compID;
+                employeeToUpdate.deptID = employee.deptID;
 
-                using (var con = new SqlConnection(Configuration.GetValue<string>("DbconnectionString")))
-                using (var cmd = new SqlCommand(query, con))
-                using (var da = new SqlDataAdapter(cmd))
-                {
-                    cmd.CommandType = CommandType.Text;
-                    da.Fill(table);
-                }
-                return "Updated Successfully";
+                _dbContext.SaveChanges();
+
+                return Ok("Updated Successfully");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return "Failed to Update";
+                return StatusCode(500, $"Failed to update, {e}");
             }
         }
 
-        [HttpDelete]
-        public string Delete(int id)
+
+       [HttpDelete]
+        public ActionResult<string> Delete(int id)
         {
             try
             {
-                DataTable table = new DataTable();
+                var employeeToDelete = _dbContext.Employee.FirstOrDefault(e => e.employeeID == id);
+                if (employeeToDelete == null)
+                    return NotFound("Employee not found.");
 
-                string query = @"DELETE FROM dbo.Employee  where employeeID = " + id ;
+                _dbContext.Employee.Remove(employeeToDelete);
+                _dbContext.SaveChanges();
 
-                using (var con = new SqlConnection(Configuration.GetValue<string>("DbconnectionString")))
-                using (var cmd = new SqlCommand(query, con))
-                using (var da = new SqlDataAdapter(cmd))
-                {
-                    cmd.CommandType = CommandType.Text;
-                    da.Fill(table);
-                }
-                return "Deleted Successfully";
+                return Ok("Deleted Successfully");
             }
             catch (Exception)
             {
-                return "Failed to delete";
+                return StatusCode(500, "Failed to delete");
             }
         }
+
     }
 }

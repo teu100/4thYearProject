@@ -1,33 +1,46 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using _4thYearProjectAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using System.Linq;
 
-namespace _4thYearProjectDataBaseAPI.Controllers
+namespace _4thYearProjectAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class CompanyController : ControllerBase
     {
-        private IConfiguration Configuration;
-        
-        [HttpGet]
-        public ActionResult<DataTable> Get()
+        private readonly ProjectDbContext _dbContext;
+
+        public CompanyController(ProjectDbContext dbContext)
         {
-            DataTable table = new DataTable();
+            _dbContext = dbContext;
+        }
 
-            string query = @"SELECT compName,addressLine1,addressLine2,cityName,county,country,eircode 
-                            FROM Company,addressTable where addressTable.compID = Company.compID ; ;";
-
-            using (var con = new SqlConnection(Configuration.GetValue<string>("DbconnectionString")))
-            using (var cmd = new SqlCommand(query, con))
-            using (var da = new SqlDataAdapter(cmd))
+        [HttpGet]
+        public ActionResult<IEnumerable<AddressTable>> Get(int id)
+        {
+            try
             {
-                cmd.CommandType = CommandType.Text;
-                da.Fill(table);
-            }
+                //string query = @"SELECT compName,addressLine1,addressLine2,cityName,county,country,eircode 
+                //         FROM Company,addressTable where addressTable.compID = Company.compID ; ;";
 
-            return Ok(table);
+
+                var companyAdddress = _dbContext.AddressTable.Where(a => a.compID.Equals(id)).AsEnumerable();
+                
+                return Ok(companyAdddress);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Failed to delete");
+            }
+            
+
+            
         }
     }
 }
