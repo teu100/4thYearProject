@@ -62,7 +62,7 @@ function ViewToDo(props) {
                                 <Text>{toDoTasks[i].taskID}</Text>
                             </View>
                             <View>
-                                <Text>{toDoTasks[i].dueDate}</Text>
+                                <Text>Due Date: {toDoTasks[i].dueDate.substring(0,10)}</Text>
                             </View>
                         </View>
                         <Card.Title>{toDoTasks[i].taskName}</Card.Title>
