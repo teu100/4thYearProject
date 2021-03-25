@@ -4,44 +4,44 @@ import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
 function ViewToDo(props) {
 
+    const [isLoading, setLoading] = useState(true);
+    const [toDoTasks, setTasks] = useState([]);
 
-    const tasks = [{id:1,title: "Get pages working", description:"Get all tasks page done", duedate: "18/03/2021", priority: "Medium"},
-    {id:2,title: "Routing", description:"Get routing done", duedate: "18/03/2021", priority: "Low"},
-    {id:3,title: "Log-in", description:"Get log-in working ", duedate: "18/03/2021", priority: "High"},
-    {id:4,title: "Register", description:"Get register working ", duedate: "18/03/2021", priority: "High"},
-    {id:5,title: "Edit", description:"Get edit working", duedate: "18/03/2021", priority: "High"},
-    {id:6,title: "Delete", description:"Get delete working", duedate: "18/03/2021", priority: "High"}]
-
-    const [data, setData] = useState([]);
-
-    function handleDone(){
-        console.log("Moved to Done");
-    }
-
-    function handleToDo(){
-        console.log("Moved to ToDo")
-    }
-
-    
-    const getTasks = () => {
-        return fetch('https://reactnative.dev/movies.json')
-        .then((response) => response.json())
-        .then((json) => {
-            setData(json);
+    function handleInProg(task){
+        task.statusString = "In progress";
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/MoveTask', {
+            method: 'PUT',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+                "taskID": task.taskID,
+                "dueDate": task.dueDate,
+                "taskDescription": task.taskDescription,
+                "personResponsible": task.personResponsible,
+                "statusString": task.statusString,
+                "employeeID": task.employeeID,
+                "compID": task.compID,
+                "deptID": task.deptID,
+                "priorityLevel": task.priorityLevel,
+                "taskName": task.taskName
+            })
         })
-        .catch((error) => {
-        console.error(error);
-        });
-    };
+        .catch((error) => console.error(error))
+    }
+
+
 
     
+    useEffect(()=>{
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task/getByStatusString?statusString=To%20do')
+        .then((response) => response.json())
+        .then((json) => setTasks(json))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+    }, [toDoTasks]);
 
-    const movies =  getTasks();
-
-
-    console.log("Movies 1: ",data);
-
-    //console.log("Movies 2 : ", getMoviesFromApiAsync())
 
 
     return (
@@ -54,36 +54,31 @@ function ViewToDo(props) {
                 <Text style={styles.pageTitle}>Tasks - To Do</Text>
             </View>
             {
-            tasks.map((u, i) => {
+            toDoTasks.map((u, i) => {
                 return (
                     <Card key={i}>
                         <View style={styles.TopCardDetails}>
                             <View>
-                                <Text>{tasks[i].id}</Text>
+                                <Text>{toDoTasks[i].taskID}</Text>
                             </View>
                             <View>
-                                <Text>{tasks[i].duedate}</Text>
+                                <Text>{toDoTasks[i].dueDate}</Text>
                             </View>
                         </View>
-                        <Card.Title>{tasks[i].title}</Card.Title>
+                        <Card.Title>{toDoTasks[i].taskName}</Card.Title>
                         <Card.Divider/>
                         <View style={styles.description}>
-                            <Text >{tasks[i].description}</Text>
+                            <Text >{toDoTasks[i].taskDescription}</Text>
                         </View>
                         
                         <View style={{flexDirection:"row", justifyContent: "space-around"}}>
-                            <View >
-                                <Button
-                                    onPress={handleToDo}
-                                    buttonStyle={styles.LeftButton}
-                                    title='To do'/>
-                            </View>
+
                             
                             <View>
                                 <Button
-                                    onPress={handleDone}
+                                    onPress={()=>handleInProg(toDoTasks[i])}
                                     buttonStyle={styles.RightButton}
-                                    title='Done'/>
+                                    title='In Progress'/>
                             </View>
                         </View>
                     </Card>

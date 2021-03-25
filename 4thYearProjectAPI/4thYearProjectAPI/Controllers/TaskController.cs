@@ -28,6 +28,14 @@ namespace _4thYearProjectAPI.Controllers
             return Ok(tasks);
         }
 
+        [Route("getByStatusString")]
+        [HttpGet]
+        public ActionResult<IEnumerable<Task>> Get(string statusString)
+        {
+            var tasks = _dbContext.Task.Where(t => t.statusString.Equals(statusString)).AsEnumerable();
+            return Ok(tasks);
+        }
+
         [HttpPost]
         public ActionResult<string> Post(Task newTask)
         {

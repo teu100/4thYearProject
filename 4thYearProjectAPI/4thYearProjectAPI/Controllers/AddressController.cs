@@ -28,7 +28,7 @@ namespace _4thYearProjectAPI.Controllers
                 //         FROM Company,addressTable where addressTable.compID = Company.compID ; ;";
 
 
-                var companyAdddress = _dbContext.AddressTable.ToList();
+                var companyAdddress = _dbContext.AddressTable.AsEnumerable();
 
                 return Ok(companyAdddress);
 

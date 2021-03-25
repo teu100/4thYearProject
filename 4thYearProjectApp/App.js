@@ -5,6 +5,8 @@ import WelcomeScreen from './app/screens/WelcomeScreen';
 import ViewImage from './app/screens/ViewImage';
 import ViewToDo from './app/screens/ViewToDo';
 import ViewDone from './app/screens/ViewDone';
+import ViewInProgress from './app/screens/ViewInProgress';
+
 
 //view is the same as div on 
 export default function App() {

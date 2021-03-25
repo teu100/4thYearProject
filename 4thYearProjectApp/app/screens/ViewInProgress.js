@@ -1,15 +1,38 @@
+import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
-function ViewDone(props) {
-
-
+function ViewInProgress(props) {
     const [isLoading, setLoading] = useState(true);
-    const [doneTasks, setTasks] = useState([]);
+    const [IpTask, setTasks] = useState([]);
 
-    function handleInP(task){
-        task.statusString = "In progress";
+    function handleDone(task){
+        task.statusString = "Done";
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/MoveTask', {
+            method: 'PUT',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+                "taskID": task.taskID,
+                "dueDate": task.dueDate,
+                "taskDescription": task.taskDescription,
+                "personResponsible": task.personResponsible,
+                "statusString": task.statusString,
+                "employeeID": task.employeeID,
+                "compID": task.compID,
+                "deptID": task.deptID,
+                "priorityLevel": task.priorityLevel,
+                "taskName": task.taskName
+            })
+        })
+        .catch((error) => console.error(error))
+    }
+
+    function handleToDo(task){
+        task.statusString = "To do";
         fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/MoveTask', {
             method: 'PUT',
             headers:{
@@ -33,14 +56,14 @@ function ViewDone(props) {
     }
 
     useEffect(()=>{
-        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task/getByStatusString?statusString=Done')
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task/getByStatusString?statusString=In%20Progress')
         .then((response) => response.json())
         .then((json) => setTasks(json))
         .catch((error) => console.error(error))
         .finally(() => setLoading(false));
-    }, [doneTasks]);
+    }, [IpTask]);
 
-    
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -49,36 +72,39 @@ function ViewDone(props) {
             <View style={styles.Gapfiller}>
             </View>
             <View style={styles.Header}>
-                <Text style={styles.pageTitle}>Tasks - Done</Text>
+                <Text style={styles.pageTitle}>Tasks - In Progress</Text>
             </View>
             {
-            doneTasks.map((u, i) => {
+            IpTask.map((u, i) => {
                 return (
                     <Card key={i}>
                         <View style={styles.TopCardDetails}>
                             <View>
-                                <Text>{doneTasks[i].taskID}</Text>
+                                <Text>{IpTask[i].taskID}</Text>
                             </View>
                             <View>
-                                <Text>{doneTasks[i].dueDate}</Text>
+                                <Text>{IpTask[i].dueDate}</Text>
                             </View>
                         </View>
-                        <Card.Title>{doneTasks[i].taskName}</Card.Title>
+                        <Card.Title>{IpTask[i].taskName}</Card.Title>
                         <Card.Divider/>
                         <View style={styles.description}>
-                            <Text>{doneTasks[i].taskDescription}</Text>
+                            <Text>{IpTask[i].taskDescription}</Text>
                         </View>
                         
                         <View style={{flexDirection:"row", justifyContent: "space-around"}}>
                             <View >
                                 <Button
-                                    onPress={()=>handleInP(doneTasks[i])}
+                                    onPress={()=>handleToDo(IpTask[i],"To do")}
                                     buttonStyle={styles.LeftButton}
-                                    title='In progress'/>
+                                    title='To do'/>
                             </View>
                             
                             <View>
-                                
+                                <Button
+                                    onPress={()=>handleDone(IpTask[i],"Done")}
+                                    buttonStyle={styles.RightButton}
+                                    title='Done'/>
                             </View>
                         </View>
                     </Card>
@@ -91,7 +117,7 @@ function ViewDone(props) {
     );
 }
 
-export default ViewDone;
+export default ViewInProgress;
 
 const styles = StyleSheet.create({
     Gapfiller:{

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="IIS Web Application Name" description="" value="4thYearProjectAPI20210323220948" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\mateu\\Downloads\\4thYearProjectAPI\\4thYearProjectAPI\\4thYearProjectAPI\\4thYearProjectAPI\\obj\\Release\\net5\.0\\PubTmp\\Out\\$" />
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\mateu\\Documents\\College\\my-project-app\\Project\\4thYearProject\\4thYearProjectAPI\\4thYearProjectAPI\\obj\\Release\\net5\.0\\PubTmp\\Out\\$" />
   </parameter>
 </parameters>
