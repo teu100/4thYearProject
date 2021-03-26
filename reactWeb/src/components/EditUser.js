@@ -6,35 +6,42 @@ import { Modal, Button, Col, Form } from 'react-bootstrap';
 export class EditUser extends Component {
     constructor(props) {
         super(props);
-        this.state={emps:[]}
+        this.state={emps:[],isLoaded: false,error:null}
         let empID=0;
 
     }
 
 
 
-    componentDidMount(){
-        this.refreshList();
-    }
+    // componentDidMount(){
+    //     this.refreshList();
+    // }
 
     componentDidUpdate(){
-        this.refreshList();
+        fetch("https://localhost:5001/api/Employee")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            emps: result
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
     }
 
-    refreshList(){
-        fetch('https://localhost:44384/api/employee')
-        .then(response=> response.json())
-        .then(data => 
-            {
-            this.setState({emps:data})
-            }
-            );
-    }
+    
 
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch('https://localhost:44384/api/employee/',{
+        fetch('https://localhost:5001/api/Employee',{
             method: 'PUT',
             headers:{
                 'Accept': 'application/json',
@@ -60,7 +67,6 @@ export class EditUser extends Component {
             alert('Failed')
             console.log(error);
         })
-
     }
 
 

@@ -21,7 +21,7 @@ export class usersPage extends Component {
     }
 
     refreshList(){
-        fetch('https://localhost:44384/api/employee')
+        fetch('https://localhost:5001/api/Employee')
         .then(response=> response.json())
         .then(data => 
             {
@@ -32,7 +32,7 @@ export class usersPage extends Component {
 
     deleteEmp(employeeID){
         if(window.confirm('Are you sure you want to delete this user?')){
-            fetch('https://localhost:44384/api/employee/'+employeeID,{
+            fetch('https://localhost:5001/api/Employee?id='+employeeID,{
                 method:'DELETE',
                 headers:{
                     'Accept': 'application/json',

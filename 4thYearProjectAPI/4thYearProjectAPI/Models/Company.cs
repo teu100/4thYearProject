@@ -9,7 +9,7 @@ namespace _4thYearProjectAPI.Models
     public class Company
     {
         [Key]
-        public double compID { get; set; }
+        public int compID { get; set; }
         public string compName { get; set; }
     }
 }

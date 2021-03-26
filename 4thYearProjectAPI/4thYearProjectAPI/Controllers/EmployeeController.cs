@@ -52,12 +52,12 @@ namespace _4thYearProjectAPI.Controllers
                 if (employeeToUpdate == null)
                     return NotFound("Employee Not Found");
 
-                employeeToUpdate.firstName = employee.firstName;
+                //employeeToUpdate.firstName = employee.firstName;
                 employeeToUpdate.lastName = employee.lastName;
                 employeeToUpdate.email = employee.email;
                 employeeToUpdate.compRole = employee.compRole;
-                employeeToUpdate.compID = employee.compID;
-                employeeToUpdate.deptID = employee.deptID;
+                //employeeToUpdate.compID = employee.compID;
+                //employeeToUpdate.deptID = employee.deptID;
 
                 _dbContext.SaveChanges();
 

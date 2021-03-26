@@ -21,7 +21,7 @@ namespace _4thYearProjectAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<AddressTable>> Get(int id)
+        public ActionResult<IEnumerable<Company>> Get(int id)
         {
             try
             {
@@ -29,14 +29,19 @@ namespace _4thYearProjectAPI.Controllers
                 //         FROM Company,addressTable where addressTable.compID = Company.compID ; ;";
 
 
-                var companyAdddress = _dbContext.AddressTable.Where(a => a.compID.Equals(id)).AsEnumerable();
+                var address = _dbContext.AddressTable.Where(a => a.compID.Equals(id)).FirstOrDefault();
+                var compDetails = _dbContext.Company.Where(c => c.compID.Equals(id)).FirstOrDefault();
+                CompWAddress compWAddress = new CompWAddress();
+                compWAddress.companyDetails = compDetails;
+
+                compWAddress.companyAddress = address;
                 
-                return Ok(companyAdddress);
+                return Ok(compWAddress);
 
             }
             catch (Exception)
             {
-                return StatusCode(500, "Failed to delete");
+                return StatusCode(500, "Failed to find company");
             }
             
 
