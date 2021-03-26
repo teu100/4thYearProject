@@ -7,11 +7,16 @@ import  {AddNewTask}  from '../components/NewTask';
 import {EditTask} from '../components/EditTask';
 import '../index.css';
 
+import Card from '@material-ui/core/Card';
+import { Grid } from "@material-ui/core";
+
+
 import calendar  from '../images/calendar.png'
 
 //import {DeleteForeverIcon} from '@material-ui/icons';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
+import { CardContent, Divider, Typography } from '@material-ui/core';
 
 const Wrapper = styled.div`
     width: 60%;
@@ -36,6 +41,21 @@ const droppableStyle = {
     
 }
 
+const cardRoot = {
+    minWidth: 275,
+}
+
+const cardTitle = {
+    fontSize: 14,
+}
+
+const topCardDetails = {
+    spacing: 8,
+}
+
+const cardDeleteButton = {
+    marginLeft: "right",
+}
 
 
 export default class DndTest extends React.Component {
@@ -163,12 +183,8 @@ export default class DndTest extends React.Component {
         const inProgTask = this.getInProg();
         const doneTask =  this.getDoneTask();
         
+        console.log(todoTasks)
         
-
-        
-        console.log(this.tasks);
-
-        console.log(this.data);
         return (
             <div className="taskPage">
                  
@@ -198,10 +214,11 @@ export default class DndTest extends React.Component {
                                             </div>
 
                                             <div class="dueDate"> 
-                                                <img className="calendarIcon" src={calendar} alt="calendarIcon"/><p className="dueDateString">{task.dueDate.substring(0,10)}</p>
+                                                <img className="calendarIcon" src={calendar} alt="calendarIcon"/>
+                                                <p className="dueDateString">{task.dueDate.substring(0,10)}</p>
                                                 <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
                                                     ,personResponsible:task.personResponsible, dueDate1: task.dueDate  })}/>
-                                                    {dueDate1 = task.dueDate}
+                                                    
                                                 <EditTask
                                                 show = {this.state.editTaskShow}
                                                 onHide = {editTaskClose}
@@ -223,15 +240,43 @@ export default class DndTest extends React.Component {
                                             </div>
                                         
                                             <div><p>{task.taskDescription}</p></div>
-                                            <div><p>{task.priorityLevel}</p></div>
+                                            {/**<div><p>{task.priorityLevel}</p></div> */}
                                         </div>
                                         <div class="deleteIconButton">
                                             <DeleteForeverIcon  className="deleteIconButton" onClick={()=>this.deleteTask(task.taskID)}></DeleteForeverIcon>
                                         </div>
                                         
                                     </div>
+                                    
                                 </Draggable>
                                 )}
+                                    <Card className={cardRoot}>
+                                        <CardContent>
+                                            <Grid container spacing="1">
+                                                <Grid item>  {/*textPrimary to have title black*/}
+                                                    <Typography className={cardTitle} color="textSecondary">#1 </Typography>
+                                                </Grid>
+
+                                                <Grid item>
+                                                    <Typography><img className="calendarIcon" src={calendar} alt="calendarIcon"/>2021-09-03</Typography>
+                                                </Grid>
+
+                                                <Grid item>
+                                                    <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true})}/>
+                                                </Grid>
+                                            </Grid>
+                                                    
+                                            
+                                            <Divider />
+                                            <Typography variant="h6" component="h6">
+                                                Task Name
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                Task description will go here.
+                                            </Typography>
+                                        </CardContent>
+                                        <DeleteForeverIcon className="cardDeleteButton"/>
+                                    </Card>
                             </Droppable>
                         </Col>
 
@@ -247,10 +292,11 @@ export default class DndTest extends React.Component {
                                             </div>
 
                                             <div class="dueDate">  
-                                                <img className="calendarIcon" src={calendar} alt="calendarIcon"/><p className="dueDateString">{task.dueDate.substring(0,10)}</p>
+                                                <img className="calendarIcon" src={calendar} alt="calendarIcon"/>
+                                                <p className="dueDateString">{task.dueDate.substring(0,10)}</p>
                                                 <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
                                                         ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}/>
-                                                        {dueDate1}
+                                                        
                                                     <EditTask
                                                     show = {this.state.editTaskShow}
                                                     onHide = {editTaskClose}
@@ -295,10 +341,10 @@ export default class DndTest extends React.Component {
                                             </div>
 
                                             <div class="dueDate">  
-                                                <img className="calendarIcon" src={calendar} alt="calendarIcon"/><p className="dueDateString">{task.dueDate.substring(0,10)}</p>
+                                                <img className="calendarIcon" src={calendar} alt="calendarIcon"/>
+                                                <p className="dueDateString">{task.dueDate.substring(0,10)}</p>
                                                 <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
                                                         ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}/>
-                                                        {dueDate1}
                                                 <EditTask
                                                     show = {this.state.editTaskShow}
                                                     onHide = {editTaskClose}
@@ -351,7 +397,6 @@ export default class DndTest extends React.Component {
 
 
 
-// Fix drag and drop -  save to database 
-// or read the task status from database and get in the right column
-// company line bussiness
+
+
 // put address id on employee table
