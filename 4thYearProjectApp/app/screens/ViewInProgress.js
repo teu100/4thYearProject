@@ -9,7 +9,7 @@ function ViewInProgress(props) {
 
     function handleDone(task){
         task.statusString = "Done";
-        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/MoveTask', {
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/api/Tasks', {
             method: 'PUT',
             headers:{
                 'Accept': 'application/json',
@@ -33,7 +33,7 @@ function ViewInProgress(props) {
 
     function handleToDo(task){
         task.statusString = "To do";
-        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/MoveTask', {
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task', {
             method: 'PUT',
             headers:{
                 'Accept': 'application/json',

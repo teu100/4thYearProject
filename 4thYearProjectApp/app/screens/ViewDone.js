@@ -10,7 +10,7 @@ function ViewDone(props) {
 
     function handleInP(task){
         task.statusString = "In progress";
-        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/MoveTask', {
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task', {
             method: 'PUT',
             headers:{
                 'Accept': 'application/json',

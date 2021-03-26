@@ -36,7 +36,7 @@ export default class Droppable extends React.Component{
 
 
     updateTaskStatus(a,id) {
-        fetch('https://localhost:44384/api/movetask/',{
+        fetch('https://localhost:5001/api/MoveTask?id='+id+'&statusString='+a,{
             method: 'PUT',
             headers:{
                 'Accept': 'application/json',
@@ -61,7 +61,7 @@ export default class Droppable extends React.Component{
     
     render(){
         return(
-            <div id={this.props.id} onDrop={this.drop} onDragOver={this.allowDrop} style={this.props.style}  colValue={this.props.colValue} taskColumn={this.props.taskColumn}> 
+            <div id={this.props.id} onDrop={this.drop} onDragOver={this.allowDrop} style={this.props.style}  colValue={this.props.colValue} taskColumn={this.props.taskColumn} taskID={this.props.taskID}> 
                 {this.props.children} 
             </div>
         );

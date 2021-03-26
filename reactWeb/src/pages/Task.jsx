@@ -53,7 +53,7 @@ export default class DndTest extends React.Component {
 
     refreshList(){
         try {
-            fetch('https://localhost:5001/api/task', {mode:'cors'})
+            fetch('https://localhost:5001/api/Task', {mode:'cors'})
         .then(response=> response.json())
         .then(data => 
             {

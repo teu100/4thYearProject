@@ -31,21 +31,17 @@ namespace _4thYearProjectAPI.Controllers
 
 
         [HttpPut]
-        public ActionResult<string> Put(Task task)
+        public ActionResult<string> Put(int id, string statusString)
         {
             try
             {
-                var taskToUpdate = _dbContext.Task.FirstOrDefault(t => t.taskID == task.taskID);
+                var taskToUpdate = _dbContext.Task.FirstOrDefault(t => t.taskID == id);
                 if (taskToUpdate == null) 
                     return NotFound("Task not found");
 
 
-                taskToUpdate.dueDate = task.dueDate;
-                taskToUpdate.taskDescription = task.taskDescription;
-                taskToUpdate.personResponsible = task.personResponsible;
-                taskToUpdate.statusString = task.statusString;
-                taskToUpdate.priorityLevel = task.priorityLevel;
-                taskToUpdate.taskName = task.taskName;
+
+                taskToUpdate.statusString = statusString;
 
                 _dbContext.SaveChanges();
 
