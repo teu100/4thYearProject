@@ -46,11 +46,7 @@ function ViewDone(props) {
         <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
         <View>
-            <View style={styles.Gapfiller}>
-            </View>
-            <View style={styles.Header}>
-                <Text style={styles.pageTitle}>Tasks - Done</Text>
-            </View>
+            
             {
             doneTasks.map((u, i) => {
                 return (

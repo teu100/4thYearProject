@@ -9,7 +9,7 @@ function ViewInProgress(props) {
 
     function handleDone(task){
         task.statusString = "Done";
-        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/api/Tasks', {
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task', {
             method: 'PUT',
             headers:{
                 'Accept': 'application/json',
@@ -69,11 +69,8 @@ function ViewInProgress(props) {
         <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
         <View>
-            <View style={styles.Gapfiller}>
-            </View>
-            <View style={styles.Header}>
-                <Text style={styles.pageTitle}>Tasks - In Progress</Text>
-            </View>
+            
+
             {
             IpTask.map((u, i) => {
                 return (
@@ -95,14 +92,14 @@ function ViewInProgress(props) {
                         <View style={{flexDirection:"row", justifyContent: "space-around"}}>
                             <View >
                                 <Button
-                                    onPress={()=>handleToDo(IpTask[i],"To do")}
+                                    onPress={()=>handleToDo(IpTask[i])}
                                     buttonStyle={styles.LeftButton}
                                     title='To do'/>
                             </View>
                             
                             <View>
                                 <Button
-                                    onPress={()=>handleDone(IpTask[i],"Done")}
+                                    onPress={()=>handleDone(IpTask[i])}
                                     buttonStyle={styles.RightButton}
                                     title='Done'/>
                             </View>

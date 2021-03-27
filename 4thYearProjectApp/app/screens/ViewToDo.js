@@ -48,11 +48,7 @@ function ViewToDo(props) {
         <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
         <View>
-            <View style={styles.Gapfiller}>
-            </View>
-            <View style={styles.Header}>
-                <Text style={styles.pageTitle}>Tasks - To Do</Text>
-            </View>
+            
             {
             toDoTasks.map((u, i) => {
                 return (

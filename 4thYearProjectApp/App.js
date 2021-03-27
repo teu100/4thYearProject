@@ -6,14 +6,15 @@ import ViewImage from './app/screens/ViewImage';
 import ViewToDo from './app/screens/ViewToDo';
 import ViewDone from './app/screens/ViewDone';
 import ViewInProgress from './app/screens/ViewInProgress';
-
+import Tasks from './app/screens/Tasks'
 
 //view is the same as div on 
 export default function App() {
   console.log("App Executed")
 
   return (
-    <ViewInProgress/>
+      <Tasks/>
+    
   );
 }
 
