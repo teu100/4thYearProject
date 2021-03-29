@@ -8,7 +8,6 @@ import {EditTask} from '../components/EditTask';
 import '../index.css';
 
 import Card from '@material-ui/core/Card';
-import { Grid } from "@material-ui/core";
 
 
 import calendar  from '../images/calendar.png'
@@ -49,42 +48,53 @@ const cardTitle = {
     fontSize: 14,
 }
 
-const topCardDetails = {
-    spacing: 8,
-}
-
-const cardDeleteButton = {
-    marginLeft: "right",
-}
 
 
 export default class DndTest extends React.Component {
     constructor(props){
         super(props);
-        this.state = {tasks:[], addTaskShow : false, editTaskShow : false , weather:[]}
+        this.state = {tasks:[], addTaskShow : false, editTaskShow : false , weather:[], isLoaded: false, error: null}
 
 
     }
 
     componentDidMount(){
-        this.refreshList();
-    }
-
-
-    refreshList(){
-        try {
-            fetch('https://localhost:5001/api/Task', {mode:'cors'})
-        .then(response=> response.json())
-        .then(data => 
-            {
-            this.setState({tasks:data})
-            }
-            );
-        } catch (error) {
-            console.log(error)
+    fetch("https://localhost:5001/api/Task")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            tasks: result
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
         }
-        
+      )
     }
+
+
+    // refreshList(){
+    //     try {
+    //         fetch('https://localhost:5001/api/Task', {mode:'cors'})
+    //     .then(response=> response.json())
+    //     .then(data => 
+    //         {
+    //         this.setState({tasks:data})
+    //         }
+    //         );
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+        
+    // }
 
     
 
@@ -128,7 +138,7 @@ export default class DndTest extends React.Component {
 
         for (i = 0; i < this.state.tasks.length; i++)
         {
-            if(this.state.tasks[i].statusString === "In Progress")
+            if(this.state.tasks[i].statusString === "In progress")
             {
                 inProgTask.push(this.state.tasks[i])
                 
@@ -154,17 +164,20 @@ export default class DndTest extends React.Component {
 
     deleteTask(taskID){
         if(window.confirm('Are you sure you want to Delete?')){
-            fetch('https://localhost:44384/api/Task/'+taskID,{
-                method:'DELETE',
-                headers:{
-                    'Accept': 'application/json',
-                    'Content-Type':'application/json'
-                }
-            })
-            window.location.reload()
+            this.componentWillUnmount(taskID)
+            //window.location.reload()
         }
          
 
+    }
+    componentWillUnmount(taskID){
+        fetch('https://localhost:5001/api/Task?id='+taskID,{
+            method:'DELETE',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type':'application/json'
+            }
+        })
     }
     
 
@@ -173,18 +186,23 @@ export default class DndTest extends React.Component {
 
     render() {
 
+        const {error, isLoaded, tasks} = this.state;
         let addTaskClose =() => this.setState({addTaskShow:false})
         let editTaskClose =() => this.setState({editTaskShow:false})
 
 
-        const {task, taskID, taskName, taskPriority, taskDescription, personResponsible} = this.state;
+        const {taskID, taskName, taskPriority, taskDescription, personResponsible} = this.state;
         var dueDate1 =  new Date();
         const todoTasks = this.getTODO();
         const inProgTask = this.getInProg();
         const doneTask =  this.getDoneTask();
         
         console.log(todoTasks)
-        
+        if (error) {
+            return <div>Error: {error.message}</div>;
+          } else if (!isLoaded) {
+            return <div><h1>Loading...</h1></div>;
+          } else {
         return (
             <div className="taskPage">
                  
@@ -205,173 +223,122 @@ export default class DndTest extends React.Component {
                         <Col >
                         <h1 id="ToDO">To do</h1>
                             <Droppable id="To do" style={droppableStyle} >
-                            {todoTasks.map(task=>
-                                <Draggable id={task.taskID} style={{ margin: '8px' }} >
-                                     <div class="card">
-                                        <div class="topDetails">
-                                            <div class="cardID">
-                                                <p>#{task.taskID}</p>
+                                {todoTasks.map(task=>
+                                    <Draggable id={task.taskID} style={{ margin: '8px' }} >
+                                        <Card className={cardRoot}>
+                                            <CardContent>
+                                            <div class="topDetails">
+                                                <div class="cardID">
+                                                    <Typography className={cardTitle} color="textSecondary">#{task.taskID}</Typography>
+                                                </div>
+                                                <div class="dueDate">
+                                                    <img className="calendarIcon" src={calendar} alt="calendarIcon"/>
+                                                    <Typography className="dueDateString">{task.dueDate.substring(0,10)}</Typography>
+                                                    <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
+                                                                    ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}
+                                                    />
+                                                    <EditTask
+                                                        show = {this.state.editTaskShow}
+                                                        onHide = {editTaskClose}
+                                                        taskid = {taskID}
+                                                        taskname = {taskName}
+                                                        taskDescription = {taskDescription}
+                                                        priorityLevel = {taskPriority}
+                                                        personResponsible = {personResponsible}
+                                                        dueDate = {dueDate1}
+                                                    />                                           
+                                                </div>
                                             </div>
-
-                                            <div class="dueDate"> 
-                                                <img className="calendarIcon" src={calendar} alt="calendarIcon"/>
-                                                <p className="dueDateString">{task.dueDate.substring(0,10)}</p>
-                                                <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
-                                                    ,personResponsible:task.personResponsible, dueDate1: task.dueDate  })}/>
-                                                    
-                                                <EditTask
-                                                show = {this.state.editTaskShow}
-                                                onHide = {editTaskClose}
-                                                taskid = {taskID}
-                                                taskname = {taskName}
-                                                taskDescription = {taskDescription}
-                                                priorityLevel = {taskPriority}
-                                                personResponsible = {personResponsible}
-                                                dueDate = {dueDate1}
-                                                />
-                                            
-                                            </div>
-                                            
-                                        </div>
+                                                <Divider />
+                                                <Typography variant="h6" component="h6">{task.taskName}</Typography>
+                                                <Typography variant="body2">{task.taskDescription}</Typography>
+                                            </CardContent>
+                                            <DeleteForeverIcon className="deleteIconButton" onClick={()=>this.deleteTask(task.taskID)}/>
+                                        </Card>
                                         
-                                        <div class="bottomDetails">
-                                            <div class="taskName">
-                                                {task.taskName}
-                                            </div>
-                                        
-                                            <div><p>{task.taskDescription}</p></div>
-                                            {/**<div><p>{task.priorityLevel}</p></div> */}
-                                        </div>
-                                        <div class="deleteIconButton">
-                                            <DeleteForeverIcon  className="deleteIconButton" onClick={()=>this.deleteTask(task.taskID)}></DeleteForeverIcon>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                </Draggable>
+                                    </Draggable>
                                 )}
-                                    <Card className={cardRoot}>
-                                        <CardContent>
-                                            <Grid container spacing="1">
-                                                <Grid item>  {/*textPrimary to have title black*/}
-                                                    <Typography className={cardTitle} color="textSecondary">#1 </Typography>
-                                                </Grid>
-
-                                                <Grid item>
-                                                    <Typography><img className="calendarIcon" src={calendar} alt="calendarIcon"/>2021-09-03</Typography>
-                                                </Grid>
-
-                                                <Grid item>
-                                                    <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true})}/>
-                                                </Grid>
-                                            </Grid>
-                                                    
-                                            
-                                            <Divider />
-                                            <Typography variant="h6" component="h6">
-                                                Task Name
-                                            </Typography>
-                                            <Typography variant="body2">
-                                                Task description will go here.
-                                            </Typography>
-                                        </CardContent>
-                                        <DeleteForeverIcon className="cardDeleteButton"/>
-                                    </Card>
+                                    
                             </Droppable>
                         </Col>
 
                         <Col>
                             <h1>In Progress</h1>
-                            <Droppable id="In Progress" style={droppableStyle} onDrop={this.state.tasks.values}>
-                            {inProgTask.map(task=>
-                                <Draggable id={task.taskID} style={{ margin: '8px' }}>
-                                     <div class="card">
-                                        <div class="topDetails">
-                                            <div class="cardID">
-                                                <p>#{task.taskID}</p>
-                                            </div>
-
-                                            <div class="dueDate">  
-                                                <img className="calendarIcon" src={calendar} alt="calendarIcon"/>
-                                                <p className="dueDateString">{task.dueDate.substring(0,10)}</p>
-                                                <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
-                                                        ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}/>
-                                                        
-                                                    <EditTask
-                                                    show = {this.state.editTaskShow}
-                                                    onHide = {editTaskClose}
-                                                    taskid = {taskID}
-                                                    taskname = {taskName}
-                                                    taskDescription = {taskDescription}
-                                                    priorityLevel = {taskPriority}
-                                                    personResponsible = {personResponsible}
-                                                    dueDate = {dueDate1}
-                                                    />                                       
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="bottomDetails">
-                                            <div class="taskName">
-                                                {task.taskName}
-                                            </div>
-                                        
-                                            <div><p>{task.taskDescription}</p></div>
-                                            <div><p>{task.priorityLevel}</p></div>
-
-                                        </div>
-                                        <div class="deleteIconButton">
-                                            <DeleteForeverIcon  className="deleteIconButton" onClick={()=>this.deleteTask(task.taskID)}></DeleteForeverIcon>
-                                        </div>
-                                    </div>
-                                </Draggable>
+                            <Droppable id="In progress" style={droppableStyle} onDrop={this.state.tasks.values}>
+                                {inProgTask.map(task=>
+                                    <Draggable id={task.taskID} style={{ margin: '8px' }}>
+                                        <Card className={cardRoot}>
+                                            <CardContent>
+                                                <div class="topDetails">
+                                                    <div class="cardID">
+                                                        <Typography className={cardTitle} color="textSecondary">#{task.taskID}</Typography>
+                                                    </div>
+                                                    <div class="dueDate">
+                                                        <img className="calendarIcon" src={calendar} alt="calendarIcon"/>
+                                                        <Typography className="dueDateString">{task.dueDate.substring(0,10)}</Typography>
+                                                        <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
+                                                                        ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}/>
+                                                                        
+                                                                    <EditTask
+                                                                    show = {this.state.editTaskShow}
+                                                                    onHide = {editTaskClose}
+                                                                    taskid = {taskID}
+                                                                    taskname = {taskName}
+                                                                    taskDescription = {taskDescription}
+                                                                    priorityLevel = {taskPriority}
+                                                                    personResponsible = {personResponsible}
+                                                                    dueDate = {dueDate1}
+                                                                    />                                           
+                                                    </div>
+                                                </div>
+                                                <Divider />
+                                                <Typography variant="h6" component="h6">{task.taskName}</Typography>
+                                                <Typography variant="body2">{task.taskDescription}</Typography>
+                                            </CardContent>
+                                            <DeleteForeverIcon className="deleteIconButton" onClick={()=>this.deleteTask(task.taskID)}/>
+                                        </Card>
+                                    </Draggable>
                                 )}
                             </Droppable>
                         </Col>
 
                         <Col>
                             <h1>Done</h1>
-                            <Droppable id="Done" style={droppableStyle}>
-                                
-                            {doneTask.map(task=>
-                                <Draggable id={task.taskID} style={{ margin: '8px' }}>
-                                     <div class="card">
-                                        <div class="topDetails">
-                                            <div class="cardID">
-                                                <p>#{task.taskID}</p>
-                                            </div>
+                            <Droppable id="Done" style={droppableStyle}> 
+                                {doneTask.map(task=>
+                                    <Draggable id={task.taskID} style={{ margin: '8px' }}>
+                                        <Card className={cardRoot}>
+                                            <CardContent>
+                                            <div class="topDetails">
+                                                <div class="cardID">
+                                                    <Typography className={cardTitle} color="textSecondary">#{task.taskID}</Typography>
+                                                </div>
 
-                                            <div class="dueDate">  
-                                                <img className="calendarIcon" src={calendar} alt="calendarIcon"/>
-                                                <p className="dueDateString">{task.dueDate.substring(0,10)}</p>
-                                                <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
-                                                        ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}/>
-                                                <EditTask
-                                                    show = {this.state.editTaskShow}
-                                                    onHide = {editTaskClose}
-                                                    taskid = {taskID}
-                                                    taskname = {taskName}
-                                                    taskDescription = {taskDescription}
-                                                    priorityLevel = {taskPriority}
-                                                    personResponsible = {personResponsible}
-                                                    dueDate = {dueDate1}
-                                                />      
+                                                <div class="dueDate">
+                                                    <img className="calendarIcon" src={calendar} alt="calendarIcon"/>
+                                                    <Typography className="dueDateString">{task.dueDate.substring(0,10)}</Typography>
+                                                    <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
+                                                                    ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}/>
+                                                                    
+                                                                <EditTask
+                                                                show = {this.state.editTaskShow}
+                                                                onHide = {editTaskClose}
+                                                                taskid = {taskID}
+                                                                taskname = {taskName}
+                                                                taskDescription = {taskDescription}
+                                                                priorityLevel = {taskPriority}
+                                                                personResponsible = {personResponsible}
+                                                                dueDate = {dueDate1}
+                                                                />                                           
+                                                </div>
                                             </div>
-                                        </div>
-                                        
-                                        <div class="bottomDetails">
-                                            <div class="taskName">
-                                                {task.taskName}
-                                            </div>
-                                        
-                                            <div><p>{task.taskDescription}</p></div>
-                                            <div><p>{task.priorityLevel}</p></div>
-
-                                        </div>
-                                        <div class="EditDeleteButton">
-                                            <DeleteForeverIcon  className="deleteIconButton" onClick={()=>this.deleteTask(task.taskID)}></DeleteForeverIcon>
-                                        </div>
-                                    </div>
-                                </Draggable>
+                                            <Divider />
+                                            <Typography variant="h6" component="h6">{task.taskName}</Typography>
+                                            <Typography variant="body2">{task.taskDescription}</Typography>
+                                            </CardContent>
+                                            <DeleteForeverIcon className="deleteIconButton" onClick={()=>this.deleteTask(task.taskID)}/>
+                                        </Card>
+                                    </Draggable>
                                 )}
                             </Droppable>
                         </Col>
@@ -395,7 +362,7 @@ export default class DndTest extends React.Component {
     }
 }
 
-
+}
 
 
 

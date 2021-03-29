@@ -17,7 +17,7 @@ export class AddNewTask extends Component {
     }
 
     refreshList(){
-        fetch('https://localhost:44384/api/employee')
+        fetch('https://localhost:5001/api/Employee')
         .then(response=> response.json())
         .then(data => 
             {
@@ -29,22 +29,21 @@ export class AddNewTask extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch('https://localhost:44384/api/task',{
+        fetch('https://localhost:5001/api/Task',{
             method: 'Post',
             headers:{
                 'Accept': 'application/json',
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
-                taskID:null,
-                duedate: event.target.dueDate.value,
+                dueDate: event.target.dueDate.value,
                 taskDescription: event.target.taskDescription.value,
                 personResponsible: event.target.personResponsible.value,
                 statusString: 'To do',
                 employeeID: 6,
                 compID: 1,
                 deptID: 2,
-                priorityLevel:event.target.priority.value,
+                priorityLevel: event.target.priority.value,
                 taskName: event.target.taskName.value
 
             })

@@ -36,11 +36,11 @@ export default function TabViewExample() {
 
   return (
       <>
-      <Text>why</Text>
-      <Text>why</Text>
-      <Text>why</Text>
-      <Text>why</Text>
-      <Text>why</Text>
+      <Text>Temp Gap filler.</Text>
+      <Text>Temp Gap filler.</Text>
+      <Text>Temp Gap filler.</Text>
+      <Text>Temp Gap filler.</Text>
+      <Text>Temp Gap filler.</Text>
     <TabView
       navigationState={{ index, routes }}
       renderScene={renderScene}

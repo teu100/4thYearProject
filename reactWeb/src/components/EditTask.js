@@ -13,15 +13,15 @@ export class EditTask extends Component {
 
 
 
-    refreshList(){
-        fetch('https://localhost:44384/api/employee')
-        .then(response=> response.json())
-        .then(data => 
-            {
-            this.setState({emps:data})
-            }
-            );
-    }
+    // refreshList(){
+    //     fetch('https://localhost:44384/api/employee')
+    //     .then(response=> response.json())
+    //     .then(data => 
+    //         {
+    //         this.setState({emps:data})
+    //         }
+    //         );
+    // }
 
 
     handleSubmit(event) {
