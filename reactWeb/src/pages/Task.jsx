@@ -11,7 +11,7 @@ import Card from '@material-ui/core/Card';
 
 
 import calendar  from '../images/calendar.png'
-
+import AddIcon from '@material-ui/icons/Add';
 //import {DeleteForeverIcon} from '@material-ui/icons';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
@@ -164,20 +164,17 @@ export default class DndTest extends React.Component {
 
     deleteTask(taskID){
         if(window.confirm('Are you sure you want to Delete?')){
-            this.componentWillUnmount(taskID)
-            //window.location.reload()
+            fetch('https://localhost:5001/api/Task?id='+taskID,{
+                method:'DELETE',
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type':'application/json'
+                }
+            })
+            window.location.reload()
         }
          
 
-    }
-    componentWillUnmount(taskID){
-        fetch('https://localhost:5001/api/Task?id='+taskID,{
-            method:'DELETE',
-            headers:{
-                'Accept': 'application/json',
-                'Content-Type':'application/json'
-            }
-        })
     }
     
 
@@ -213,7 +210,7 @@ export default class DndTest extends React.Component {
                         <ButtonToolbar>
                             <Button 
                             variant="primary" 
-                            onClick={()=> this.setState({addTaskShow: true})}>New Task + </Button>
+                            onClick={()=> this.setState({addTaskShow: true})}>New Task <AddIcon/> </Button>
                             <AddNewTask 
                             show={this.state.addTaskShow} 
                             onHide={addTaskClose}/>
