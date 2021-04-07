@@ -1,0 +1,33 @@
+My first major issue on react native was that I wasnt being able to call my localhost api,I googled every solution possible.
+Methods tried:
+	- Use your computer ip address instead of "localHost"
+	- Use "10.0.0.2" as it was the phone ip address
+	- Also downloaded ngrok so I could change the address of my localHost but still didnt work
+	- I tried making it a http request instead of https to see if it would work in the android simulator, as IOS dont allow http request as they are unsecure
+Method that fixed it:
+	- re done my api project as my old api project as it was a .NET framework project where i need a .NET Core web API
+	- In my new project I used "" instead of sql queries like my last API
+	- With my new api project I got a swagger page which is really nice as it was something i didnt have before with the other project
+	- So, after getting all my queries to work in my new project I tried once again to connect react native to localhost then 
+	- this was when I discovered that it wasnt my api that was the problem but something to do with react
+	- After that I published my project in azure and react native was successfully able to connect to it and get result
+Another problem I had was that I couldnt react native to call my api to move the task to a different column on the press of a button
+Method tried:	
+	- Pass in the id and the new statusColumn
+		- The problem I had here was that I curl from swagger was saying that -H "accept: text/plain"
+	- Pass in the whole task and status string
+		-  Same problem as above
+Method that fixed it:
+	- Created a method that took in the task and statusString and called the put api to move a task
+	- I passed in the whole object alone to the api but in the method that is calling the put request I set the statusString of the task object to wherever I want
+	- Leave all the other vars as it is, and that worked
+After getting that to work I ran into another problem which was that now that i am being able to pass the tasks I needed a way to refresh the list of task after I moved a task
+Methods tried:
+	- I tried to look for solution that could refresh the mobile page but it seem over the top so I didnt event try it
+	- I tried making a method that called the useEffect method again which is useEffect but that didnt work and was giving me an error
+	- With that I couldnt solve the error 
+Method that fixed the problem:
+	- I looked for a way to call the useEffect method inside a method, wasnt finding a solution
+	- So I decided to read more about the useEffect method
+	- I discover that I could pass the array that the useEffect method depended on as a second argument
+	- Doing so useEffect would be called on it once a task changes 

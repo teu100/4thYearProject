@@ -1,0 +1,149 @@
+.card{
+   margin-bottom: 10px;
+}
+.TaskForm{
+  text-emphasis-color: white;
+}
+
+.CompanyDetails{
+  overflow: auto;
+}
+.companyText{
+  text-align: left;
+  float: left;
+}
+.companyText dt{
+  font-weight: bold;
+}
+.companyPicture{
+  display:block;
+  float: right;
+}
+
+.card{
+  border-radius: 5px;
+  background-color: lightgray;
+  text-align: left;
+}
+
+.topDetails{
+  overflow: hidden;
+  border-bottom-style: solid;
+  border-color: white;
+}
+
+.cardID{
+  float: left;
+  color: black;
+}
+
+.dueDate{
+  float: right;
+  
+}
+
+.calendarIcon{
+  padding-top: 4px;
+  padding-right: 2px;
+  float: left;
+}
+
+.dueDateString{
+  margin: 0px;
+  max-width: 100%;
+  float: left;
+  overflow: auto;
+}
+
+.bottomDetails{
+  text-align: center;
+}
+
+.taskName{
+  font-weight: bold;
+}
+
+.taskColumns{
+  max-width: 80%;
+  position: relative;
+  margin-left: auto;
+}
+
+.taskPage{
+  background-color: #f6f6f6;
+}
+
+
+
+.myNavBarCSS ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: lightgrey;
+}
+
+.myNavBarCSS li{
+  float: left;
+}
+
+.myNavBarCSS li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.myNavBarCSS li a:hover {
+  background-color: rgb(138, 138, 138);
+}
+
+
+
+.myFooter ul{
+  list-style-type: none;
+}
+
+.myFooter ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: lightgrey;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.myFooter li{
+  float: left;
+}
+
+.myFooter li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.myFooter li a:hover {
+  background-color: rgb(138, 138, 138);
+}
+
+
+
+.userPage{
+  height: 100vh;
+  background-color: #f6f6f6;
+
+}
+
+.deleteIconButton{
+  float: right;
+}
+
+.editIconButton{
+  margin-left: 60px;
+}
