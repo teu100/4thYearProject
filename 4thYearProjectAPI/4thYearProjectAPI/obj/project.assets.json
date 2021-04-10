@@ -6098,11 +6098,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mateu\\Documents\\College\\my-project-app\\Project\\4thYearProject\\4thYearProjectAPI\\4thYearProjectAPI\\4thYearProjectAPI.csproj",
+      "projectUniqueName": "C:\\Users\\mateu\\Documents\\College\\my-project-app\\Project\\4thYearProject\\4thYearProject\\4thYearProjectAPI\\4thYearProjectAPI\\4thYearProjectAPI.csproj",
       "projectName": "4thYearProjectAPI",
-      "projectPath": "C:\\Users\\mateu\\Documents\\College\\my-project-app\\Project\\4thYearProject\\4thYearProjectAPI\\4thYearProjectAPI\\4thYearProjectAPI.csproj",
+      "projectPath": "C:\\Users\\mateu\\Documents\\College\\my-project-app\\Project\\4thYearProject\\4thYearProject\\4thYearProjectAPI\\4thYearProjectAPI\\4thYearProjectAPI.csproj",
       "packagesPath": "C:\\Users\\mateu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mateu\\Documents\\College\\my-project-app\\Project\\4thYearProject\\4thYearProjectAPI\\4thYearProjectAPI\\obj\\",
+      "outputPath": "C:\\Users\\mateu\\Documents\\College\\my-project-app\\Project\\4thYearProject\\4thYearProject\\4thYearProjectAPI\\4thYearProjectAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mateu\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import { Button as Button1, TextInput, Snackbar  } from 'react-native-paper'
 
 function ViewToDo(props) {
 
@@ -42,13 +43,18 @@ function ViewToDo(props) {
         .finally(() => setLoading(false));
     }, [toDoTasks]);
 
-
-
+    //console.log(props.navigate)
     return (
         <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
         <View>
             
+        <Button1 
+            mode='contained'
+            onPress={()=> props.navigate.push('newTask')}
+            >
+            New Task
+        </Button1 >
             {
             toDoTasks.map((u, i) => {
                 return (
@@ -91,16 +97,9 @@ function ViewToDo(props) {
 export default ViewToDo;
 
 const styles = StyleSheet.create({
-    Gapfiller:{
-        width: "100%",
-        height: 70,
-        backgroundColor: "white",
-        alignItems: "center",
-        bottom: 5,
-    },
     RightButton:{
         marginRight: 10,
-        marginLeft: 178
+        marginLeft: 200
     },
     LeftButton:{
     },

@@ -6,19 +6,20 @@ import ViewDone from './ViewDone';
 import ViewInProgress from './ViewInProgress';
 import ViewToDo from './ViewToDo';
 
-const FirstRoute = () => (
-  <ViewToDo />
-);
 
-const SecondRoute = () => (
-  <ViewInProgress />
-);
 
-const ThirdRoute = () => (
-    <ViewDone />
+export default function TabViewExample({navigation}) {
+  const FirstRoute = () => (
+    <ViewToDo navigate={navigation}/>
   );
-
-export default function TabViewExample() {
+  
+  const SecondRoute = () => (
+    <ViewInProgress />
+  );
+  
+  const ThirdRoute = () => (
+      <ViewDone />
+    );
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);

@@ -117,13 +117,6 @@ function ViewInProgress(props) {
 export default ViewInProgress;
 
 const styles = StyleSheet.create({
-    Gapfiller:{
-        width: "100%",
-        height: 70,
-        backgroundColor: "white",
-        alignItems: "center",
-        bottom: 5,
-    },
     RightButton:{
         marginRight: 10,
         marginLeft: 178
