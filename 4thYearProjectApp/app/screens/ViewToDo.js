@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import { Button as Button1, TextInput, Snackbar  } from 'react-native-paper'
+import EditTask from './EditTask';
 
 function ViewToDo(props) {
 
@@ -30,6 +31,9 @@ function ViewToDo(props) {
             })
         })
         .catch((error) => console.error(error))
+    }
+    function EditTask(){
+        
     }
 
 
@@ -67,7 +71,9 @@ function ViewToDo(props) {
                                 <Text>Due Date: {toDoTasks[i].dueDate.substring(0,10)}</Text>
                             </View>
                         </View>
-                        <Card.Title>{toDoTasks[i].taskName}</Card.Title>
+                        <Button1 mode='text' compact={true} onPress={()=> props.navigate.push('taskEdit',toDoTasks[i])}>
+                            <Card.Title>{toDoTasks[i].taskName}</Card.Title>
+                        </Button1>
                         <Card.Divider/>
                         <View style={styles.description}>
                             <Text >{toDoTasks[i].taskDescription}</Text>

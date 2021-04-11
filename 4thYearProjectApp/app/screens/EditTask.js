@@ -4,16 +4,16 @@ import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView } from 'react-n
 import { Button, TextInput, Snackbar  } from 'react-native-paper'
 import { DatePickerModal  } from 'react-native-paper-dates'
 
-export default function NewTask() {
+export default function EditTask(props) {
 
     const [checked, setChecked] = React.useState(false);
     const [visible, setVisible] = React.useState(false);
-    const [taskTitle, settaskTitle] = React.useState('');
-    const [taskDescription, settaskDescription] = React.useState('');
-    const [taskPriority, settaskPriority] = React.useState('');
+    const [taskTitle, settaskTitle] = React.useState(props.route.params.taskName);
+    const [taskDescription, settaskDescription] = React.useState(props.route.params.taskDescription);
+    const [taskPriority, settaskPriority] = React.useState(props.route.params.priorityLevel);
     const date = new Date();
 
-
+ 
 
   const onDismiss = React.useCallback(() => {
     setVisible(false)
@@ -45,12 +45,13 @@ export default function NewTask() {
                 alert('Please input a description.')
             }else{
                 fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task',{
-                method: 'Post',
+                method: 'PUT',
                 headers:{
                     'Accept': 'application/json',
                     'Content-Type':'application/json'
                 },
                 body:JSON.stringify({
+                    taskID: props.route.params.taskID,
                     dueDate: date,
                     taskDescription: taskDescription,
                     personResponsible: 'Mateus',
@@ -67,7 +68,7 @@ export default function NewTask() {
             .then(res=> res.json)
             .then((result)=>
             {
-                alert('Added Successfully');
+                alert('Updated Successfully');
             },
             (error)=>{
                 alert('Failed')
@@ -79,26 +80,20 @@ export default function NewTask() {
             alert('Failed.')
         }
     }
-    function checkPriority(){
-        if(priority == 'Low'){
-            priority = 'Low';
-        }
-        else if(priority == 'Medium'){
-            priority = 'Medium';
-        }
-        else if(priority == 'Large'){
-            priority = 'Large';
-        }
-        else{
-            return<>
-            <Text>Invalid Option</Text>
-            </>;
-        }
-    }
+console.log();
   return (
     <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
             <View>
+                <View style={styles.taskID}>
+                    <TextInput
+                        label='Task ID'
+                        mode='outlined'
+                        value={props.route.params.taskID.toString()}
+                        disabled={true}
+                        
+                    />
+                </View>
                 <View style={styles.taskTitle}>
                     <TextInput
                         placeholder='Task Title'
@@ -150,7 +145,7 @@ export default function NewTask() {
                 <Button 
                     mode='contained'
                     onPress={()=> handleSubmit()}>
-                        Submit
+                        Update New Task
                     </Button >
                 </View>
             </View>  
@@ -163,6 +158,9 @@ const styles = StyleSheet.create({
     container:{
         margin: 10,
         height: '100%',
+    },
+    taskID:{
+        marginBottom: 50,
     },
     taskTitle:{
         marginBottom: 50,

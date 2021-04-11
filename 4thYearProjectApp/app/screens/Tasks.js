@@ -8,18 +8,19 @@ import ViewToDo from './ViewToDo';
 
 
 
+const ThirdRoute = () => (
+    <ViewDone />
+  );
+
+  
 export default function TabViewExample({navigation}) {
   const FirstRoute = () => (
     <ViewToDo navigate={navigation}/>
   );
-  
   const SecondRoute = () => (
-    <ViewInProgress />
+    <ViewInProgress navigate={navigation}/>
   );
-  
-  const ThirdRoute = () => (
-      <ViewDone />
-    );
+
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);

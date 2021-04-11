@@ -10,6 +10,7 @@ import Tasks from './app/screens/Tasks'
 import Header from './app/screens/Components/header'
 import NewTask from './app/screens/NewTask';
 import {TaskStack} from './routes/TaskStack';
+import EditTask from './app/screens/EditTask';
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -26,8 +27,9 @@ export default function App() {
       <AuthStack.Screen name="Tasks" component={Tasks}/>
       <AuthStack.Screen name="taskToDo" component={ViewToDo}/>
         
-        
-        <AuthStack.Screen name="newTask" component={NewTask}/>
+        <AuthStack.Screen name="newTask" component={NewTask} options={{ title: 'New Task' }}/>
+        <AuthStack.Screen name="taskEdit" component={EditTask} options={{ title: 'Edit Task' }}/>
+
       </AuthStack.Navigator>
     </NavigationContainer>
       
