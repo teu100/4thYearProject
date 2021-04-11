@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, {useEffect} from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 
 import { Button, TextInput, Snackbar  } from 'react-native-paper'
@@ -11,7 +11,10 @@ export default function EditTask(props) {
     const [taskTitle, settaskTitle] = React.useState(props.route.params.taskName);
     const [taskDescription, settaskDescription] = React.useState(props.route.params.taskDescription);
     const [taskPriority, settaskPriority] = React.useState(props.route.params.priorityLevel);
-    const date = new Date();
+    const [date, setDate] = React.useState(new Date());
+
+    useEffect(() => {
+    }, [date])
 
  
 
@@ -22,7 +25,8 @@ export default function EditTask(props) {
   const onConfirm = React.useCallback(
     (params) => {
       setVisible(false);
-        console.log(date)
+      setDate(params.date);
+
     },
     [setVisible]
   );

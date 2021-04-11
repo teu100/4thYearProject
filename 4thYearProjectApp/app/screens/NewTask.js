@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, {useEffect} from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 
 import { Button, TextInput, Snackbar  } from 'react-native-paper'
@@ -11,8 +11,10 @@ export default function NewTask() {
     const [taskTitle, settaskTitle] = React.useState('');
     const [taskDescription, settaskDescription] = React.useState('');
     const [taskPriority, settaskPriority] = React.useState('');
-    const date = new Date();
+    const [date, setDate] = React.useState(new Date());
 
+    useEffect(() => {
+    }, [date])
 
 
   const onDismiss = React.useCallback(() => {
@@ -22,7 +24,7 @@ export default function NewTask() {
   const onConfirm = React.useCallback(
     (params) => {
       setVisible(false);
-        console.log(date)
+      setDate(params.date);        
     },
     [setVisible]
   );
@@ -79,22 +81,7 @@ export default function NewTask() {
             alert('Failed.')
         }
     }
-    function checkPriority(){
-        if(priority == 'Low'){
-            priority = 'Low';
-        }
-        else if(priority == 'Medium'){
-            priority = 'Medium';
-        }
-        else if(priority == 'Large'){
-            priority = 'Large';
-        }
-        else{
-            return<>
-            <Text>Invalid Option</Text>
-            </>;
-        }
-    }
+
   return (
     <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
@@ -136,8 +123,8 @@ export default function NewTask() {
                         date={date}
                         onConfirm={onConfirm}
                         validRange={{
-                        startDate: new Date(),  // optional
-                        }}
+                            startDate: new Date(),  // optional
+                            }}
                     />
                     <Button 
                     mode='outlined'

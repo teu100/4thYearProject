@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView, Alert } from 'react-native'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import { Button as Button1, TextInput, Snackbar  } from 'react-native-paper'
 import EditTask from './EditTask';
@@ -32,9 +32,31 @@ function ViewToDo(props) {
         })
         .catch((error) => console.error(error))
     }
-    function EditTask(){
-        
+    function deleteAlert(id){
+        Alert.alert(
+            "Alert Title",
+            "My Alert Msg",
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              },
+              { text: "OK", onPress: () => deleteTask(id) }
+            ]
+          );
     }
+
+    function deleteTask(id){
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task?id='+id,{
+                method:'DELETE',
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type':'application/json'
+                }
+            })
+    }
+ 
 
 
 
@@ -89,6 +111,15 @@ function ViewToDo(props) {
                                     title='In Progress'/>
                             </View>
                         </View>
+                        <Card.Divider/>
+                        <Icon 
+                            name='trash'
+                            type='font-awesome-5'
+                            color='#517fa4'
+                            onPress={() => deleteAlert(toDoTasks[i].taskID)}
+                            style={styles.deleteButton}
+                            size={16}
+                        />
                     </Card>
                 );
             })
@@ -105,7 +136,8 @@ export default ViewToDo;
 const styles = StyleSheet.create({
     RightButton:{
         marginRight: 10,
-        marginLeft: 200
+        marginLeft: 200,
+        marginBottom: 5,
     },
     LeftButton:{
     },
@@ -122,5 +154,8 @@ const styles = StyleSheet.create({
     },
     pageTitle:{
         fontWeight: "bold"
+    },
+    deleteButton:{
+        alignItems: 'flex-start',
     }
 })

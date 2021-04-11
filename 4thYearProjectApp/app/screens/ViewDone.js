@@ -77,6 +77,15 @@ function ViewDone(props) {
                                 
                             </View>
                         </View>
+                        <Card.Divider/>
+                        <Icon 
+                            name='trash'
+                            type='font-awesome-5'
+                            color='#517fa4'
+                            onPress={() => deleteTask()}
+                            style={styles.deleteButton}
+                            size={16}
+                        />
                     </Card>
                 );
             })
@@ -110,5 +119,8 @@ const styles = StyleSheet.create({
     },
     pageTitle:{
         fontWeight: "bold"
+    },
+    deleteButton:{
+        alignItems: 'flex-start',
     }
 })
