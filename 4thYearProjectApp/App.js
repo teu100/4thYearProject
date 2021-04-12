@@ -18,6 +18,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import TryNavTab from './app/screens/NavTabforApps'
 
+import PieChartExample from  './app/screens/PieChartExample'
+
 function WelcomeScreen1({navigation}){
   return (
     <WelcomeScreen navigate={navigation}/>
@@ -27,6 +29,12 @@ function WelcomeScreen1({navigation}){
 function Tasks1({navigation}){
   return (
     <TryNavTab navigate={navigation} />
+  )
+}
+
+function PieChartExample1({naviagtion}){
+  return (
+    <PieChartExample />
   )
 }
 
@@ -40,6 +48,7 @@ export default function App() {
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={WelcomeScreen1} />
         <Drawer.Screen name="Tasks" component={Tasks1} />
+        <Drawer.Screen name="Chart" component={PieChartExample1} />
       </Drawer.Navigator>
     </NavigationContainer>
       
