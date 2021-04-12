@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView, Alert } from 'react-native'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
-import { Button as Button1, TextInput, Snackbar  } from 'react-native-paper'
+import { Button as Button1 } from 'react-native-paper'
 import EditTask from './EditTask';
 
 function ViewToDo(props) {
@@ -34,8 +34,8 @@ function ViewToDo(props) {
     }
     function deleteAlert(id){
         Alert.alert(
-            "Alert Title",
-            "My Alert Msg",
+            "Delete Task #"+id,
+            "Are you sure you want to delete task "+id+"  ?",
             [
               {
                 text: "Cancel",
@@ -156,6 +156,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     deleteButton:{
-        alignItems: 'flex-start',
+        alignItems: 'center',
     }
 })

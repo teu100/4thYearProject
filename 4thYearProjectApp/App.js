@@ -15,6 +15,8 @@ import EditTask from './app/screens/EditTask';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import TryNavTab from './app/screens/NavTabforApps'
+
 
 //view is the same as div on 
 export default function App() {
@@ -23,14 +25,7 @@ export default function App() {
   const AuthStack = createStackNavigator();
   return (
     <NavigationContainer>
-      <AuthStack.Navigator>
-      <AuthStack.Screen name="Tasks" component={Tasks}/>
-      <AuthStack.Screen name="taskToDo" component={ViewToDo}/>
-        
-        <AuthStack.Screen name="newTask" component={NewTask} options={{ title: 'New Task' }}/>
-        <AuthStack.Screen name="taskEdit" component={EditTask} options={{ title: 'Edit Task' }}/>
-
-      </AuthStack.Navigator>
+      <TryNavTab />
     </NavigationContainer>
       
 

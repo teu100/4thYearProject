@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView, Alert } from 'react-native'
+import { Card, Button, Icon } from 'react-native-elements'
+import { Button as Button1} from 'react-native-paper'
 
 function ViewDone(props) {
 
@@ -40,6 +41,30 @@ function ViewDone(props) {
         .finally(() => setLoading(false));
     }, [doneTasks]);
 
+    function deleteAlert(id){
+        Alert.alert(
+            "Delete Task #"+id,
+            "Are you sure you want to delete task "+id+"  ?",
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              },
+              { text: "OK", onPress: () => deleteTask(id) }
+            ]
+          );
+    }
+
+    function deleteTask(id){
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task?id='+id,{
+                method:'DELETE',
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type':'application/json'
+                }
+            })
+    }
     
 
     return (
@@ -59,7 +84,9 @@ function ViewDone(props) {
                                 <Text>{doneTasks[i].dueDate}</Text>
                             </View>
                         </View>
-                        <Card.Title>{doneTasks[i].taskName}</Card.Title>
+                        <Button1 mode='text' compact={true} onPress={()=> props.navigate.push('taskEdit',doneTasks[i])}>
+                            <Card.Title>{doneTasks[i].taskName}</Card.Title>
+                        </Button1>
                         <Card.Divider/>
                         <View style={styles.description}>
                             <Text>{doneTasks[i].taskDescription}</Text>
@@ -82,7 +109,7 @@ function ViewDone(props) {
                             name='trash'
                             type='font-awesome-5'
                             color='#517fa4'
-                            onPress={() => deleteTask()}
+                            onPress={() => deleteAlert(doneTasks[i].taskID)}
                             style={styles.deleteButton}
                             size={16}
                         />
@@ -121,6 +148,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     deleteButton:{
-        alignItems: 'flex-start',
+        alignItems: 'center',
     }
 })
