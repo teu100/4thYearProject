@@ -194,7 +194,6 @@ export default class DndTest extends React.Component {
         const inProgTask = this.getInProg();
         const doneTask =  this.getDoneTask();
         
-        console.log(todoTasks)
         if (error) {
             return <div>Error: {error.message}</div>;
           } else if (!isLoaded) {

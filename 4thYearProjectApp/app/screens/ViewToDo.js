@@ -70,6 +70,7 @@ function ViewToDo(props) {
     }, [toDoTasks]);
 
     //console.log(props.navigate)
+    
     return (
         <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>

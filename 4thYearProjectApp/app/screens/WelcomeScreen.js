@@ -1,18 +1,16 @@
 import React from 'react';
-import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, Text, View, Button } from 'react-native';
 
 function WelcomeScreen(props) {
     return (
-        <ImageBackground 
-        style={styles.background}
-        source={require("../assets/BackgroundImage.jpg")}>
-            <View style={styles.LogoContainer}>
-                <Image style={styles.logo} source={require("../assets/CompanyIcon.png")}/>
-                <Text>Managing your Tasks, made simple</Text>
-            </View>
-            <View style={styles.loginButton}>Login</View>
-            <View style={styles.RegisterButton}>Register</View>
-        </ImageBackground>
+        <>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button
+        onPress={() => console.log('Notifications')}
+        title="Go to notifications"
+      />
+    </View>
+        </>
     );
 }
 

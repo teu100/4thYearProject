@@ -14,18 +14,33 @@ import EditTask from './app/screens/EditTask';
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import TryNavTab from './app/screens/NavTabforApps'
 
+function WelcomeScreen1({navigation}){
+  return (
+    <WelcomeScreen navigate={navigation}/>
+  )
+}
+
+function Tasks1({navigation}){
+  return (
+    <TryNavTab navigate={navigation} />
+  )
+}
+
+const Drawer = createDrawerNavigator();
 
 //view is the same as div on 
 export default function App() {
   console.log("App Executed")
-
-  const AuthStack = createStackNavigator();
   return (
     <NavigationContainer>
-      <TryNavTab />
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={WelcomeScreen1} />
+        <Drawer.Screen name="Tasks" component={Tasks1} />
+      </Drawer.Navigator>
     </NavigationContainer>
       
 
