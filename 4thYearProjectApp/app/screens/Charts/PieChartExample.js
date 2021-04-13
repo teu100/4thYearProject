@@ -32,26 +32,48 @@ class PieChartExample extends React.PureComponent {
         }
       }
       chartPress(chartPress){
-        console.log("Chart was pressed", chartPress)
+        if(chartPress.toString() === "Todo"){
+          this.props.navigation.navigate.navigate('Tasks', 
+            {screen: 'Tasks',
+            params :{
+              screen: 'Todo'
+            }
+          });
+        }
+        else if(chartPress.toString() === "InProg"){
+          this.props.navigation.navigate.navigate('Tasks', 
+            {screen: 'Tasks',
+            params :{
+              screen: 'InProg'
+            }
+          });
+        }
+        else if(chartPress.toString() === "Done"){
+          this.props.navigation.navigate.navigate('Tasks', 
+            {screen: 'Tasks',
+            params :{
+              screen: 'Done'
+            }
+          });
+        }
+        else{
+          console.log("ifs not working ");
+        }
+        /*This brings the User to the In progress Tab
+        this.props.navigation.navigate.navigate('Tasks', 
+        {screen: 'Tasks',
+        params :{
+          screen: 'InProg'
+        }
+      });*/
       }
 
     render() {
         const { data, isLoading } = this.state;
-        const randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(0, 7)
-        const colours = ['blue','orange','green']
-        const taskData = [data[0],data[1],data[2]];
-        const pieData = taskData
-            .filter((value) => value > 0)
-            .map((value, index) => ({
-                value,
-                svg: {
-                    fill: randomColor(),
-                    onPress: () => this.chartPress(),
-                },
-                key: `pie-${index}`,
-            }))
 
-            const tryData = [
+      //console.log("from welcome screen 1: ");
+      //onPress={()=> props.navigate.push('taskEdit',toDoTasks[i])}
+            const taskData = [
                 {   key: 'tdCount',
                     value: data[0],
                     svg: { fill: '#0000FF', onPress: () => this.chartPress('Todo') }
@@ -66,19 +88,7 @@ class PieChartExample extends React.PureComponent {
                 }]
  
         return (
-            <>
-                <Text>A</Text>
-                <Text>A</Text>
-                <Text>A</Text>
-                <Text>A</Text>
-                <Text>A</Text>
-                <Text>A</Text>
-                <Text>A</Text>
-                <Text>{}</Text>
-
-                <PieChart style={{ height: 200 }} data={tryData} />
-            </>
-
+            <PieChart style={{ height: 200 }} data={taskData} />
         )
         
     }

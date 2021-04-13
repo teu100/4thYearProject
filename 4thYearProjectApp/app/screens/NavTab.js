@@ -28,7 +28,7 @@ function DoneScreen({navigation}){
 
 const Tab = createBottomTabNavigator();
 
-function TryNavTabs(){
+function NavTabs(){
     return(
         <Tab.Navigator 
         initialRouteName="TodoScreen"
@@ -65,4 +65,4 @@ function TryNavTabs(){
     )
 }
 
-export default TryNavTabs;
+export default NavTabs;

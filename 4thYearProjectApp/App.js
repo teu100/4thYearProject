@@ -16,9 +16,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import TryNavTab from './app/screens/NavTabforApps'
+import NavTabs from './app/screens/NavTabforApps'
 
-import PieChartExample from  './app/screens/PieChartExample'
+import PieChartExample from  './app/screens/Charts/PieChartExample'
 
 function WelcomeScreen1({navigation}){
   return (
@@ -28,7 +28,7 @@ function WelcomeScreen1({navigation}){
 
 function Tasks1({navigation}){
   return (
-    <TryNavTab navigate={navigation} />
+    <NavTabs navigate={navigation} />
   )
 }
 
