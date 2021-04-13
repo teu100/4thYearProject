@@ -26,46 +26,41 @@ class PieChartExample extends React.PureComponent {
       }
 
       componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props):
-        if (this.props.userID !== prevProps.userID) {
-          this.fetchData(this.props.userID);
-        }
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Count')
+          .then((response) => response.json())
+          .then((json) => {
+            this.setState({ data: json });
+          })
+          .catch((error) => console.error(error))
+          .finally(() => {
+            this.setState({ isLoading: false });
+          });
       }
       chartPress(chartPress){
         if(chartPress.toString() === "Todo"){
-          this.props.navigation.navigate.navigate('Tasks', 
-            {screen: 'Tasks',
+          this.props.navigation.navigation.navigate('Tasks',
+            {screen: 'Tasks', 
             params :{
               screen: 'Todo'
-            }
-          });
+            }});
         }
         else if(chartPress.toString() === "InProg"){
-          this.props.navigation.navigate.navigate('Tasks', 
-            {screen: 'Tasks',
+          this.props.navigation.navigation.navigate('Tasks',
+            {screen: 'Tasks', 
             params :{
               screen: 'InProg'
-            }
-          });
+            }});
         }
         else if(chartPress.toString() === "Done"){
-          this.props.navigation.navigate.navigate('Tasks', 
-            {screen: 'Tasks',
+          this.props.navigation.navigation.navigate('Tasks',
+            {screen: 'Tasks', 
             params :{
               screen: 'Done'
-            }
-          });
+            }});
         }
         else{
           console.log("ifs not working ");
         }
-        /*This brings the User to the In progress Tab
-        this.props.navigation.navigate.navigate('Tasks', 
-        {screen: 'Tasks',
-        params :{
-          screen: 'InProg'
-        }
-      });*/
       }
 
     render() {
@@ -76,15 +71,15 @@ class PieChartExample extends React.PureComponent {
             const taskData = [
                 {   key: 'tdCount',
                     value: data[0],
-                    svg: { fill: '#0000FF', onPress: () => this.chartPress('Todo') }
+                    svg: { fill: '#3366ff', onPress: () => this.chartPress('Todo') }
                 },
                 {key: 'inProgCount',
                 value: data[1],
-                    svg: { fill: '#FFA500', onPress: () => this.chartPress('InProg')  }
+                    svg: { fill: '#ffbf00', onPress: () => this.chartPress('InProg')  }
                 },
                 {key: 'DoneCount',
                 value: data[2],
-                    svg: { fill: '#00FF00', onPress: () => this.chartPress('Done')  }
+                    svg: { fill: '#33cc33', onPress: () => this.chartPress('Done')  }
                 }]
  
         return (

@@ -22,13 +22,9 @@ export default function TryNavTab() {
   return (
       <AuthStack.Navigator>
         <AuthStack.Screen name="Tasks" component={NavTabs}/>
-        <AuthStack.Screen name="taskToDo" component={ViewToDo}/>
         <AuthStack.Screen name="newTask" component={NewTask} options={{ title: 'New Task' }}/>
         <AuthStack.Screen name="taskEdit" component={EditTask} options={{ title: 'Edit Task' }}/>
       </AuthStack.Navigator>
-
-      
-
   );
 }
 

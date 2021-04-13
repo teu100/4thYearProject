@@ -79,6 +79,7 @@ function ViewToDo(props) {
         <Button1 
             mode='contained'
             onPress={()=> props.navigate.push('newTask')}
+            style={styles.newTaskB}
             >
             New Task
         </Button1 >
@@ -158,5 +159,8 @@ const styles = StyleSheet.create({
     },
     deleteButton:{
         alignItems: 'center',
+    },
+    newTaskB:{
+        margin: 10,
     }
 })

@@ -59,7 +59,7 @@ export default function EditTask(props) {
                     dueDate: date,
                     taskDescription: taskDescription,
                     personResponsible: 'Mateus',
-                    statusString: 'To do',
+                    statusString: props.route.params.statusString,
                     employeeID: 6,
                     compID: 1,
                     deptID: 2,
