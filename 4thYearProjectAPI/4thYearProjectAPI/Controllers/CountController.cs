@@ -32,5 +32,14 @@ namespace _4thYearProjectAPI.Controllers
             return Ok(tasksCount);
         }
 
+        [Route("getTaskDueSoon")]
+        [HttpGet]
+        public ActionResult<IEnumerable<Task>> Get(DateTime date)
+        {
+            DateTime fiveDays = date.AddDays(5);
+            var tasks = _dbContext.Task.Where(t => t.dueDate <= fiveDays && t.dueDate > date).ToList();
+            return tasks;
+        }
+
     }
 }

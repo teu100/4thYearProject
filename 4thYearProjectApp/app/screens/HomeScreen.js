@@ -25,6 +25,9 @@ function HomeScreen(props) {
                             </View>
                         </View>
                     </View>
+                    <View>
+                        <TextRNE h3>Tasks due soon: </TextRNE>
+                    </View>
                 </View>
                 
             </ScrollView>

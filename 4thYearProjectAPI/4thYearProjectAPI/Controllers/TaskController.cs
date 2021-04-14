@@ -60,7 +60,7 @@ namespace _4thYearProjectAPI.Controllers
                 var taskToUpdate = _dbContext.Task.FirstOrDefault(t => t.taskID == task.taskID);
                 if (taskToUpdate == null) return NotFound("Task not found");
 
-                taskToUpdate.dueDate = task.dueDate;
+                taskToUpdate.dueDate = task.dueDate.AddDays(1);
                 taskToUpdate.taskDescription = task.taskDescription;
                 taskToUpdate.personResponsible = task.personResponsible;
                 taskToUpdate.statusString = task.statusString;
