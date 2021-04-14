@@ -48,6 +48,7 @@ export class AddNewTask extends Component {
 
             })
         }
+        
         )
         .then(res=> res.json)
         .then((result)=>
@@ -57,6 +58,14 @@ export class AddNewTask extends Component {
         (error)=>{
             alert('Failed')
         })
+
+        window.location.reload()
+    }
+    
+
+    closeModal(){
+        window.location.reload()
+        this.props.onHide();
     }
 
 

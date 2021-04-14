@@ -179,7 +179,10 @@ export default class DndTest extends React.Component {
     
 
     
-    
+    closeModal(){
+        this.state.addTaskShow = false;
+        window.location.reload();
+    }
 
     render() {
 
@@ -212,7 +215,7 @@ export default class DndTest extends React.Component {
                             onClick={()=> this.setState({addTaskShow: true})}>New Task <AddIcon/> </Button>
                             <AddNewTask 
                             show={this.state.addTaskShow} 
-                            onHide={addTaskClose}/>
+                            onHide={()=> this.closeModal()}/>
                         </ButtonToolbar>
                 </div>
                     <Wrapper>

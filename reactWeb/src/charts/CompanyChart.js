@@ -1,6 +1,11 @@
 import React, {Component} from "react";
 
-import CompanyCharts from '../charts/CompanyChart'
+import { Container, Row, Col, Card, ProgressBar } from 'react-bootstrap'
+import { PieChart, Pie, Cell } from "recharts";
+
+
+  const COLORS = ['#0088FE', '#FFBB28' , '#00C49F'];
+
 export class homePage extends Component {
   constructor(props) {
     super(props);
@@ -67,24 +72,35 @@ export class homePage extends Component {
         { name: 'In progress', value: data[1] },
         { name: 'Done', value: data[2] }
       ];
-    
       
     return(
-        <body className="homePage">
-          <div>
-
-            <CompanyCharts />
-
-              <div className="myFooter">
-                      <ul>
-                          <li><a href="/">Task Managment</a></li>
-                          <li><a href="https://github.com/teu100" target="_blank" rel='noreferrer'>GitHub</a></li>
-                      </ul>
-              </div>
+        <body className="chartPie">
+        <div>
+            <p>Company Chart</p>
+            <p>To Do Tasks</p>
+            <p>In progress Tasks</p>
+            <p>Done Tasks</p>
+            <PieChart width={400} height={400}>
+            <Pie
+              data={chartData}
+              cx={200}
+              cy={200}
+              labelLine={false}
+              outerRadius={80}
+              fill="#8884d8"
+              dataKey="value"
+            >
+          {chartData.map((entry, i) => (
+            <Cell key={`cell-${i}`} fill={COLORS[i % COLORS.length]} onClick={()=> console.log('Hello')}/>
+          ))}
+        </Pie>
+      </PieChart>
+      <p>{data[0]}</p>
             </div>
         </body>
     )
     }
+    
 }
 
 export default homePage;
