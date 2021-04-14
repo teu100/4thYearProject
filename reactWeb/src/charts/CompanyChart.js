@@ -3,8 +3,10 @@ import React, {Component} from "react";
 import { Container, Row, Col, Card, ProgressBar } from 'react-bootstrap'
 import { PieChart, Pie, Cell } from "recharts";
 
+import '../charts/styles.css'
 
-  const COLORS = ['#0088FE', '#FFBB28' , '#00C49F'];
+
+const COLORS = ['#0088FE', '#FFBB28' , '#00C49F'];
 
 export class homePage extends Component {
   constructor(props) {
@@ -74,30 +76,40 @@ export class homePage extends Component {
       ];
       
     return(
-        <body className="chartPie">
-        <div>
-            <p>Company Chart</p>
-            <p>To Do Tasks</p>
-            <p>In progress Tasks</p>
-            <p>Done Tasks</p>
-            <PieChart width={400} height={400}>
-            <Pie
-              data={chartData}
-              cx={200}
-              cy={200}
-              labelLine={false}
-              outerRadius={80}
-              fill="#8884d8"
-              dataKey="value"
-            >
-          {chartData.map((entry, i) => (
-            <Cell key={`cell-${i}`} fill={COLORS[i % COLORS.length]} onClick={()=> console.log('Hello')}/>
-          ))}
-        </Pie>
-      </PieChart>
-      <p>{data[0]}</p>
+        <div className="chartPie">
+            <div style={{ borderRadius: '25px',
+                                border: '2px solid #73AD21',
+                                padding: '20px',
+                                width: '350px',
+                                height: '350px',
+                                display: '',
+                                margin: 10,
+                                
+                            }}>
+                <div style={{float: 'left',
+                                }}>
+                    <h2 style={{ margin: 0, marginLeft: 10}}>Company Chart</h2>
+                    <p style={{color: '#0088FE', margin: 0, marginLeft: 10}}>To Do Tasks</p>
+                    <p style={{color: '#FFBB28', margin: 0, marginLeft: 10}}>In progress Tasks</p>
+                    <p style={{color: '#00C49F', margin: 0, marginLeft: 10}}>Done Tasks</p>
+                </div>
+                <PieChart style={{float: 'right', position: 'absolute'}} width={400} height={400}>
+                <Pie
+                data={chartData}
+                cx={200}
+                cy={200}
+                labelLine={false}
+                outerRadius={100}
+                fill="#8884d8"
+                dataKey="value"
+                >
+                {chartData.map((entry, i) => (
+                    <Cell key={`cell-${i}`} fill={COLORS[i % COLORS.length]} />
+                ))}
+                </Pie>
+                </PieChart>
             </div>
-        </body>
+        </div>
     )
     }
     
