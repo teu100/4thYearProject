@@ -73,7 +73,8 @@ export class homePage extends Component {
     
       
     return(
-        <body className="homePage">
+        <body style={{display: 'flex',
+          flexDirection: 'row',}}>
           <div>
             <div>
               <div>

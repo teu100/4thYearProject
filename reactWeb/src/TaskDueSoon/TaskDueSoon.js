@@ -59,7 +59,7 @@ class TaskDueSoon extends React.PureComponent {
         //console.log("Tasks : ",this.state.data)
         if(tasksDueSoon!==0 ){
             return(
-                <div style={{width: '15%', margin: 10, borderRadius: '25px',
+                <div style={{width: '80%', margin: 10, borderRadius: '25px',
                 border: '2px solid #0088FE',
                 padding: '20px',
                 height: borderHeigth,

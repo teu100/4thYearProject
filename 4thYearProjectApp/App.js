@@ -12,6 +12,9 @@ import NavTabs from './app/screens/NavTabforApps'
 import PieChartExample from  './app/screens/Charts/PieChartExample'
 
 import HomeNav from './app/screens/HomeNav'
+
+import Login from './app/screens/LoginRRegistre/Login'
+import RegisterScreen from './app/screens/LoginRRegistre/RegisterScreen'
 function WelcomeScreen1({navigation}){
   return (
     <HomeNav navigate={navigation}/>
@@ -30,6 +33,18 @@ function PieChartExample1({naviagtion}){
   )
 }
 
+function login({navigation}){
+  return (
+    <Login navigate={navigation}/>
+  )
+}
+
+function Register(){
+  return(
+    <RegisterScreen />
+  )
+}
+
 const Drawer = createDrawerNavigator();
 
 //view is the same as div on 
@@ -39,6 +54,8 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={WelcomeScreen1} />
+        <Drawer.Screen name="Login" component={login} />
+        <Drawer.Screen name="Register" component={Register} />
         <Drawer.Screen name="Tasks" component={Tasks1} />
         <Drawer.Screen name="Chart" component={PieChartExample1} />
       </Drawer.Navigator>
