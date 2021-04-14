@@ -3,6 +3,8 @@ import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView, Alert } from '
 import PieChartExample from  './Charts/PieChartExample'
 import { Text as TextRNE } from 'react-native-elements';
 
+import TaskDueSoon from './tasksDueSoon/TasksDueSoon'
+
 
 function HomeScreen(props) {
     return (
@@ -27,6 +29,7 @@ function HomeScreen(props) {
                     </View>
                     <View>
                         <TextRNE h3>Tasks due soon: </TextRNE>
+                        <TaskDueSoon />
                     </View>
                 </View>
                 
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     toDoColor:{
-        color: '#0000FF',
+        color: '#3366ff',
 
     },
     inProgColor:{
