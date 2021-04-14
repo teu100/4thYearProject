@@ -69,7 +69,7 @@ export class homePage extends Component {
     
     render(){
       const { data, isLoading } = this.state;
-      const chartData = [
+      var chartData = [
         { name: 'To do', value: data[0] },
         { name: 'In progress', value: data[1] },
         { name: 'Done', value: data[2] }
@@ -78,7 +78,7 @@ export class homePage extends Component {
     return(
         <div className="chartPie">
             <div style={{ borderRadius: '25px',
-                                border: '2px solid #73AD21',
+                                border: '2px solid #0088FE',
                                 padding: '20px',
                                 width: '350px',
                                 height: '350px',
@@ -88,10 +88,10 @@ export class homePage extends Component {
                             }}>
                 <div style={{float: 'left',
                                 }}>
-                    <h2 style={{ margin: 0, marginLeft: 10}}>Company Chart</h2>
-                    <p style={{color: '#0088FE', margin: 0, marginLeft: 10}}>To Do Tasks</p>
-                    <p style={{color: '#FFBB28', margin: 0, marginLeft: 10}}>In progress Tasks</p>
-                    <p style={{color: '#00C49F', margin: 0, marginLeft: 10}}>Done Tasks</p>
+                    <h2 style={{ margin: 0,}}>Company Chart</h2>
+                    <p style={{color: '#0088FE', margin: 0,}}>To Do Tasks</p>
+                    <p style={{color: '#FFBB28', margin: 0, }}>In progress Tasks</p>
+                    <p style={{color: '#00C49F', margin: 0, }}>Done Tasks</p>
                 </div>
                 <PieChart style={{float: 'right', position: 'absolute'}} width={400} height={400}>
                 <Pie

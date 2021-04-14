@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 
 import CompanyCharts from '../charts/CompanyChart'
+import TaskDueSoon from '../TaskDueSoon/TaskDueSoon'
+
+
 export class homePage extends Component {
   constructor(props) {
     super(props);
@@ -72,9 +75,14 @@ export class homePage extends Component {
     return(
         <body className="homePage">
           <div>
+            <div>
+              <div>
+                <CompanyCharts />
+              </div>
+              
 
-            <CompanyCharts />
-
+              <TaskDueSoon />
+            </div>
               <div className="myFooter">
                       <ul>
                           <li><a href="/">Task Managment</a></li>

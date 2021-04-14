@@ -179,10 +179,12 @@ export default class DndTest extends React.Component {
     
 
     
-    closeModal(){
+    closeAddModal(){
         this.state.addTaskShow = false;
         window.location.reload();
     }
+
+
 
     render() {
 
@@ -191,8 +193,7 @@ export default class DndTest extends React.Component {
         let editTaskClose =() => this.setState({editTaskShow:false})
 
 
-        const {taskID, taskName, taskPriority, taskDescription, personResponsible} = this.state;
-        var dueDate1 =  new Date();
+        const {taskID, taskName, taskPriority, taskDescription, personResponsible, dueDate1, statusString1} = this.state;
         const todoTasks = this.getTODO();
         const inProgTask = this.getInProg();
         const doneTask =  this.getDoneTask();
@@ -215,7 +216,7 @@ export default class DndTest extends React.Component {
                             onClick={()=> this.setState({addTaskShow: true})}>New Task <AddIcon/> </Button>
                             <AddNewTask 
                             show={this.state.addTaskShow} 
-                            onHide={()=> this.closeModal()}/>
+                            onHide={()=> this.closeAddModal()}/>
                         </ButtonToolbar>
                 </div>
                     <Wrapper>
@@ -234,7 +235,7 @@ export default class DndTest extends React.Component {
                                                     <img className="calendarIcon" src={calendar} alt="calendarIcon"/>
                                                     <Typography className="dueDateString">{task.dueDate.substring(0,10)}</Typography>
                                                     <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
-                                                                    ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}
+                                                                    ,personResponsible:task.personResponsible, dueDate: task.dueDate, statusString1: task.statusString  })}
                                                     />
                                                     <EditTask
                                                         show = {this.state.editTaskShow}
@@ -245,6 +246,7 @@ export default class DndTest extends React.Component {
                                                         priorityLevel = {taskPriority}
                                                         personResponsible = {personResponsible}
                                                         dueDate = {dueDate1}
+                                                        statusString = {statusString1}
                                                     />                                           
                                                 </div>
                                             </div>
@@ -276,7 +278,7 @@ export default class DndTest extends React.Component {
                                                         <img className="calendarIcon" src={calendar} alt="calendarIcon"/>
                                                         <Typography className="dueDateString">{task.dueDate.substring(0,10)}</Typography>
                                                         <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
-                                                                        ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}/>
+                                                                        ,personResponsible:task.personResponsible, dueDate: task.dueDate, statusString1: task.statusString  })}/>
                                                                         
                                                                     <EditTask
                                                                     show = {this.state.editTaskShow}
@@ -287,6 +289,7 @@ export default class DndTest extends React.Component {
                                                                     priorityLevel = {taskPriority}
                                                                     personResponsible = {personResponsible}
                                                                     dueDate = {dueDate1}
+                                                                    statusString = {statusString1}
                                                                     />                                           
                                                     </div>
                                                 </div>
@@ -317,7 +320,7 @@ export default class DndTest extends React.Component {
                                                     <img className="calendarIcon" src={calendar} alt="calendarIcon"/>
                                                     <Typography className="dueDateString">{task.dueDate.substring(0,10)}</Typography>
                                                     <EditIcon className="editIconButton" onClick= {()=> this.setState({editTaskShow:true, taskID:task.taskID, taskName:task.taskName,taskPriority:task.priorityLevel, taskDescription:task.taskDescription
-                                                                    ,personResponsible:task.personResponsible, dueDate: task.dueDate  })}/>
+                                                                    ,personResponsible:task.personResponsible, dueDate: task.dueDate, statusString1: task.statusString  })}/>
                                                                     
                                                                 <EditTask
                                                                 show = {this.state.editTaskShow}
@@ -328,6 +331,7 @@ export default class DndTest extends React.Component {
                                                                 priorityLevel = {taskPriority}
                                                                 personResponsible = {personResponsible}
                                                                 dueDate = {dueDate1}
+                                                                statusString = {statusString1}
                                                                 />                                           
                                                 </div>
                                             </div>

@@ -25,8 +25,9 @@ export class EditTask extends Component {
 
 
     handleSubmit(event) {
+        console.log(event);
         event.preventDefault();
-        fetch('https://localhost:44384/api/Task/',{
+        fetch('https://localhost:5001/api/Task',{
             method: 'PUT',
             headers:{
                 'Accept': 'application/json',
@@ -36,6 +37,7 @@ export class EditTask extends Component {
                 taskID:event.target.taskID.value,
                 duedate: event.target.dueDate.value,
                 taskDescription: event.target.taskDescription.value,
+                statusString: event.target.taskStatusString.value,
                 personResponsible: event.target.personResponsible.value,
                 priorityLevel:event.target.priorityLevel.value,
                 taskName: event.target.taskName.value
@@ -51,7 +53,7 @@ export class EditTask extends Component {
             console.log(event.target.taskID.value);
             console.log(event.target.taskName.value);     
             console.log(event.target.dueDate.value);  
-            window.location.reload() 
+            //window.location.reload() 
         },
         (error)=>{
             alert('Failed')
@@ -60,10 +62,13 @@ export class EditTask extends Component {
     }
 
 
+
+
     render() {
 
         const {emps} = this.state;
 
+        //const string = this.props.statusString
         return (
             <Modal
                 {...this.props}
@@ -123,9 +128,7 @@ export class EditTask extends Component {
                             <Form.Label>Person responsible</Form.Label>
                             
                             <Form.Control as="select" defaultValue={this.props.personResponsible}>
-                            {emps.map(emp=>
-                                <option key = {emp.employeeID}>{emp.firstName}</option>
-                            )}
+                                <option>{this.props.personResponsible}</option>
                             </Form.Control>
                             
                         </Form.Group>
@@ -143,6 +146,13 @@ export class EditTask extends Component {
                             </Form.Control>
                         </Form.Group>
                     </Form.Row>
+
+                    <Form.Group controlId="taskStatusString">
+                        <Form.Label>Task Status</Form.Label>
+                        <Form.Control style={{width: 110}} type="text" disabled defaultValue={this.props.statusString}
+                        name="taskStatusString"
+                        />
+                    </Form.Group>
 
                     
 
