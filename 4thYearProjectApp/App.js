@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React , {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { auth } from './firebase';
 
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -15,6 +16,7 @@ import HomeNav from './app/screens/HomeNav'
 
 import Login from './app/screens/LoginRRegistre/Login'
 import RegisterScreen from './app/screens/LoginRRegistre/RegisterScreen'
+
 function WelcomeScreen1({navigation}){
   return (
     <HomeNav navigate={navigation}/>
@@ -33,9 +35,10 @@ function PieChartExample1({naviagtion}){
   )
 }
 
-function login({navigation}){
+import LRStack from './app/screens/LoginRRegistre/LRStack';
+function LRStackStack({navigation}){
   return (
-    <Login navigate={navigation}/>
+    <LRStack navigate={navigation}/>
   )
 }
 
@@ -45,24 +48,57 @@ function Register(){
   )
 }
 
+
 const Drawer = createDrawerNavigator();
+
+
 
 //view is the same as div on 
 export default function App() {
+  const [LoggedInOrNot, setLoggedInOrNot] = useState(true);
+
+React.useEffect(() => {
+  const unsubscribe = auth.onAuthStateChanged((authUser) =>{
+    if(authUser){
+      setLoggedInOrNot(true);
+      return ;
+    }
+    else{
+      setLoggedInOrNot(false);
+      return ;
+    }
+  });
+  return () => {unsubscribe};
+}, [LoggedInOrNot])
+
+
   console.log("App Executed")
+
+  if(LoggedInOrNot === true){
+    console.log("if Logged in : ", LoggedInOrNot);
+    return(
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="HomeScreen">
+        
+          <Drawer.Screen name="HomeScreen" component={WelcomeScreen1} />
+          <Drawer.Screen name="Tasks" component={Tasks1} />
+          <Drawer.Screen name="Login" component={LRStackStack} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+    );
+  }
+  else{
+    console.log("else Logged in : ", LoggedInOrNot);
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={WelcomeScreen1} />
-        <Drawer.Screen name="Login" component={login} />
-        <Drawer.Screen name="Register" component={Register} />
-        <Drawer.Screen name="Tasks" component={Tasks1} />
-        <Drawer.Screen name="Chart" component={PieChartExample1} />
+      <Drawer.Navigator initialRouteName="Login">
+        <Drawer.Screen name="Login" component={LRStackStack} />
+        
       </Drawer.Navigator>
     </NavigationContainer>
       
 
-  );
+  );}
 }
 
 const styles = StyleSheet.create({

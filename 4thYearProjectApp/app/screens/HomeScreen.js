@@ -1,12 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView, Alert } from 'react-native'
 import PieChartExample from  './Charts/PieChartExample'
 import { Text as TextRNE } from 'react-native-elements';
 
 import TaskDueSoon from './tasksDueSoon/TasksDueSoon'
+import { auth } from '../../firebase';
 
 
 function HomeScreen(props) {
+
+    var user = auth.currentUser;
+    if(!user){
+        return(
+            <Text>Please Log in</Text>
+        )
+        
+    }else{
     return (
         <SafeAreaView >
             <ScrollView >
@@ -36,6 +45,7 @@ function HomeScreen(props) {
             </ScrollView>
         </SafeAreaView>
     );
+    }
 }
 
 export default HomeScreen;
