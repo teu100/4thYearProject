@@ -1,8 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 
 import { Button, TextInput, Snackbar  } from 'react-native-paper'
 import { DatePickerModal  } from 'react-native-paper-dates'
+
+import { Picker } from '@react-native-picker/picker';
 
 export default function NewTask() {
 
@@ -12,9 +14,11 @@ export default function NewTask() {
     const [taskDescription, settaskDescription] = React.useState('');
     const [taskPriority, settaskPriority] = React.useState('');
     const [date, setDate] = React.useState(new Date());
+    const [emps, setEmps] = React.useState([]);
+    const [empID , setEmpID] = React.useState(0);
+    const [isLoading, setLoading] = useState(true);
 
-    useEffect(() => {
-    }, [date])
+
 
 
   const onDismiss = React.useCallback(() => {
@@ -29,8 +33,28 @@ export default function NewTask() {
     [setVisible]
   );
 
+
+////api/Employee
+    useEffect(()=>{
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Employee')
+        .then((response) => response.json())
+        .then((json) => setEmps(json))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+    }, [emps]);
     
 
+
+    function getEmpName() {
+        var i;
+        var empName = "";
+        for(i=0; i < emps.length; i++){
+            if(empID === emps[i].employeeID){
+                empName = emps[i].firstName;
+            }
+        }
+        return empName;
+    }
 
 
     function handleSubmit() {
@@ -55,9 +79,9 @@ export default function NewTask() {
                 body:JSON.stringify({
                     dueDate: date,
                     taskDescription: taskDescription,
-                    personResponsible: 'Mateus',
+                    personResponsible: getEmpName(),
                     statusString: 'To do',
-                    employeeID: 6,
+                    employeeID: empID,
                     compID: 1,
                     deptID: 2,
                     priorityLevel: taskPriority,
@@ -132,6 +156,22 @@ export default function NewTask() {
                     onPress={()=> setVisible(true)}>
                         Pick Due Date
                     </Button >
+                </View>
+                <View>
+                    
+                    <Picker selectedValue={empID}
+                            onValueChange={(itemValue, itemIndex) =>
+                                setEmpID(itemValue)
+                            }>
+                                {
+                                    emps.map(emp =>(
+                                        <Picker.Item key={emp.employeeID} value={emp.employeeID} label={emp.firstName} />
+                                    ))}
+                                
+                                    
+                            
+
+                    </Picker>
                 </View>
                 <View>
                 <Button 

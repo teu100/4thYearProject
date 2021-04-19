@@ -10,12 +10,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import NavTabs from './app/screens/NavTabforApps'
 
-import PieChartExample from  './app/screens/Charts/PieChartExample'
 
 import HomeNav from './app/screens/HomeNav'
 
-import Login from './app/screens/LoginRRegistre/Login'
-import RegisterScreen from './app/screens/LoginRRegistre/RegisterScreen'
 
 function WelcomeScreen1({navigation}){
   return (
@@ -29,11 +26,6 @@ function Tasks1({navigation}){
   )
 }
 
-function PieChartExample1({naviagtion}){
-  return (
-    <PieChartExample />
-  )
-}
 
 import LRStack from './app/screens/LoginRRegistre/LRStack';
 function LRStackStack({navigation}){
@@ -42,11 +34,14 @@ function LRStackStack({navigation}){
   )
 }
 
-function Register(){
+
+import Weather from './app/screens/Weather';
+function weather(){
   return(
-    <RegisterScreen />
+    <Weather />
   )
 }
+
 
 
 const Drawer = createDrawerNavigator();
@@ -60,6 +55,7 @@ export default function App() {
 React.useEffect(() => {
   const unsubscribe = auth.onAuthStateChanged((authUser) =>{
     if(authUser){
+      console.log(authUser.toJSON())
       setLoggedInOrNot(true);
       return ;
     }
@@ -76,12 +72,14 @@ React.useEffect(() => {
 
   if(LoggedInOrNot === true){
     console.log("if Logged in : ", LoggedInOrNot);
+
     return(
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="HomeScreen">
         
           <Drawer.Screen name="HomeScreen" component={WelcomeScreen1} />
           <Drawer.Screen name="Tasks" component={Tasks1} />
+          <Drawer.Screen name="Weather" component={weather} />
           <Drawer.Screen name="Login" component={LRStackStack} />
       </Drawer.Navigator>
     </NavigationContainer>

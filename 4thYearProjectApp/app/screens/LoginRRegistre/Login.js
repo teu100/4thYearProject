@@ -13,7 +13,7 @@ const LoginScreen = (props) => {
 
   React.useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) =>{
-      console.log(authUser)
+      
       if(authUser){
         props.navigation.navigate("HomeScreen", {screen: 'HomeScreen', 
         });

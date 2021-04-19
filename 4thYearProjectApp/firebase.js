@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 import "firebase/auth";
+import React, {useState} from 'react'
 
 const firebaseConfig = {
     apiKey: "AIzaSyAvMD1lE0-vl8bBD5pw6PfmEAoNANetpYg",
@@ -18,7 +19,9 @@ const firebaseConfig = {
   }else{
       app = firebase.default.app();
   }
+
   
   const auth = firebase.default.auth();
 
-  export {auth};
+
+  export {auth };
