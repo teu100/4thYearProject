@@ -8,7 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import NavTabs from './app/screens/NavTabforApps'
+import NavTabs from './app/screens/Tasks/NavTabforApps'
 
 
 import HomeNav from './app/screens/HomeNav'

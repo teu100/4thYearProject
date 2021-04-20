@@ -1,10 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import ViewToDo from './ViewToDo';
-import ViewDone from './ViewDone';
-import ViewInProgress from './ViewInProgress';
-import Tasks from './Tasks'
+
 import NewTask from './NewTask';
 import EditTask from './EditTask';
 

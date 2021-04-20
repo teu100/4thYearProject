@@ -1,22 +1,27 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 
 import { Button, TextInput, Snackbar  } from 'react-native-paper'
 import { DatePickerModal  } from 'react-native-paper-dates'
 
-export default function EditTask(props) {
+import { Picker } from '@react-native-picker/picker';
+
+import Weather from '../Weather';
+
+export default function NewTask() {
 
     const [checked, setChecked] = React.useState(false);
     const [visible, setVisible] = React.useState(false);
-    const [taskTitle, settaskTitle] = React.useState(props.route.params.taskName);
-    const [taskDescription, settaskDescription] = React.useState(props.route.params.taskDescription);
-    const [taskPriority, settaskPriority] = React.useState(props.route.params.priorityLevel);
+    const [taskTitle, settaskTitle] = React.useState('');
+    const [taskDescription, settaskDescription] = React.useState('');
+    const [taskPriority, settaskPriority] = React.useState('');
     const [date, setDate] = React.useState(new Date());
+    const [emps, setEmps] = React.useState([]);
+    const [empID , setEmpID] = React.useState(0);
+    const [isLoading, setLoading] = useState(true);
 
-    useEffect(() => {
-    }, [date])
 
- 
+
 
   const onDismiss = React.useCallback(() => {
     setVisible(false)
@@ -25,14 +30,33 @@ export default function EditTask(props) {
   const onConfirm = React.useCallback(
     (params) => {
       setVisible(false);
-      setDate(params.date);
-
+      setDate(params.date);        
     },
     [setVisible]
   );
 
+
+////api/Employee
+    useEffect(()=>{
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Employee')
+        .then((response) => response.json())
+        .then((json) => setEmps(json))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+    }, [emps]);
     
 
+
+    function getEmpName() {
+        var i;
+        var empName = "";
+        for(i=0; i < emps.length; i++){
+            if(empID === emps[i].employeeID){
+                empName = emps[i].firstName;
+            }
+        }
+        return empName;
+    }
 
 
     function handleSubmit() {
@@ -49,18 +73,17 @@ export default function EditTask(props) {
                 alert('Please input a description.')
             }else{
                 fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task',{
-                method: 'PUT',
+                method: 'Post',
                 headers:{
                     'Accept': 'application/json',
                     'Content-Type':'application/json'
                 },
                 body:JSON.stringify({
-                    taskID: props.route.params.taskID,
                     dueDate: date,
                     taskDescription: taskDescription,
-                    personResponsible: 'Mateus',
-                    statusString: props.route.params.statusString,
-                    employeeID: 6,
+                    personResponsible: getEmpName(),
+                    statusString: 'To do',
+                    employeeID: empID,
                     compID: 1,
                     deptID: 2,
                     priorityLevel: taskPriority,
@@ -72,7 +95,7 @@ export default function EditTask(props) {
             .then(res=> res.json)
             .then((result)=>
             {
-                alert('Updated Successfully');
+                alert('Added Successfully');
             },
             (error)=>{
                 alert('Failed')
@@ -84,20 +107,11 @@ export default function EditTask(props) {
             alert('Failed.')
         }
     }
-console.log();
+
   return (
     <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
             <View>
-                <View style={styles.taskID}>
-                    <TextInput
-                        label='Task ID'
-                        mode='outlined'
-                        value={props.route.params.taskID.toString()}
-                        disabled={true}
-                        
-                    />
-                </View>
                 <View style={styles.taskTitle}>
                     <TextInput
                         placeholder='Task Title'
@@ -135,8 +149,8 @@ console.log();
                         date={date}
                         onConfirm={onConfirm}
                         validRange={{
-                        startDate: new Date(),  // optional
-                        }}
+                            startDate: new Date(),  // optional
+                            }}
                     />
                     <Button 
                     mode='outlined'
@@ -144,12 +158,29 @@ console.log();
                     onPress={()=> setVisible(true)}>
                         Pick Due Date
                     </Button >
+                    <Weather dueDate={date}/>
+                </View>
+                <View>
+                    <Text>Person Responsible</Text>
+                    <Picker selectedValue={empID}
+                            onValueChange={(itemValue, itemIndex) =>
+                                setEmpID(itemValue)
+                            }>
+                                {
+                                    emps.map(emp =>(
+                                        <Picker.Item key={emp.employeeID} value={emp.employeeID} label={emp.firstName} />
+                                    ))}
+                                
+                                    
+                            
+
+                    </Picker>
                 </View>
                 <View>
                 <Button 
                     mode='contained'
                     onPress={()=> handleSubmit()}>
-                        Update New Task
+                        Submit
                     </Button >
                 </View>
             </View>  
@@ -162,9 +193,6 @@ const styles = StyleSheet.create({
     container:{
         margin: 10,
         height: '100%',
-    },
-    taskID:{
-        marginBottom: 50,
     },
     taskTitle:{
         marginBottom: 50,

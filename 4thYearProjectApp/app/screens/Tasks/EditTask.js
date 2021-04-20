@@ -1,25 +1,32 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 
 import { Button, TextInput, Snackbar  } from 'react-native-paper'
 import { DatePickerModal  } from 'react-native-paper-dates'
 
 import { Picker } from '@react-native-picker/picker';
 
-export default function NewTask() {
+
+export default function EditTask(props) {
 
     const [checked, setChecked] = React.useState(false);
     const [visible, setVisible] = React.useState(false);
-    const [taskTitle, settaskTitle] = React.useState('');
-    const [taskDescription, settaskDescription] = React.useState('');
-    const [taskPriority, settaskPriority] = React.useState('');
+    const [taskTitle, settaskTitle] = React.useState(props.route.params.taskName);
+    const [taskDescription, settaskDescription] = React.useState(props.route.params.taskDescription);
+    const [taskPriority, settaskPriority] = React.useState(props.route.params.priorityLevel);
     const [date, setDate] = React.useState(new Date());
     const [emps, setEmps] = React.useState([]);
     const [empID , setEmpID] = React.useState(0);
     const [isLoading, setLoading] = useState(true);
 
-
-
+    useEffect(()=>{
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Employee')
+        .then((response) => response.json())
+        .then((json) => setEmps(json))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+    }, [emps]);
+ 
 
   const onDismiss = React.useCallback(() => {
     setVisible(false)
@@ -28,33 +35,25 @@ export default function NewTask() {
   const onConfirm = React.useCallback(
     (params) => {
       setVisible(false);
-      setDate(params.date);        
+      setDate(params.date);
+
     },
     [setVisible]
   );
 
+  function getEmpName() {
+    var i;
+    var empName = "";
+    for(i=0; i < emps.length; i++){
+        if(empID === emps[i].employeeID){
+            empName = emps[i].firstName;
+        }
+    }
+    return empName;
+}
 
-////api/Employee
-    useEffect(()=>{
-        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Employee')
-        .then((response) => response.json())
-        .then((json) => setEmps(json))
-        .catch((error) => console.error(error))
-        .finally(() => setLoading(false));
-    }, [emps]);
     
 
-
-    function getEmpName() {
-        var i;
-        var empName = "";
-        for(i=0; i < emps.length; i++){
-            if(empID === emps[i].employeeID){
-                empName = emps[i].firstName;
-            }
-        }
-        return empName;
-    }
 
 
     function handleSubmit() {
@@ -70,17 +69,19 @@ export default function NewTask() {
             else if( taskDescription == ''){
                 alert('Please input a description.')
             }else{
+                console.log("before fetch", empID);
                 fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task',{
-                method: 'Post',
+                method: 'PUT',
                 headers:{
                     'Accept': 'application/json',
                     'Content-Type':'application/json'
                 },
                 body:JSON.stringify({
+                    taskID: props.route.params.taskID,
                     dueDate: date,
                     taskDescription: taskDescription,
                     personResponsible: getEmpName(),
-                    statusString: 'To do',
+                    statusString: props.route.params.statusString,
                     employeeID: empID,
                     compID: 1,
                     deptID: 2,
@@ -93,7 +94,7 @@ export default function NewTask() {
             .then(res=> res.json)
             .then((result)=>
             {
-                alert('Added Successfully');
+                alert('Updated Successfully');
             },
             (error)=>{
                 alert('Failed')
@@ -105,11 +106,20 @@ export default function NewTask() {
             alert('Failed.')
         }
     }
-
+console.log();
   return (
     <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
             <View>
+                <View style={styles.taskID}>
+                    <TextInput
+                        label='Task ID'
+                        mode='outlined'
+                        value={props.route.params.taskID.toString()}
+                        disabled={true}
+                        
+                    />
+                </View>
                 <View style={styles.taskTitle}>
                     <TextInput
                         placeholder='Task Title'
@@ -147,8 +157,8 @@ export default function NewTask() {
                         date={date}
                         onConfirm={onConfirm}
                         validRange={{
-                            startDate: new Date(),  // optional
-                            }}
+                        startDate: new Date(),  // optional
+                        }}
                     />
                     <Button 
                     mode='outlined'
@@ -158,7 +168,7 @@ export default function NewTask() {
                     </Button >
                 </View>
                 <View>
-                    
+                    <Text>Person Responsible</Text>
                     <Picker selectedValue={empID}
                             onValueChange={(itemValue, itemIndex) =>
                                 setEmpID(itemValue)
@@ -167,17 +177,13 @@ export default function NewTask() {
                                     emps.map(emp =>(
                                         <Picker.Item key={emp.employeeID} value={emp.employeeID} label={emp.firstName} />
                                     ))}
-                                
-                                    
-                            
-
                     </Picker>
                 </View>
                 <View>
                 <Button 
                     mode='contained'
                     onPress={()=> handleSubmit()}>
-                        Submit
+                        Update New Task
                     </Button >
                 </View>
             </View>  
@@ -190,6 +196,9 @@ const styles = StyleSheet.create({
     container:{
         margin: 10,
         height: '100%',
+    },
+    taskID:{
+        marginBottom: 50,
     },
     taskTitle:{
         marginBottom: 50,

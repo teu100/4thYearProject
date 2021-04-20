@@ -10,7 +10,7 @@ class Weather extends React.PureComponent {
         this.state = {
           weather: [],
           isLoading: true,
-          date: new Date(props.dueDate),
+          dueDate: new Date(props.dueDate),
         };
       }
 
@@ -27,18 +27,32 @@ class Weather extends React.PureComponent {
       }
 
       compareDates(){
-       console.log(this.state);
+       var stringToReturn = "Loading dates";
+       var i;
+       if(this.state.weather.length !==  0){
+        for(i = 0; i < 16; i++){
+          var dateString = this.state.weather.data[i].datetime;
+          var dateJS = new Date(dateString);
+          var dueDateFC = new Date(this.props.dueDate);
+          if(dueDateFC.getDate() === dateJS.getDate()){
+            var weatherInfo = this.state.weather.data[i].weather.description;
+            return weatherInfo;
+          }else{
+            stringToReturn = "No weather information available for that date.";
+          }
+        }
+       }
+        return stringToReturn;
       }
 
 
       
 
     render() {
-
+      var stringReturn = this.compareDates();
             return(
-                <this.compareDates />
+                <Text>Weather Warning : {stringReturn}</Text>
             )
-        
     }
 
       
