@@ -2,7 +2,7 @@
 /* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
 import { Modal, Button, Col, Form } from 'react-bootstrap';
-
+import WeatherWarning from '../components/WeatherWarning';
 export class AddNewTask extends Component {
     constructor(props) {
         super(props);

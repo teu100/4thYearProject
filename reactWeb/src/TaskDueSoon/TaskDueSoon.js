@@ -55,7 +55,7 @@ class TaskDueSoon extends React.PureComponent {
     render() {
         const { data, isLoading } = this.state;
         const tasksDueSoon = this.tasksDueSoon();
-        var borderHeigth = 100 * tasksDueSoon.length;
+        var borderHeigth = 200 * tasksDueSoon.length;
         //console.log("Tasks : ",this.state.data)
         if(tasksDueSoon!==0 ){
             return(
