@@ -27,6 +27,15 @@ namespace _4thYearProjectAPI.Controllers
             return Ok(employes);
         }
 
+        [Route("getByCompID")]
+        [HttpGet]
+        public ActionResult<IEnumerable<Task>> Get(int compID)
+        {
+            var emp = _dbContext.Employee.Where(e => e.compID.Equals(compID)).AsEnumerable();
+            return Ok(emp);
+        }
+
+
         [HttpPost]
         public ActionResult<string> Post(Employee newEmployee)
         {
@@ -39,9 +48,10 @@ namespace _4thYearProjectAPI.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(500, "Failed to Add.");
+                return StatusCode(500, "Failed to Add");
             }
         }
+
 
         [HttpPut]
         public ActionResult<string> Put(Employee employee)
@@ -52,12 +62,12 @@ namespace _4thYearProjectAPI.Controllers
                 if (employeeToUpdate == null)
                     return NotFound("Employee Not Found");
 
-                //employeeToUpdate.firstName = employee.firstName;
+                employeeToUpdate.firstName = employee.firstName;
                 employeeToUpdate.lastName = employee.lastName;
                 employeeToUpdate.email = employee.email;
                 employeeToUpdate.compRole = employee.compRole;
                 //employeeToUpdate.compID = employee.compID;
-                //employeeToUpdate.deptID = employee.deptID;
+                employeeToUpdate.deptID = employee.deptID;
 
                 _dbContext.SaveChanges();
 

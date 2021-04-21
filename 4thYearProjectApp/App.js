@@ -35,10 +35,10 @@ function LRStackStack({navigation}){
 }
 
 
-import Weather from './app/screens/Weather';
-function weather(){
+import Employes from './app/screens/emps/Employes';
+function Employees(){
   return(
-    <Weather />
+    <Employes />
   )
 }
 
@@ -79,7 +79,7 @@ React.useEffect(() => {
         
           <Drawer.Screen name="HomeScreen" component={WelcomeScreen1} />
           <Drawer.Screen name="Tasks" component={Tasks1} />
-          <Drawer.Screen name="Weather" component={weather} />
+          <Drawer.Screen name="Employees" component={Employees} />
           <Drawer.Screen name="Login" component={LRStackStack} />
       </Drawer.Navigator>
     </NavigationContainer>
