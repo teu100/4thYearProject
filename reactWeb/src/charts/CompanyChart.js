@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 
-import { Container, Row, Col, Card, ProgressBar } from 'react-bootstrap'
 import { PieChart, Pie, Cell } from "recharts";
 
 import '../charts/styles.css'
@@ -22,7 +21,7 @@ export class homePage extends Component {
 
 
   componentDidMount(){
-    fetch("https://localhost:5001/api/Count")
+    fetch("https://4thyearprojectapi20210323220948.azurewebsites.net/api/Count")
       .then(res => res.json())
       .then(
         (result) => {
@@ -45,7 +44,7 @@ export class homePage extends Component {
 
   componentDidUpdate() {
     try{
-    fetch('https://localhost:5001/api/Task', {mode:'cors'})
+    fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task', {mode:'cors'})
       .then(response=> response.json())
       .then(data => 
       {

@@ -22,11 +22,9 @@ import {
   Route,
 } from "react-router-dom";
 
-import PrivateRoute from './components/PrivateRoute'
 
 //Pages
 import homePage from "./pages/Home.jsx";
-import pageNotFound from "./pages/404.jsx";
 import usersPage from "./pages/Users.jsx";
 import taskPage from './pages/Task.jsx';
 import compDetails from './pages/compDetails.jsx';

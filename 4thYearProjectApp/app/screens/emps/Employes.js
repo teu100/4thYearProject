@@ -39,9 +39,7 @@ export default Employes;
 
 const styles = StyleSheet.create({
     container:{
-        marginTop: 30,
         margin: 10,
-
     }
 
 })

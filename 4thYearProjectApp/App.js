@@ -35,10 +35,10 @@ function LRStackStack({navigation}){
 }
 
 
-import Employes from './app/screens/emps/Employes';
+import EmpStack from './app/screens/emps/EmpStack';
 function Employees(){
   return(
-    <Employes />
+    <EmpStack />
   )
 }
 

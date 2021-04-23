@@ -58,7 +58,6 @@ export default function EditTask(props) {
 
     function handleSubmit() {
         
-        
         if( taskPriority == ''){
             alert('Please input a priority.')
         }
@@ -69,7 +68,6 @@ export default function EditTask(props) {
             else if( taskDescription == ''){
                 alert('Please input a description.')
             }else{
-                console.log("before fetch", empID);
                 fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task',{
                 method: 'PUT',
                 headers:{

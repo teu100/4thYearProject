@@ -21,7 +21,7 @@ export class usersPage extends Component {
     }
 
     refreshList(){
-        fetch('https://localhost:5001/api/Employee')
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Employee')
         .then(response=> response.json())
         .then(data => 
             {
@@ -32,7 +32,7 @@ export class usersPage extends Component {
 
     deleteEmp(employeeID){
         if(window.confirm('Are you sure you want to delete this user?')){
-            fetch('https://localhost:5001/api/Employee?id='+employeeID,{
+            fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Employee?id='+employeeID,{
                 method:'DELETE',
                 headers:{
                     'Accept': 'application/json',

@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-useless-constructor */
-import React, { Component } from 'react';
-import { Modal, Button, Col, Form , Card} from 'react-bootstrap';
+import React from 'react';
+import { Button, Col, Form , Card} from 'react-bootstrap';
 import { useAuth } from "../contexts/AuthContext"
-import { Link, useHistory } from 'react-router-dom'
+import {  useHistory } from 'react-router-dom'
 
 
 export default function EmpSignUp(){
@@ -13,7 +13,7 @@ export default function EmpSignUp(){
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch('https://localhost:44384/api/employee/',{
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/employee/',{
             method: 'POST',
             headers:{
                 'Accept': 'application/json',

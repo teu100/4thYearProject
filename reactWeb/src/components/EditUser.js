@@ -7,7 +7,6 @@ export class EditUser extends Component {
     constructor(props) {
         super(props);
         this.state={emps:[],isLoaded: false,error:null}
-        let empID=0;
 
     }
 
@@ -18,7 +17,7 @@ export class EditUser extends Component {
     // }
 
     componentDidUpdate(){
-        fetch("https://localhost:5001/api/Employee")
+        fetch("https://4thyearprojectapi20210323220948.azurewebsites.net/api/Employee")
       .then(res => res.json())
       .then(
         (result) => {
@@ -41,7 +40,7 @@ export class EditUser extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch('https://localhost:5001/api/Employee',{
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/Employee',{
             method: 'PUT',
             headers:{
                 'Accept': 'application/json',

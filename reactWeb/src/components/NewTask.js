@@ -2,34 +2,36 @@
 /* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
 import { Modal, Button, Col, Form } from 'react-bootstrap';
-import WeatherWarning from '../components/WeatherWarning';
+
+
 export class AddNewTask extends Component {
     constructor(props) {
         super(props);
-        this.state={emps:[]}
-        let empID=0;
+        this.state = {
+            emps: [],
+            isLoading: true
+          };
     }
 
 
 
-    componentDidMount(){
-        this.refreshList();
-    }
+    componentDidMount() {
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Employee')
+          .then((response) => response.json())
+          .then((json) => {
+            this.setState({ emps: json });
+          })
+          .catch((error) => console.error(error))
+          .finally(() => {
+            this.setState({ isLoading: false });
+          });
+      }
 
-    refreshList(){
-        fetch('https://localhost:5001/api/Employee')
-        .then(response=> response.json())
-        .then(data => 
-            {
-            this.setState({emps:data})
-            }
-            );
-    }
 
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch('https://localhost:5001/api/Task',{
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task',{
             method: 'Post',
             headers:{
                 'Accept': 'application/json',
@@ -38,9 +40,9 @@ export class AddNewTask extends Component {
             body:JSON.stringify({
                 dueDate: event.target.dueDate.value,
                 taskDescription: event.target.taskDescription.value,
-                personResponsible: event.target.personResponsible.value,
+                personResponsible: "Mateus",//the API handle the name of the person by using the empID
                 statusString: 'To do',
-                employeeID: 6,
+                employeeID: event.target.personResponsible.value,//this value is the id
                 compID: 1,
                 deptID: 2,
                 priorityLevel: event.target.priority.value,
@@ -56,15 +58,15 @@ export class AddNewTask extends Component {
             alert('Added Successfully');
         },
         (error)=>{
-            alert('Failed')
+            alert('Failed', error)
         })
 
-        window.location.reload()
+        //window.location.reload()
     }
     
 
     closeModal(){
-        window.location.reload()
+        //window.location.reload()
         this.props.onHide();
     }
 
@@ -73,7 +75,6 @@ export class AddNewTask extends Component {
 
         const {emps} = this.state;
 
-        
 
 
         return (
@@ -116,7 +117,7 @@ export class AddNewTask extends Component {
                             
                             <Form.Control as="select" defaultValue="Choose...">
                             {emps.map(emp=>
-                                <option key = {emp.employeeID}>{emp.firstName}</option>
+                                <option key = {emp.employeeID} value={emp.employeeID}>{emp.firstName}</option>
                             )}
                             </Form.Control>
                             

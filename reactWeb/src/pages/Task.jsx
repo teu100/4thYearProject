@@ -12,7 +12,6 @@ import Card from '@material-ui/core/Card';
 
 import calendar  from '../images/calendar.png'
 import AddIcon from '@material-ui/icons/Add';
-//import {DeleteForeverIcon} from '@material-ui/icons';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 import { CardContent, Divider, Typography } from '@material-ui/core';
@@ -59,7 +58,7 @@ export default class DndTest extends React.Component {
     }
 
     componentDidMount(){
-    fetch("https://localhost:5001/api/Task")
+    fetch("https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task")
       .then(res => res.json())
       .then(
         (result) => {
@@ -78,39 +77,6 @@ export default class DndTest extends React.Component {
           });
         }
       )
-    }
-
-
-    // refreshList(){
-    //     try {
-    //         fetch('https://localhost:5001/api/Task', {mode:'cors'})
-    //     .then(response=> response.json())
-    //     .then(data => 
-    //         {
-    //         this.setState({tasks:data})
-    //         }
-    //         );
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-        
-    // }
-
-    
-
-    getWeather(){
-        try {
-            fetch('https://api.openweathermap.org/data/2.5/onecall?lat=53.3498&lon=6.2603&exclude=current,minutely,hourly,alerts&units=metric&appid=f9b55b1ec70b6f42ddf52b37bfd054b4')
-        .then(response=> response.json())
-        .then(data => 
-            {
-            this.setState({weather:data})
-            }
-            );
-        } catch (error) {
-            console.log(error)
-        }
-        
     }
 
     // componentDidUpdate(){
@@ -164,7 +130,7 @@ export default class DndTest extends React.Component {
 
     deleteTask(taskID){
         if(window.confirm('Are you sure you want to Delete?')){
-            fetch('https://localhost:5001/api/Task?id='+taskID,{
+            fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task?id='+taskID,{
                 method:'DELETE',
                 headers:{
                     'Accept': 'application/json',
@@ -240,13 +206,13 @@ export default class DndTest extends React.Component {
                                                     <EditTask
                                                         show = {this.state.editTaskShow}
                                                         onHide = {editTaskClose}
-                                                        taskid = {taskID}
-                                                        taskname = {taskName}
-                                                        taskDescription = {taskDescription}
-                                                        priorityLevel = {taskPriority}
-                                                        personResponsible = {personResponsible}
-                                                        dueDate = {dueDate1}
-                                                        statusString = {statusString1}
+                                                        taskid = {task.taskID}
+                                                        taskname = {task.taskName}
+                                                        taskDescription = {task.taskDescription}
+                                                        priorityLevel = {task.priorityLevel}
+                                                        personResponsible = {task.personResponsible}
+                                                        dueDate = {task.dueDate}
+                                                        statusString = {task.statusString}
                                                     />                                           
                                                 </div>
                                             </div>

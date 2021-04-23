@@ -41,6 +41,8 @@ namespace _4thYearProjectAPI.Controllers
         {
             try
             {
+                var emp = _dbContext.Employee.Where(e => e.employeeID.Equals(newTask.employeeID)).FirstOrDefault();
+                newTask.personResponsible = emp.firstName;
                 _dbContext.Task.Add(newTask);
                 _dbContext.SaveChanges();
 
@@ -60,10 +62,15 @@ namespace _4thYearProjectAPI.Controllers
                 var taskToUpdate = _dbContext.Task.FirstOrDefault(t => t.taskID == task.taskID);
                 if (taskToUpdate == null) return NotFound("Task not found");
 
+
+                var emp = _dbContext.Employee.Where(e => e.employeeID.Equals(task.employeeID)).FirstOrDefault();
+                //getting the emp first name by using their id to search for them
+
                 taskToUpdate.dueDate = task.dueDate.AddDays(1);
                 taskToUpdate.taskDescription = task.taskDescription;
-                taskToUpdate.personResponsible = task.personResponsible;
+                taskToUpdate.personResponsible = emp.firstName;
                 taskToUpdate.statusString = task.statusString;
+                taskToUpdate.employeeID = task.employeeID;
                 taskToUpdate.priorityLevel = task.priorityLevel;
                 taskToUpdate.taskName = task.taskName;
 

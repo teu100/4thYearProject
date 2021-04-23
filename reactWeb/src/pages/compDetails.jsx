@@ -14,7 +14,7 @@ export class CompanyDetails extends Component {
     }
 
     componentDidMount(){
-        fetch("https://localhost:5001/api/Company?id=1")
+        fetch("https://4thyearprojectapi20210323220948.azurewebsites.net/api/Company?id=1")
       .then(res => res.json())
       .then(
         (result) => {

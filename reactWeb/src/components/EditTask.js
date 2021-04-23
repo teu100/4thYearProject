@@ -13,35 +13,38 @@ export class EditTask extends Component {
 
 
 
-    // refreshList(){
-    //     fetch('https://localhost:44384/api/employee')
-    //     .then(response=> response.json())
-    //     .then(data => 
-    //         {
-    //         this.setState({emps:data})
-    //         }
-    //         );
-    // }
+    componentDidMount() {
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Employee')
+          .then((response) => response.json())
+          .then((json) => {
+            this.setState({ emps: json });
+          })
+          .catch((error) => console.error(error))
+          .finally(() => {
+            this.setState({ isLoading: false });
+          });
+    }
 
 
     handleSubmit(event) {
         console.log(event);
         event.preventDefault();
-        fetch('https://localhost:5001/api/Task',{
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task',{
             method: 'PUT',
             headers:{
                 'Accept': 'application/json',
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
-                taskID:event.target.taskID.value,
-                duedate: event.target.dueDate.value,
+                dueDate: event.target.dueDate.value,
                 taskDescription: event.target.taskDescription.value,
-                statusString: event.target.taskStatusString.value,
-                personResponsible: event.target.personResponsible.value,
-                priorityLevel:event.target.priorityLevel.value,
+                personResponsible: "Mateus",//the API handle the name of the person by using the empID
+                statusString: 'To do',
+                employeeID: event.target.personResponsible.value,//this value is the id
+                compID: 1,
+                deptID: 2,
+                priorityLevel: event.target.priority.value,
                 taskName: event.target.taskName.value
-
             })
         }
         )
@@ -124,11 +127,13 @@ export class EditTask extends Component {
                     
                     <Form.Row>
                     
-                        <Form.Group as={Col} controlId="personResponsible" >
+                    <Form.Group as={Col} controlId="personResponsible" >
                             <Form.Label>Person responsible</Form.Label>
                             
-                            <Form.Control as="select" defaultValue={this.props.personResponsible}>
-                                <option>{this.props.personResponsible}</option>
+                            <Form.Control as="select" defaultValue="Choose...">
+                            {emps.map(emp=>
+                                <option key = {emp.employeeID} value={emp.employeeID}>{emp.firstName}</option>
+                            )}
                             </Form.Control>
                             
                         </Form.Group>

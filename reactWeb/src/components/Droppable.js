@@ -15,7 +15,6 @@ export default class Droppable extends React.Component{
         var columnName = ""
         var taskID = e.target.children[TaskidLocation].id
         var columnName = e.target.id
-        console.log(columnName, taskID)
         this.updateTaskStatus(columnName,taskID)
         } catch (error) {
             console.log(error)
@@ -36,7 +35,7 @@ export default class Droppable extends React.Component{
 
 
     updateTaskStatus(a,id) {
-        fetch('https://localhost:5001/api/MoveTask?id='+id+'&statusString='+a,{
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/MoveTask?id='+id+'&statusString='+a,{
             method: 'PUT',
             headers:{
                 'Accept': 'application/json',
