@@ -137,7 +137,7 @@ export default class DndTest extends React.Component {
                     'Content-Type':'application/json'
                 }
             })
-            window.location.reload()
+            this.refreshList();
         }
          
 
@@ -147,8 +147,31 @@ export default class DndTest extends React.Component {
     
     closeAddModal(){
         this.state.addTaskShow = false;
-        window.location.reload();
+        this.refreshList();
     }
+
+    refreshList(){
+        fetch("https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            tasks: result
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+    }
+    
 
 
 

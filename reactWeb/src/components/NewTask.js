@@ -55,7 +55,7 @@ export class AddNewTask extends Component {
         .then(res=> res.json)
         .then((result)=>
         {
-            alert('Added Successfully');
+            //alert('Added Successfully');
         },
         (error)=>{
             alert('Failed', error)

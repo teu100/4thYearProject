@@ -36,6 +36,7 @@ export class EditTask extends Component {
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
+                taskID: event.target.taskID.value,
                 dueDate: event.target.dueDate.value,
                 taskDescription: event.target.taskDescription.value,
                 personResponsible: "Mateus",//the API handle the name of the person by using the empID

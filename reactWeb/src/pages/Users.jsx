@@ -13,22 +13,36 @@ export class usersPage extends Component {
 
     constructor(props){
         super(props);
-        this.state={emps:[],editEmpShow : false}
+        this.state={emps:[],isLoaded: false,editEmpShow : false}
     }
 
     componentDidMount(){
-        this.refreshList();
-    }
+        this.getList();
+        }
 
-    refreshList(){
-        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Employee')
-        .then(response=> response.json())
-        .then(data => 
-            {
-            this.setState({emps:data})
-            }
-            );
-    }
+        getList(){
+            fetch("https://4thyearprojectapi20210323220948.azurewebsites.net/api/Employee")
+            .then(res => res.json())
+            .then(
+              (result) => {
+                this.setState({
+                  isLoaded: true,
+                  emps: result
+                });
+              },
+              // Note: it's important to handle errors here
+              // instead of a catch() block so that we don't swallow
+              // exceptions from actual bugs in components.
+              (error) => {
+                this.setState({
+                  isLoaded: true,
+                  error
+                });
+              }
+            )
+        }
+
+
 
     deleteEmp(employeeID){
         if(window.confirm('Are you sure you want to delete this user?')){
@@ -44,17 +58,24 @@ export class usersPage extends Component {
     }
 
     componentDidUpdate(){
-        this.refreshList();
+        this.getList();
     }
+
+
 
     
 
 
     render() {
-        const {emps} = this.state;
+        const {emps, error, isLoaded} = this.state;
         const {employeeID, lastName, compRole,email} = this.state;
         let editEmpClose =() => this.setState({editEmpShow:false})
 
+        if (error) {
+            return <div>Error: {error.message}</div>;
+          } else if (!isLoaded) {
+            return <div><h1>Loading...</h1></div>;
+          } else {
         return (
             <body className="userPage">
             <div > 
@@ -102,6 +123,7 @@ export class usersPage extends Component {
 
                     </Table>
                 </Container>
+            
                 <div className="myFooter">
                     <ul>
                         <li><a href="/">Task Managment</a></li>
@@ -110,7 +132,7 @@ export class usersPage extends Component {
             </div>
             </div>
             </body>
-        )
+        )}
     }
 }
 

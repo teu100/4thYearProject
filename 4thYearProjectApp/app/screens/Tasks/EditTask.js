@@ -6,6 +6,7 @@ import { DatePickerModal  } from 'react-native-paper-dates'
 
 import { Picker } from '@react-native-picker/picker';
 
+import Weather from '../Weather';
 
 export default function EditTask(props) {
 
@@ -164,6 +165,7 @@ console.log();
                     onPress={()=> setVisible(true)}>
                         Pick Due Date
                     </Button >
+                    <Weather dueDate={date}/>
                 </View>
                 <View>
                     <Text>Person Responsible</Text>

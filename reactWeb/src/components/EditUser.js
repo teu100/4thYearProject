@@ -40,7 +40,7 @@ export class EditUser extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/Employee',{
+        fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Employee',{
             method: 'PUT',
             headers:{
                 'Accept': 'application/json',
