@@ -40,7 +40,7 @@ export class EditTask extends Component {
                 dueDate: event.target.dueDate.value,
                 taskDescription: event.target.taskDescription.value,
                 personResponsible: "Mateus",//the API handle the name of the person by using the empID
-                statusString: 'To do',
+                statusString: event.target.taskStatusString.value,
                 employeeID: event.target.personResponsible.value,//this value is the id
                 compID: 1,
                 deptID: 2,

@@ -63,7 +63,7 @@ namespace _4thYearProjectAPI.Controllers
                     return NotFound("Employee Not Found");
 
                 //employeeToUpdate.firstName = employee.firstName;
-                employeeToUpdate.lastName = employee.lastName;
+                //employeeToUpdate.lastName = employee.lastName;
                 employeeToUpdate.email = employee.email;
                 employeeToUpdate.compRole = employee.compRole;
                 //employeeToUpdate.compID = employee.compID;

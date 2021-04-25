@@ -17,51 +17,6 @@ export class homePage extends Component {
 
 
 
-  componentDidMount(){
-    fetch("https://4thyearprojectapi20210323220948.azurewebsites.net/api/Count")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            data: result
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
-    }
-
-  componentDidUpdate() {
-    try{
-    fetch('https://4thyearprojectapi20210323220948.azurewebsites.net/api/Task', {mode:'cors'})
-      .then(response=> response.json())
-      .then(data => 
-      {
-        this.setState({tasks:data})
-      }
-      );
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  
-
-  
-
-  pieClick(entry){
-    if(entry.name === "Done"){
-      console.log(entry.name);
-    }
-  }
-
     
     render(){
       const { data, isLoading } = this.state;
@@ -76,13 +31,17 @@ export class homePage extends Component {
         <body style={{display: 'flex',
           flexDirection: 'row',}}>
           <div>
-            <div>
+            <div style={{display: 'flex', alignItems: 'stretch'}}>
               <div>
                 <CompanyCharts />
+                
+              </div>
+              <div>
+                <TaskDueSoon />
               </div>
               
 
-              <TaskDueSoon />
+              
             </div>
               <div className="myFooter">
                       <ul>

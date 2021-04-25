@@ -48,7 +48,6 @@ export class EditUser extends Component {
             },
             body:JSON.stringify({
                 employeeID: event.target.empID.value,
-                lastName: event.target.empLName.value,
                 compRole: event.target.compRole.value,
                 email: event.target.empEmail.value,
                
@@ -102,14 +101,7 @@ export class EditUser extends Component {
 
                         
 
-                        <Form.Group as={Col} controlId="empLName">
-                            <Form.Label>Employee Last Name</Form.Label>
-                            <Form.Control 
-                            type="text" 
-                            name="empLName" 
-                            defaultValue = {this.props.emplname}
-                            />
-                        </Form.Group>
+
 
                         
                     </Form.Row>

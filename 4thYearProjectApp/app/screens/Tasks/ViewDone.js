@@ -81,7 +81,7 @@ function ViewDone(props) {
                                 <Text>{doneTasks[i].taskID}</Text>
                             </View>
                             <View>
-                                <Text>{doneTasks[i].dueDate}</Text>
+                                <Text>Due Date: {doneTasks[i].dueDate.substring(0,10)}</Text>
                             </View>
                         </View>
                         <Button1 mode='text' compact={true} onPress={()=> props.navigate.push('taskEdit',doneTasks[i])}>

@@ -54,10 +54,6 @@ function App() {
         <Route exact path='/resetpassword' component={ResetPasswordPage} />
         <Route path='/update-profile' component={updateProfilePage} />
         <Route path='/signup2' component={signupPage2} />
-
-
-
-
       </Router>
     </div>
   )

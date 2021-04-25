@@ -105,7 +105,7 @@ function ViewInProgress(props) {
                                 <Text>{IpTask[i].taskID}</Text>
                             </View>
                             <View>
-                                <Text>{IpTask[i].dueDate}</Text>
+                                <Text>Due Date: {IpTask[i].dueDate.substring(0,10)}</Text>
                             </View>
                         </View>
                         <Button1 mode='text' compact={true} onPress={()=> props.navigate.push('taskEdit',IpTask[i])}>

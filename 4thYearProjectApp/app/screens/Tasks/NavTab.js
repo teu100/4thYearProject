@@ -39,7 +39,8 @@ function NavTabs(){
   
               if (route.name === 'Todo') {
                 iconName = focused ? 'progress-one' : 'progress-one';
-              } else if (route.name === 'InProg') {
+              } 
+              else if (route.name === 'InProg') {
                 iconName = focused ? 'progress-two' : 'progress-two';
               }
               else if (route.name === 'Done') {
